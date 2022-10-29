@@ -154,11 +154,11 @@ service\_endpoint\_id = "your ADO service endpoint ID"
 
 Service endpoint ID can be found in Azure DevOps as below. If don’t exist then we need to create one. This is how Azure DevOps is integrated with Azure subscription. 
 
-![Service endpoint ID]({site.baseurl}}/assets/img/Aspose.Words.46e0d902-7e6c-4f68-aa4e-889678ab0c6d.002.png) 
+![Service endpoint ID]({{site.baseurl}}/assets/img/Aspose.Words.46e0d902-7e6c-4f68-aa4e-889678ab0c6d.002.png) 
 
 And for **client\_secret**, you need to create a Service Principal in Azure.
 
-![]({site.baseurl}}/assets/img/Aspose.Words.46e0d902-7e6c-4f68-aa4e-889678ab0c6d.003.png)
+![]({{site.baseurl}}/assets/img/Aspose.Words.46e0d902-7e6c-4f68-aa4e-889678ab0c6d.003.png)
 
 We then need to start with main.tf Step by step approach would be as below.
 
