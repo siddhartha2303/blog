@@ -18,7 +18,7 @@ Here we are adding two providers, i.e. Azure DevOps and Azure Resource Manager. 
 ```
 terraform {
 
-  required\_providers {
+  required_providers {
 
     azuredevops = {
 
@@ -43,9 +43,9 @@ terraform {
 
 provider "azuredevops" {
 
-  org\_service\_url       = "https://dev.azure.com/siddhartha2303"
+  org_service_url       = "https://dev.azure.com/siddhartha2303"
 
-  personal\_access\_token = "personal access token here"
+  personal_access_token = "personal access token here"
 
 }
 
@@ -63,7 +63,7 @@ Personal access token on Azure DevOps can be created as below.
 Next step would be to create **variable.tf** file as blow. This contains all variables to be called inside **main.tf**
 
 ```
-variable "rg\_name" {
+variable "rg_name" {
 
   type        = string
 
@@ -85,78 +85,78 @@ variable "environment" {
 
 }
 
-variable "kv\_name" {
+variable "kv_name" {
 
   type = string
 
 }
 
-variable "strg\_name" {
+variable "strg_name" {
 
   type = string
 
 }
 
-variable "strgContainer\_name" {
+variable "strgContainer_name" {
 
   type = string
 
 }
 
-variable "db\_name" {
+variable "db_name" {
 
   type = string
 
 }
 
-variable "dbsrv\_name" {
+variable "dbsrv_name" {
 
   type = string
 
 }
 
-variable "client\_secret" {
+variable "client_secret" {
 
   type = string
 
 }
 
-variable "service\_endpoint\_id" {
+variable "service_endpoint_id" {
 
   type = string
 
 }
 ```
 
-Below **terraform.tfvars** file contains the values for the variables that we defined above. Fill **client\_secret** and **service\_endpoint\_id**
+Below **terraform.tfvars** file contains the values for the variables that we defined above. Fill **client_secret** and **service_endpoint_id**
 
 ```
-strg\_name          = "tfstorageactdemo10"
+strg_name          = "tfstorageactdemo10"
 
-strgContainer\_name = "tfstoragecontainer"
+strgContainer_name = "tfstoragecontainer"
 
-kv\_name            = "tfkvdemo-1000022"
+kv_name            = "tfkvdemo-1000022"
 
 environment        = "development"
 
 location           = "eastus"
 
-rg\_name            = "TfDemo01"
+rg_name            = "TfDemo01"
 
-db\_name            = "tfdemodb006"
+db_name            = "tfdemodb006"
 
-dbsrv\_name         = "tfdemodbsrv006"
+dbsrv_name         = "tfdemodbsrv006"
 
-client\_secret      = "place your client secret here" 
+client_secret      = "place your client secret here" 
 
-service\_endpoint\_id = "your ADO service endpoint ID"
+service_endpoint_id = "your ADO service endpoint ID"
 ```
 
 Service endpoint ID can be found in Azure DevOps as below. If don’t exist then we need to create one. This is how Azure DevOps is integrated with Azure subscription. 
 
 ![Service endpoint ID]({{site.baseurl}}/assets/img/Aspose.Words.46e0d902-7e6c-4f68-aa4e-889678ab0c6d.002.png) 
 
-And for **client\_secret**, you need to create a Service Principal in Azure.
+And for **client_secret**, you need to create a Service Principal in Azure.
 
 ![]({{site.baseurl}}/assets/img/Aspose.Words.46e0d902-7e6c-4f68-aa4e-889678ab0c6d.003.png)
 
@@ -165,9 +165,9 @@ We then need to start with main.tf Step by step approach would be as below.
 * Create a resource group
 
 ```
-resource "azurerm\_resource\_group" "rg" {
+resource "azurerm_resource_group" "rg" {
 
-  name     = var.rg\_name
+  name     = var.rg_name
 
   location = var.location
 
@@ -183,67 +183,67 @@ resource "azurerm\_resource\_group" "rg" {
 * Get the details for Azure Dev Ops, current subscription and Service Principal
 
 ```
-data "azuredevops\_project" "AKS-DEMO" {
+data "azuredevops_project" "AKS-DEMO" {
 
   name = "AKS-DEMO"
 
 }
 
-data "azuread\_service\_principal" "tfServicepPrincipal" {
+data "azuread_service_principal" "tfServicepPrincipal" {
 
-  display\_name = "tfServicepPrincipal"
-
-}
-
-data "azurerm\_subscription" "subscriptionID" {
+  display_name = "tfServicepPrincipal"
 
 }
 
-data "azurerm\_client\_config" "current" {}
+data "azurerm_subscription" "subscriptionID" {
+
+}
+
+data "azurerm_client_config" "current" {}
 ```
 
 * Create Key Vault and assign Access Policy to Service Principal
 
 ```
-resource "azurerm\_key\_vault" "kv1" {
+resource "azurerm_key_vault" "kv1" {
 
-  depends\_on                 = [azurerm\_resource\_group.rg, module.create\_storage]
+  depends_on                 = [azurerm_resource_group.rg, module.create_storage]
 
-  name                       = var.kv\_name
+  name                       = var.kv_name
 
   location                   = var.location
 
-  resource\_group\_name        = var.rg\_name
+  resource_group_name        = var.rg_name
 
-  tenant\_id                  = data.azurerm\_client\_config.current.tenant\_id
+  tenant_id                  = data.azurerm_client_config.current.tenant_id
 
-  soft\_delete\_retention\_days = 7
+  soft_delete_retention_days = 7
 
-  purge\_protection\_enabled   = false
+  purge_protection_enabled   = false
 
-  sku\_name                   = "standard"
+  sku_name                   = "standard"
 
-  access\_policy {
+  access_policy {
 
-    tenant\_id = data.azurerm\_client\_config.current.tenant\_id
+    tenant_id = data.azurerm_client_config.current.tenant_id
 
-    object\_id = data.azurerm\_client\_config.current.object\_id
+    object_id = data.azurerm_client_config.current.object_id
 
-    //application\_id = data.azuread\_service\_principal.tfServicepPrincipal.application\_id
+    //application_id = data.azuread_service_principal.tfServicepPrincipal.application_id
 
-    key\_permissions = [
+    key_permissions = [
 
       "Get",
 
     ]
 
-    secret\_permissions = [
+    secret_permissions = [
 
       "Get", "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set",
 
     ]
 
-    storage\_permissions = [
+    storage_permissions = [
 
       "Get",
 
@@ -251,25 +251,25 @@ resource "azurerm\_key\_vault" "kv1" {
 
   }
 
-  access\_policy {
+  access_policy {
 
-    tenant\_id = data.azurerm\_client\_config.current.tenant\_id
+    tenant_id = data.azurerm_client_config.current.tenant_id
 
-    object\_id = data.azuread\_service\_principal.tfServicepPrincipal.object\_id
+    object_id = data.azuread_service_principal.tfServicepPrincipal.object_id
 
-    key\_permissions = [
+    key_permissions = [
 
       "Get", "List"
 
     ]
 
-    secret\_permissions = [
+    secret_permissions = [
 
       "Get", "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set",
 
     ]
 
-    storage\_permissions = [
+    storage_permissions = [
 
       "Get",
 
@@ -283,115 +283,115 @@ resource "azurerm\_key\_vault" "kv1" {
 * Call the Storage module and provide the parameters
 
 ```
-module "create\_storage" {
+module "create_storage" {
 
   source             = "../Modules/storage"
 
-  rg\_name            = var.rg\_name
+  rg_name            = var.rg_name
 
-  strg\_name          = var.strg\_name
+  strg_name          = var.strg_name
 
-  strgContainer\_name = var.strgContainer\_name
+  strgContainer_name = var.strgContainer_name
 
-  depends\_on         = [azurerm\_resource\_group.rg]
+  depends_on         = [azurerm_resource_group.rg]
 
 }
 ```
 
-* Once these resources will be created Terraform will proceed to creating the Secrets in KeyVault. You can see in below code it’s dependent on creation of storage module **“depends\_on = [module.create\_storage]”** as storage keys will be available once it’s created.
+* Once these resources will be created Terraform will proceed to creating the Secrets in KeyVault. You can see in below code it’s dependent on creation of storage module **“depends_on = [module.create_storage]”** as storage keys will be available once it’s created.
 
 ```
-resource "azurerm\_key\_vault\_secret" "client-id" {
+resource "azurerm_key_vault_secret" "client-id" {
 
   name         = "client-id"
 
-  value        = data.azuread\_service\_principal.tfServicepPrincipal.application\_id
+  value        = data.azuread_service_principal.tfServicepPrincipal.application_id
 
-  key\_vault\_id = azurerm\_key\_vault.kv1.id
+  key_vault_id = azurerm_key_vault.kv1.id
 
-  depends\_on = [
+  depends_on = [
 
-    module.create\_storage
+    module.create_storage
 
   ]
 
 }
 
-resource "azurerm\_key\_vault\_secret" "client-secret" {
+resource "azurerm_key_vault_secret" "client-secret" {
 
   name         = "client-secret"
 
-  value        = var.client\_secret
+  value        = var.client_secret
 
-  key\_vault\_id = azurerm\_key\_vault.kv1.id
+  key_vault_id = azurerm_key_vault.kv1.id
 
-  depends\_on = [
+  depends_on = [
 
-    module.create\_storage
+    module.create_storage
 
   ]
 
 }
 
-resource "azurerm\_key\_vault\_secret" "TenantID" {
+resource "azurerm_key_vault_secret" "TenantID" {
 
   name         = "TenantID"
 
-  value        = data.azurerm\_subscription.subscriptionID.tenant\_id
+  value        = data.azurerm_subscription.subscriptionID.tenant_id
 
-  key\_vault\_id = azurerm\_key\_vault.kv1.id
+  key_vault_id = azurerm_key_vault.kv1.id
 
-  depends\_on = [
+  depends_on = [
 
-    module.create\_storage
+    module.create_storage
 
   ]
 
 }
 
-resource "azurerm\_key\_vault\_secret" "SubscriptionID" {
+resource "azurerm_key_vault_secret" "SubscriptionID" {
 
   name         = "SubscriptionID"
 
-  value        = data.azurerm\_subscription.subscriptionID.subscription\_id
+  value        = data.azurerm_subscription.subscriptionID.subscription_id
 
-  key\_vault\_id = azurerm\_key\_vault.kv1.id
+  key_vault_id = azurerm_key_vault.kv1.id
 
-  depends\_on = [
+  depends_on = [
 
-    module.create\_storage
+    module.create_storage
 
   ]
 
 }
 
-resource "azurerm\_key\_vault\_secret" "strgKey1" {
+resource "azurerm_key_vault_secret" "strgKey1" {
 
   name         = "strgKey1"
 
-  value        = module.create\_storage.storage\_primary\_access\_key
+  value        = module.create_storage.storage_primary_access_key
 
-  key\_vault\_id = azurerm\_key\_vault.kv1.id
+  key_vault_id = azurerm_key_vault.kv1.id
 
-  depends\_on = [
+  depends_on = [
 
-    module.create\_storage
+    module.create_storage
 
   ]
 
 }
 
-resource "azurerm\_key\_vault\_secret" "strgKey2" {
+resource "azurerm_key_vault_secret" "strgKey2" {
 
   name         = "strgKey2"
 
-  value        = module.create\_storage.storage\_secondary\_access\_key
+  value        = module.create_storage.storage_secondary_access_key
 
-  key\_vault\_id = azurerm\_key\_vault.kv1.id
+  key_vault_id = azurerm_key_vault.kv1.id
 
-  depends\_on = [
+  depends_on = [
 
-    module.create\_storage
+    module.create_storage
 
 ]
 
@@ -401,23 +401,23 @@ resource "azurerm\_key\_vault\_secret" "strgKey2" {
 * Next Terraform will proceed with SQL database creation. And Key Vault should be ready prior to this as Database is going to store it’s connection string into it.
 
 ```
-module "create\_db" {
+module "create_db" {
 
   source             = "../Modules/db"
 
-  rg\_name            = var.rg\_name
+  rg_name            = var.rg_name
 
-  keyvault\_name      = var.kv\_name
+  keyvault_name      = var.kv_name
 
-  sql\_server\_name    = var.dbsrv\_name
+  sql_server_name    = var.dbsrv_name
 
-  sql\_database\_name  = var.db\_name
+  sql_database_name  = var.db_name
 
-  sql\_admin\_login    = var.dbsrv\_name
+  sql_admin_login    = var.dbsrv_name
 
-  sql\_admin\_password = "India@123"
+  sql_admin_password = "India@123"
 
-  depends\_on         = [azurerm\_resource\_group.rg, azurerm\_key\_vault.kv1]
+  depends_on         = [azurerm_resource_group.rg, azurerm_key_vault.kv1]
 
 }
 ```
@@ -425,37 +425,37 @@ module "create\_db" {
 * Then it will configure Azure DevOps to link Azure Key Vault to get the secrets against each variables.
 
 ```
-resource "azuredevops\_variable\_group" "azdevops-variable-group" {
+resource "azuredevops_variable_group" "azdevops-variable-group" {
 
-  depends\_on = [
+  depends_on = [
 
-    azurerm\_key\_vault\_secret.client-id,
+    azurerm_key_vault_secret.client-id,
 
-    azurerm\_key\_vault\_secret.client-secret,
+    azurerm_key_vault_secret.client-secret,
 
-    azurerm\_key\_vault\_secret.TenantID,
+    azurerm_key_vault_secret.TenantID,
 
-    azurerm\_key\_vault\_secret.SubscriptionID,
+    azurerm_key_vault_secret.SubscriptionID,
 
-    azurerm\_key\_vault\_secret.strgKey1,
+    azurerm_key_vault_secret.strgKey1,
 
-    azurerm\_key\_vault\_secret.strgKey2,
+    azurerm_key_vault_secret.strgKey2,
 
   ]
 
-  project\_id   = data.azuredevops\_project.AKS-DEMO.project\_id
+  project_id   = data.azuredevops_project.AKS-DEMO.project_id
 
   name         = "azkeys"
 
   description  = "key vault keys"
 
-  allow\_access = true
+  allow_access = true
 
-  key\_vault {
+  key_vault {
 
-    name                = var.kv\_name
+    name                = var.kv_name
 
-    service\_endpoint\_id = var.service\_endpoint\_id
+    service_endpoint_id = var.service_endpoint_id
 
   }
 
