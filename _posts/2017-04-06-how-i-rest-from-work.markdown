@@ -1,30 +1,501 @@
 ---
 layout: post
-title: How I Rest From Work
-date: 2017-09-12 13:32:20 +0300
+title: Build Azure Infra Through Terrafrom Script 
+date: 2020-10-29 16:30:00 +0530
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
-img: i-rest.jpg # Add image post (optional)
+img: terraform.PNG # Add image post (optional)
 fig-caption: # Add figcaption (optional)
-tags: [Holidays, Hawaii]
+tags: [Terraform, DevOps, Azure]
 ---
-Fam locavore snackwave bushwick +1 sartorial. Selfies portland knausgaard synth. Pop-up art party marfa deep v pitchfork subway tile 3 wolf moon. Ennui pinterest tumblr yr, adaptogen succulents copper mug twee. Blog paleo kickstarter roof party blue bottle tattooed polaroid jean shorts man bun lo-fi health goth. Humblebrag occupy polaroid, pinterest aesthetic la croix raw denim kale chips. 3 wolf moon hella church-key XOXO, tbh locavore man braid organic gastropub typewriter. Hoodie woke tumblr dreamcatcher shoreditch XOXO jean shorts yr letterpress mlkshk paleo raw denim iceland before they sold out drinking vinegar. Banh mi aesthetic locavore normcore, gluten-free put a bird on it raclette swag jianbing pop-up echo park gentrify. Stumptown brooklyn godard tumeric ethical. Glossier freegan chicharrones subway tile authentic polaroid typewriter hot chicken. Thundercats small batch heirloom meggings.
+# AKS Architecture & Concepts
 
-## Plaid ramps kitsch woke pork belly
-90's yr crucifix, selvage 8-bit listicle forage cliche shoreditch hammock microdosing synth. Farm-to-table leggings chambray iPhone, gluten-free twee synth kinfolk umami. Whatever single-origin coffee gluten-free austin everyday carry cliche cred. Plaid ramps kitsch woke pork belly organic. Trust fund whatever coloring book kombucha brooklyn. Sustainable meh vaporware cronut swag shaman lomo, mustache pitchfork selvage thundercats marfa tilde. Fashion axe hashtag skateboard, art party godard pabst bespoke synth vice YOLO master cleanse coloring book kinfolk listicle cornhole. Try-hard mixtape umami fanny pack man bun gastropub franzen tbh. Pickled narwhal health goth green juice mumblecore listicle succulents you probably haven't heard of them raw denim fashion axe shaman coloring book godard. Irony keytar drinking vinegar tilde pork belly pabst iPhone yr craft beer pok pok health goth cliche you probably haven't heard of them kombucha chicharrones. Direct trade hella roof party chia. Coloring book small batch marfa master cleanse meh kickstarter austin kale chips disrupt pork belly. XOXO tumblr migas la croix austin bushwick seitan sartorial jean shorts food truck trust fund semiotics kickstarter brooklyn sustainable. Umami knausgaard mixtape marfa. Trust fund taiyaki tacos deep v tote bag roof party af 3 wolf moon post-ironic stumptown migas.
+## Build the Infra with Terraform
 
-![I and My friends]({{site.baseurl}}/assets/img/we-in-rest.jpg)
+We are first going to setup the infrastructure through Terraform code. Resources that we will deploy are Storage, Database and Azure Key Vault. First step would be to create **provider.tf** as below.
 
-Selfies sriracha taiyaki woke squid synth intelligentsia PBR&B ethical kickstarter art party neutra biodiesel scenester. Health goth kogi VHS fashion axe glossier disrupt, vegan quinoa. Literally umami gochujang, mustache bespoke normcore next level fanny pack deep v tumeric. Shaman vegan affogato chambray. Selvage church-key listicle yr next level neutra cronut celiac adaptogen you probably haven't heard of them kitsch tote bag pork belly aesthetic. Succulents wolf stumptown art party poutine. Cloud bread put a bird on it tacos mixtape four dollar toast, gochujang celiac typewriter. Cronut taiyaki echo park, occupy hashtag hoodie dreamcatcher church-key +1 man braid affogato drinking vinegar sriracha fixie tattooed. Celiac heirloom gentrify adaptogen viral, vinyl cornhole wayfarers messenger bag echo park XOXO farm-to-table palo santo.
+Here we are adding two providers, i.e. Azure DevOps and Azure Resource Manager. We are then going to provide the URL of our Azure DevOps organization and mention the personal access token.
 
->Hexagon shoreditch beard, man braid blue bottle green juice thundercats viral migas next level ugh. Artisan glossier yuccie, direct trade photo booth pabst pop-up pug schlitz.
+```
+terraform {
 
-Cronut lumbersexual fingerstache asymmetrical, single-origin coffee roof party unicorn. Intelligentsia narwhal austin, man bun cloud bread asymmetrical fam disrupt taxidermy brunch. Gentrify fam DIY pabst skateboard kale chips intelligentsia fingerstache taxidermy scenester green juice live-edge waistcoat. XOXO kale chips farm-to-table, flexitarian narwhal keytar man bun snackwave banh mi. Semiotics pickled taiyaki cliche cold-pressed. Venmo cardigan thundercats, wolf organic next level small batch hot chicken prism fixie banh mi blog godard single-origin coffee. Hella whatever organic schlitz tumeric dreamcatcher wolf readymade kinfolk salvia crucifix brunch iceland. Literally meditation four loko trust fund. Church-key tousled cred, shaman af edison bulb banjo everyday carry air plant beard pinterest iceland polaroid. Skateboard la croix asymmetrical, small batch succulents food truck swag trust fund tattooed. Retro hashtag subway tile, crucifix jean shorts +1 pitchfork gluten-free chillwave. Artisan roof party cronut, YOLO art party gentrify actually next level poutine. Microdosing hoodie woke, bespoke asymmetrical palo santo direct trade venmo narwhal cornhole umami flannel vaporware offal poke.
+  required\_providers {
 
-* Hexagon shoreditch beard
-* Intelligentsia narwhal austin
-* Literally meditation four
-* Microdosing hoodie woke
+    azuredevops = {
 
-Wayfarers lyft DIY sriracha succulents twee adaptogen crucifix gastropub actually hexagon raclette franzen polaroid la croix. Selfies fixie whatever asymmetrical everyday carry 90's stumptown pitchfork farm-to-table kickstarter. Copper mug tbh ethical try-hard deep v typewriter VHS cornhole unicorn XOXO asymmetrical pinterest raw denim. Skateboard small batch man bun polaroid neutra. Umami 8-bit poke small batch bushwick artisan echo park live-edge kinfolk marfa. Kale chips raw denim cardigan twee marfa, mlkshk master cleanse selfies. Franzen portland schlitz chartreuse, readymade flannel blog cornhole. Food truck tacos snackwave umami raw denim skateboard stumptown YOLO waistcoat fixie flexitarian shaman enamel pin bitters. Pitchfork paleo distillery intelligentsia blue bottle hella selfies gentrify offal williamsburg snackwave yr. Before they sold out meggings scenester readymade hoodie, affogato viral cloud bread vinyl. Thundercats man bun sriracha, neutra swag knausgaard jean shorts. Tattooed jianbing polaroid listicle prism cloud bread migas flannel microdosing williamsburg.
+      source  = "microsoft/azuredevops"
 
-Echo park try-hard irony tbh vegan pok pok. Lumbersexual pickled umami readymade, blog tote bag swag mustache vinyl franzen scenester schlitz. Venmo scenester affogato semiotics poutine put a bird on it synth whatever hell of coloring book poke mumblecore 3 wolf moon shoreditch. Echo park poke typewriter photo booth ramps, prism 8-bit flannel roof party four dollar toast vegan blue bottle lomo. Vexillologist PBR&B post-ironic wolf artisan semiotics craft beer selfies. Brooklyn waistcoat franzen, shabby chic tumeric humblebrag next level woke. Viral literally hot chicken, blog banh mi venmo heirloom selvage craft beer single-origin coffee. Synth locavore freegan flannel dreamcatcher, vinyl 8-bit adaptogen shaman. Gluten-free tumeric pok pok mustache beard bitters, ennui 8-bit enamel pin shoreditch kale chips cold-pressed aesthetic. Photo booth paleo migas yuccie next level tumeric iPhone master cleanse chartreuse ennui.
+      version = "0.1.3"
+
+    }
+
+    azurerm = {
+
+      source  = "hashicorp/azurerm"
+
+      version = "3.14.0"
+
+    }
+
+  }
+
+}
+
+
+provider "azuredevops" {
+
+  org\_service\_url       = "https://dev.azure.com/siddhartha2303"
+
+  personal\_access\_token = "personal access token here"
+
+}
+
+provider "azurerm" {
+
+  features {}
+
+}
+```
+
+Personal access token on Azure DevOps can be created as below.
+
+![Personal access token on Azure DevOps]({{site.baseurl}}/assets/img/Aspose.Words.46e0d902-7e6c-4f68-aa4e-889678ab0c6d.001.png)
+
+Next step would be to create **variable.tf** file as blow. This contains all variables to be called inside **main.tf**
+
+```
+variable "rg\_name" {
+
+  type        = string
+
+  description = "This is resource group name"
+
+}
+
+variable "location" {
+
+  type        = string
+
+  description = "This is location of resource group"
+
+}
+
+variable "environment" {
+
+  type = string
+
+}
+
+variable "kv\_name" {
+
+  type = string
+
+}
+
+variable "strg\_name" {
+
+  type = string
+
+}
+
+variable "strgContainer\_name" {
+
+  type = string
+
+}
+
+variable "db\_name" {
+
+  type = string
+
+}
+
+variable "dbsrv\_name" {
+
+  type = string
+
+}
+
+variable "client\_secret" {
+
+  type = string
+
+}
+
+variable "service\_endpoint\_id" {
+
+  type = string
+
+}
+```
+
+Below **terraform.tfvars** file contains the values for the variables that we defined above. Fill **client\_secret** and **service\_endpoint\_id**
+
+```
+strg\_name          = "tfstorageactdemo10"
+
+strgContainer\_name = "tfstoragecontainer"
+
+kv\_name            = "tfkvdemo-1000022"
+
+environment        = "development"
+
+location           = "eastus"
+
+rg\_name            = "TfDemo01"
+
+db\_name            = "tfdemodb006"
+
+dbsrv\_name         = "tfdemodbsrv006"
+
+client\_secret      = "place your client secret here" 
+
+service\_endpoint\_id = "your ADO service endpoint ID"
+```
+
+Service endpoint ID can be found in Azure DevOps as below. If don’t exist then we need to create one. This is how Azure DevOps is integrated with Azure subscription. 
+
+![Service endpoint ID]({site.baseurl}}/assets/img/Aspose.Words.46e0d902-7e6c-4f68-aa4e-889678ab0c6d.002.png) 
+
+And for **client\_secret**, you need to create a Service Principal in Azure.
+
+![]({site.baseurl}}/assets/img/Aspose.Words.46e0d902-7e6c-4f68-aa4e-889678ab0c6d.003.png)
+
+We then need to start with main.tf Step by step approach would be as below.
+
+* Create a resource group
+
+```
+resource "azurerm\_resource\_group" "rg" {
+
+  name     = var.rg\_name
+
+  location = var.location
+
+  tags = {
+
+    environment = var.environment
+
+  }
+
+}
+```
+
+* Get the details for Azure Dev Ops, current subscription and Service Principal
+
+```
+data "azuredevops\_project" "AKS-DEMO" {
+
+  name = "AKS-DEMO"
+
+}
+
+data "azuread\_service\_principal" "tfServicepPrincipal" {
+
+  display\_name = "tfServicepPrincipal"
+
+}
+
+data "azurerm\_subscription" "subscriptionID" {
+
+}
+
+data "azurerm\_client\_config" "current" {}
+```
+
+* Create Key Vault and assign Access Policy to Service Principal
+
+```
+resource "azurerm\_key\_vault" "kv1" {
+
+  depends\_on                 = [azurerm\_resource\_group.rg, module.create\_storage]
+
+  name                       = var.kv\_name
+
+  location                   = var.location
+
+  resource\_group\_name        = var.rg\_name
+
+  tenant\_id                  = data.azurerm\_client\_config.current.tenant\_id
+
+  soft\_delete\_retention\_days = 7
+
+  purge\_protection\_enabled   = false
+
+  sku\_name                   = "standard"
+
+  access\_policy {
+
+    tenant\_id = data.azurerm\_client\_config.current.tenant\_id
+
+    object\_id = data.azurerm\_client\_config.current.object\_id
+
+    //application\_id = data.azuread\_service\_principal.tfServicepPrincipal.application\_id
+
+    key\_permissions = [
+
+      "Get",
+
+    ]
+
+    secret\_permissions = [
+
+      "Get", "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set",
+
+    ]
+
+    storage\_permissions = [
+
+      "Get",
+
+    ]
+
+  }
+
+  access\_policy {
+
+    tenant\_id = data.azurerm\_client\_config.current.tenant\_id
+
+    object\_id = data.azuread\_service\_principal.tfServicepPrincipal.object\_id
+
+    key\_permissions = [
+
+      "Get", "List"
+
+    ]
+
+    secret\_permissions = [
+
+      "Get", "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set",
+
+    ]
+
+    storage\_permissions = [
+
+      "Get",
+
+    ]
+
+  }
+
+}
+```
+
+* Call the Storage module and provide the parameters
+
+```
+module "create\_storage" {
+
+  source             = "../Modules/storage"
+
+  rg\_name            = var.rg\_name
+
+  strg\_name          = var.strg\_name
+
+  strgContainer\_name = var.strgContainer\_name
+
+  depends\_on         = [azurerm\_resource\_group.rg]
+
+}
+```
+
+* Once these resources will be created Terraform will proceed to creating the Secrets in KeyVault. You can see in below code it’s dependent on creation of storage module **“depends\_on = [module.create\_storage]”** as storage keys will be available once it’s created.
+
+```
+resource "azurerm\_key\_vault\_secret" "client-id" {
+
+  name         = "client-id"
+
+  value        = data.azuread\_service\_principal.tfServicepPrincipal.application\_id
+
+  key\_vault\_id = azurerm\_key\_vault.kv1.id
+
+  depends\_on = [
+
+    module.create\_storage
+
+  ]
+
+}
+
+resource "azurerm\_key\_vault\_secret" "client-secret" {
+
+  name         = "client-secret"
+
+  value        = var.client\_secret
+
+  key\_vault\_id = azurerm\_key\_vault.kv1.id
+
+  depends\_on = [
+
+    module.create\_storage
+
+  ]
+
+}
+
+resource "azurerm\_key\_vault\_secret" "TenantID" {
+
+  name         = "TenantID"
+
+  value        = data.azurerm\_subscription.subscriptionID.tenant\_id
+
+  key\_vault\_id = azurerm\_key\_vault.kv1.id
+
+  depends\_on = [
+
+    module.create\_storage
+
+  ]
+
+}
+
+resource "azurerm\_key\_vault\_secret" "SubscriptionID" {
+
+  name         = "SubscriptionID"
+
+  value        = data.azurerm\_subscription.subscriptionID.subscription\_id
+
+  key\_vault\_id = azurerm\_key\_vault.kv1.id
+
+  depends\_on = [
+
+    module.create\_storage
+
+  ]
+
+}
+
+resource "azurerm\_key\_vault\_secret" "strgKey1" {
+
+  name         = "strgKey1"
+
+  value        = module.create\_storage.storage\_primary\_access\_key
+
+  key\_vault\_id = azurerm\_key\_vault.kv1.id
+
+  depends\_on = [
+
+    module.create\_storage
+
+  ]
+
+}
+
+resource "azurerm\_key\_vault\_secret" "strgKey2" {
+
+  name         = "strgKey2"
+
+  value        = module.create\_storage.storage\_secondary\_access\_key
+
+  key\_vault\_id = azurerm\_key\_vault.kv1.id
+
+  depends\_on = [
+
+    module.create\_storage
+
+]
+
+}
+```
+
+* Next Terraform will proceed with SQL database creation. And Key Vault should be ready prior to this as Database is going to store it’s connection string into it.
+
+```
+module "create\_db" {
+
+  source             = "../Modules/db"
+
+  rg\_name            = var.rg\_name
+
+  keyvault\_name      = var.kv\_name
+
+  sql\_server\_name    = var.dbsrv\_name
+
+  sql\_database\_name  = var.db\_name
+
+  sql\_admin\_login    = var.dbsrv\_name
+
+  sql\_admin\_password = "India@123"
+
+  depends\_on         = [azurerm\_resource\_group.rg, azurerm\_key\_vault.kv1]
+
+}
+```
+
+* Then it will configure Azure DevOps to link Azure Key Vault to get the secrets against each variables.
+
+```
+resource "azuredevops\_variable\_group" "azdevops-variable-group" {
+
+  depends\_on = [
+
+    azurerm\_key\_vault\_secret.client-id,
+
+    azurerm\_key\_vault\_secret.client-secret,
+
+    azurerm\_key\_vault\_secret.TenantID,
+
+    azurerm\_key\_vault\_secret.SubscriptionID,
+
+    azurerm\_key\_vault\_secret.strgKey1,
+
+    azurerm\_key\_vault\_secret.strgKey2,
+
+  ]
+
+  project\_id   = data.azuredevops\_project.AKS-DEMO.project\_id
+
+  name         = "azkeys"
+
+  description  = "key vault keys"
+
+  allow\_access = true
+
+  key\_vault {
+
+    name                = var.kv\_name
+
+    service\_endpoint\_id = var.service\_endpoint\_id
+
+  }
+
+  variable {
+
+    name = "client-secret"
+
+  }
+
+  variable {
+
+    name = "client-id"
+
+  }
+
+  variable {
+
+    name = "TenantID"
+
+  }
+
+  variable {
+
+    name = "SubscriptionID"
+
+  }
+
+  variable {
+
+    name = "strgKey1"
+
+  }
+
+  variable {
+
+    name = "strgKey2"
+
+  }
+
+}
+```
+
+This will complete the infrastructure that we will consume as we proceed with Azure Kubernetes Services through DevOps CICD pipelines
