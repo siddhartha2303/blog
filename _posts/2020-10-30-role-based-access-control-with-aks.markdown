@@ -7,7 +7,8 @@ img: aks-rbac.png # Add image post (optional)
 fig-caption: # Add figcaption (optional)
 tags: [Terraform, DevOps, Azure]
 ---
-# AD Authentication and Role Based Access Control for AKS
+# AKS Architecture & Concepts - Part 1
+## AD Authentication and Role Based Access Control for AKS
 
 Through this video we are going to bring our concepts regarding AKS RBAC into action. This is going to explain how we can control access to cluster resources using Kubernetes role-based access control and Azure Active Directory identities in Azure Kubernetes Service. Azure Kubernetes Service (AKS) can be configured to use Azure Active Directory (AD) for user authentication. In this configuration, you sign in to an AKS cluster using an Azure AD authentication token. Once authenticated, you can use the built-in Kubernetes role-based access control (Kubernetes RBAC) to manage access to namespaces and cluster resources based on a user's identity or group membership. We will talk about ClusterRole and ClusterRoleBinding RBAC API in Kubernetes, which is used to regulate access and define permissions on namespaced resources.
 
