@@ -18,6 +18,6 @@ A role binding grants the permissions defined in a role to users or group. It ho
 A RoleBinding may reference any Role in the same namespace. Alternatively, a RoleBinding can reference a ClusterRole and bind that ClusterRole to the namespace of the RoleBinding. If you want to bind a ClusterRole to all the namespaces in your cluster, you use a ClusterRoleBinding, which we have used in our example.
 
 
-![AKS RBAC and Azure AD]({{site.baseurl}}/assets/img/AKS-RBAC.mp4)https://github.com/siddhartha2303/blog/blob/gh-pages/assets/img/AKS-RBAC.mp4
+[![AKS RBAC and Azure AD]({{site.baseurl}}/assets/img/AKS-RBAC.mp4)](https://youtu.be/cC-OAq03-9g)
 
 e the infrastructure that we will consume as we proceed with Azure Kubernetes Services through DevOps CICD pipelines
