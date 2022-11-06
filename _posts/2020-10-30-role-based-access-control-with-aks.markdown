@@ -1,7 +1,7 @@
 ---
 layout: post
 title: AD Authentication and Role Based Access Control for AKS
-date: 2020-10-31 00:15:00 +0530
+date: 2022-10-31 00:15:00 +0530
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
 img: aks-rbac.png # Add image post (optional)
 fig-caption: # Add figcaption (optional)
