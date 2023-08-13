@@ -3,7 +3,7 @@ layout: post
 title: Setup Local DevBox
 date: 2022-07-31 23:30:00 +0530
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
-img: DevBox.jpg # Add image post (optional)
+img: Dev-Box.jpg # Add image post (optional)
 fig-caption: # Add figcaption (optional)
 tags: [Jenkins, NetDevOps, Ansible, GitHub, EveNG]
 ---
@@ -278,7 +278,6 @@ sudo docker ps
 sudo docker exec -it gitlab /bin/bash
 cat /var/jenkins_home/secrets/initialAdminPassword
 ```
-
 ## Install and Configure Ansible in Ubuntu
 
 * Run below commands on Ubuntu bash shell to install Ansible. This is well documented in https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-ubuntu
