@@ -78,7 +78,7 @@ tar -zxvf ncs-6.1-cisco-ios-6.92.tar.gz
 ```
 * We need to source **ncsrc**. This is shell script for bash that will setup your PATH and other environment variables for NSO. Post this you will be able to run **ncs** command directly from bash.
 ```
-source $HOME/nso-6.0/ncsrc
+source $HOME/nso-6.1/ncsrc
 ```
 * Now create an NSO instance and provide the directory name where you want your NSO instance to be placed. Directory will be created automatically. In my NSO instance below, I have only included IOS and IOSXR neds.
 ```
@@ -130,6 +130,8 @@ CML_VERIFY_CERT=False
 ```
 
 ## Reserve a CML sandbox and sync/operate with CML command line 
+
+Note: Though it's not neccessary to spin up a CML, test environment can even run on Eve-Ng.
 
 * Login to **https://devnetsandbox.cisco.com/RM/Diagram/Index/685f774a-a5d6-4df5-a324-3774217d0e6b?diagramType=Topology** and reserve a lab
 
@@ -219,7 +221,30 @@ You can now see the device list using command **show devices list**
 ```
 devices connect
 ```
+Note: Sometimes while connecting to device we get error **"info Failed to authenticate towards device router1: SSH key exchange failed"**. Follow as shown in below steps to make this work.
 
+```
+admin@ncs# show running-config devices global-settings  ssh-algorithms  public-key | details
+devices global-settings ssh-algorithms public-key [ ssh-ed25519 ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 rsa-sha2-512 rsa-sha2-256 ]
+admin@ncs# conf
+Entering configuration mode terminal
+admin@ncs(config)# devices global-settings ssh-algorithms public-key [ ssh-ed25519 ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 rsa-sha2-512 rsa-sha2-256 ssh-rsa ssh-dss  ]
+admin@ncs(config)# commit dry-run
+cli {
+    local-node {
+        data  devices {
+                  global-settings {
+                      ssh-algorithms {
+             -            public-key [ ssh-ed25519 ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 rsa-sha2-512 rsa-sha2-256 ];
+             +            public-key [ ssh-ed25519 ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 rsa-sha2-512 rsa-sha2-256 ssh-rsa ssh-dss ];
+                      }
+                  }
+              }
+    }
+}
+admin@ncs(config)# commit
+Commit complete.
+```
 devices device-group IOS-DEVICES check-sync
 devices device-group IOS-DEVICES sync-from
 
@@ -289,6 +314,3 @@ sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 ```
 * Install cisco.ios modules by running command **ansible-galaxy collection cisco.ios**. Once installed, modules can be seen under path ~/.ansible/collections/ansible_collections/cisco/ios/plugins/modules. In our example we will modify the ACL on a IOS router, and for that we will use **ios_acls.py** module.
-
-
-
