@@ -306,8 +306,8 @@ docker image          |ruby:2.7
 
 * Since our GitLab server does not have a proper host name registered in DNS, the runner will have difficulty finding it. We will do a workaround to fix that. Edit the configuration file "**sudo nano /srv/gitlab-runner/config/config.toml**" as follows:
 
-- Add “/var/run/docker.sock:/var/run/docker.sock”
-- At the end of the file, add the extra_hosts variable, make sure to replace with your IP address from previous steps.
+Add “/var/run/docker.sock:/var/run/docker.sock”
+At the end of the file, add the extra_hosts variable, make sure to replace with your IP address from previous steps.
 
 ```
 concurrent = 1
