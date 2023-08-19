@@ -14,33 +14,40 @@ tags: [Jenkins, NetDevOps, Ansible, GitHub, EveNG]
 As most of us are on windows machine, a quick way to setup a DevBox is on Windows Subsystem for Linux (WSL). My preferred choice of linux distribution for this would be Ubuntu 22.04. 
 
 * Start with below commands to enabled Window optional features and restart th computer. Make sure virtualization is enabled in BIOS. For e.g. I have Gigabyte motherboard and enable SVM mode for AMD-v.
+
 ```
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform
 ```
 * Then update WSL to version 2. To do it, go to https://docs.microsoft.com/windows/wsl/wsl2-kernel, download wsl_update_x64.msi, and install it. Make WSL2 a default architecture for new Linux distros with below command.
+
 ```
 wsl --set-default-version 2
 ```
 * Now install Ubuntu with below command.
+
 ```
 wsl --install -d ubuntu
 ```
 * List all installed distributions in WSL. Use -v option to get the state of the distribution.
+
 ```
 wsl -l -v
 ```
 * Run the Ubuntu distribution.
+
 ```
 wsl -d Ubuntu
 ```
 You can terminate the distribution using -t option.
 
 * Check the Ubuntu version
+
 ```
 lsb-release -a
 ```
 * Update the package list in Ubuntu
+
 ```
 sudo apt update
 ```
