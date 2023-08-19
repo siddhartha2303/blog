@@ -268,6 +268,7 @@ devices device-group IOS-DEVICES sync-from
 * Install GitLab container
 ```
 sudo docker run --detach \
+                --hostname gitlab.example.com
                 --publish 1443:443 \ 
                 --publish 4080:80 \
                 --publish 1001:22 \ 
@@ -283,11 +284,10 @@ GitLab then can be access by opening the URL **http://localhost:4080** in browse
 
 * Install GitLab runner
 ```
-docker volume create gitlab-runner-config
 docker run -d --name gitlab-runner --restart always \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v gitlab-runner-config:/etc/gitlab-runner \
-    gitlab/gitlab-runner:latest
+  -v /srv/gitlab-runner/config:/etc/gitlab-runner \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  gitlab/gitlab-runner:latest
 ```
 * Register GitLab runner with GitLab server
 ```
@@ -303,6 +303,42 @@ Tags for the runner   |Leave empty
 Maintenance note      |Leav empty              
 Executor              |docker                    
 docker image          |ruby:2.7                    
+
+* Since our GitLab server does not have a proper host name registered in DNS, the runner will have difficulty finding it. We will do a workaround to fix that. Edit the configuration file "**sudo nano /srv/gitlab-runner/config/config.toml**" as follows:
+
+- Add “/var/run/docker.sock:/var/run/docker.sock”
+- At the end of the file, add the extra_hosts variable, make sure to replace with your IP address from previous steps.
+
+```
+concurrent = 1
+check_interval = 0
+shutdown_timeout = 0
+
+[session_server]
+  session_timeout = 1800
+
+[[runners]]
+  name = "My Runner"
+  url = "http://172.17.0.2"
+  id = 2
+  token = "-G2kj_HByKuHm7sAW6JP"
+  token_obtained_at = 2023-08-19T11:10:17Z
+  token_expires_at = 0001-01-01T00:00:00Z
+  executor = "docker"
+  [runners.cache]
+    MaxUploadedArchiveSize = 0
+  [runners.docker]
+    tls_verify = false
+    image = "ruby:2.7"
+    privileged = false
+    disable_entrypoint_overwrite = false
+    oom_kill_disable = false
+    disable_cache = false
+    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
+    shm_size = 0
+    extra_hosts=["gitlab.example.com:172.17.0.2"]
+```
+* Then perform **docker stop gitlab-runner** and **docker start gitlab-runner**
 
 * Install Jenkins container
 
