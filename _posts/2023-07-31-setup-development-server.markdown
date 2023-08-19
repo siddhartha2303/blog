@@ -191,7 +191,7 @@ Don't forget to commit the configuration with **commit** command
 
 ```
 devices device router1
- address 192.168.0.1
+ address 10.10.20.174
  authgroup labadmin
  ssh host-key-verification none
  device-type cli ned-id cisco-ios-cli-6.92
@@ -200,7 +200,7 @@ devices device router1
  !
 !
 devices device router2
- address 192.168.0.2
+ address 10.10.20.175
  authgroup labadmin
  ssh host-key-verification none
  device-type cli ned-id cisco-ios-cli-6.92
