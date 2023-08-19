@@ -69,34 +69,41 @@ sh nso-6.1-freetrial.linux.x86_64.signed.bin
 ```
 
 * Make a folder in $HOME directory and run the installer.
+
 ```
 sh nso-6.1.linux.x86_64.installer.bin --local-install ~/nso-6.1
 ```
 * Now download the NEDs from Cisco official site. In  my case, I have downloaded **ncs-6.1-cisco-ios-6.92.8-freetrial.signed.bin** and **ncs-6.1-cisco-iosxr-7.49-freetrial.signed.bin**. Unpack both the files and move all **.tar.gz** files to **ned** folder.
+
 ```
 sh ncs-6.1-cisco-ios-6.92.8-freetrial.signed.bin
 sh ncs-6.1-cisco-iosxr-7.49-freetrial.signed.bin
 mv *.tar.gz ~/nso-6.1/packages/neds/
 ```
 * Goto ned folder and extract all tar file.
+
 ```
 tar -zxvf ncs-6.1-cisco-iosxr-7.49.tar.gz
 tar -zxvf ncs-6.1-cisco-ios-6.92.8.tar.gz
 ```
 * We need to source **ncsrc**. This is shell script for bash that will setup your PATH and other environment variables for NSO. Post this you will be able to run **ncs** command directly from bash.
+
 ```
 source $HOME/nso-6.1/ncsrc
 ```
 * Now create an NSO instance and provide the directory name where you want your NSO instance to be placed. Directory will be created automatically. In my NSO instance below, I have only included IOS and IOSXR neds.
+
 ```
 ncs-setup --package ~/nso-6.1/packages/neds/cisco-ios-cli-6.92   --package ~/nso-6.1/packages/neds/cisco-iosxr-cli-7.49   --dest nso-instance
 ```
 * Go to the NSO instance directory and start NSO instance. 
+
 ```
 cd ~\nso-6.1\nso-instance
 ncs
 ```
 * Check the NCS status.
+
 ```
 ncs --status | grep status
 ```
@@ -104,31 +111,37 @@ ncs --status | grep status
 ## Install Python and create Virtual environment
 
 * Install Python3 and Pip3
+
 ```
 sudo apt install python3
 sudo apt install python3.10-venv
 sudo apt install pip
 ```
 * Create and move to a project folder. Enable virtual environment and activate.
+
 ```
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 * Clone below repo in the project folder.
+
 ```
 git clone https://github.com/CiscoDevNet/virlutils.git
 ```
 * Install all packages as mentioned in **requirement.txt**
+
 ```
 sudo pip install -r ./virlutils/requirements.txt
 ```
 Check all installed packages with command **pip freeze**.
 
 * Setup the **VIRL utilities** as below
+
 ```
 sudo python3 setup.py install
 ```
 * Create **.virlrc** file in $HOME directory and enter below lines into it. We will run CML in Cisco DevNet Sandbox and below are the credentials for those. This mostly remain same, but change it if you see different.
+
 ```
 VIRL_HOST=10.10.20.161
 VIRL_USERNAME=developer
