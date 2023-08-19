@@ -151,6 +151,7 @@ cml wipe lab --id 414a4c8f-3ead-4a0e-8cd9-4dd8eb4a1b6f
 ```
 
 * Search existing labs available in repository and then run one of that lab
+
 ```
 cml search
 ```
@@ -171,6 +172,7 @@ cml nodes
 ```
 
 * Jump into your NSO instance using the ncs_cli command. This command takes several options - we'll use -C to specify we'd like a "Cisco style" command line interface (the default is a Juniper style), and -u admin to login as the "admin" user. Make sure **--noaaa** option is included otherwise many commands will not be visible. 
+
 ```
 ncs_cli -u admin -C --noaaa
 ```
@@ -251,6 +253,7 @@ devices device-group IOS-DEVICES sync-from
 ## Install Docker and create container for GitLab and Jenkins
 
 * Install docker and start the service
+
 ```
   sudo apt-get update
   sudo apt-get install ca-certificates curl gnupg
@@ -266,6 +269,7 @@ devices device-group IOS-DEVICES sync-from
 ```
 
 * Install GitLab container
+
 ```
 sudo docker run --detach \
                 --hostname gitlab.example.com
@@ -283,6 +287,7 @@ sudo docker run --detach \
 GitLab then can be access by opening the URL **http://localhost:4080** in browser.
 
 * Install GitLab runner
+
 ```
 docker run -d --name gitlab-runner --restart always \
   -v /srv/gitlab-runner/config:/etc/gitlab-runner \
