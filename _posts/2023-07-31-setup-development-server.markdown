@@ -74,7 +74,7 @@ mv *.tar.gz ~/nso-6.1/packages/neds/
 * Goto ned folder and extract all tar file.
 ```
 tar -zxvf ncs-6.1-cisco-iosxr-7.49.tar.gz
-tar -zxvf ncs-6.1-cisco-ios-6.92.tar.gz
+tar -zxvf ncs-6.1-cisco-ios-6.92.8.tar.gz
 ```
 * We need to source **ncsrc**. This is shell script for bash that will setup your PATH and other environment variables for NSO. Post this you will be able to run **ncs** command directly from bash.
 ```
@@ -281,6 +281,28 @@ sudo docker run --detach \
 ```
 GitLab then can be access by opening the URL **http://localhost:4080** in browser.
 
+* Install GitLab runner
+```
+docker volume create gitlab-runner-config
+docker run -d --name gitlab-runner --restart always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v gitlab-runner-config:/etc/gitlab-runner \
+    gitlab/gitlab-runner:latest
+```
+* Register GitLab runner with GitLab server
+```
+docker run --rm -it -v gitlab-runner-config:/etc/gitlab-runner gitlab/gitlab-runner:latest register
+```
+| Parameters            | Values                                                                    |
+| --------------------- | ------------------------------------------------------------------------- |
+| GitLab instance URL   | "docker inspect gitlab | grep IPAddress"                                  |
+| Registration token    | Project > CI/CD > Runners, then three dots beside 'New Project runner'    |
+| Description           | My Runner                                                                 |
+| Tags for the runner   | Leave empty                                                               | 
+| Maintenance note      | Leav empty                                                                |
+| Executor              | docker                                                                    |
+| docker image          | ruby:2.7                                                                  |
+
 * Install Jenkins container
 
 ```
@@ -303,6 +325,7 @@ sudo docker ps
 sudo docker exec -it gitlab /bin/bash
 cat /var/jenkins_home/secrets/initialAdminPassword
 ```
+Note: Sometimes, intial password is stored under different path. Get the container ID from **sudo docker ps**, then search the logs for the container as **sudo docker logs <mention the continer ID here> | grep password**. Logs will have an entry like **Password stored to /etc/gitlab/initial_root_password.**
 ## Install and Configure Ansible in Ubuntu
 
 * Run below commands on Ubuntu bash shell to install Ansible. This is well documented in https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-ubuntu
