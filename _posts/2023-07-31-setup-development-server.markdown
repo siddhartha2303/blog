@@ -294,7 +294,7 @@ docker run -d --name gitlab-runner --restart always \
 docker run --rm -it -v gitlab-runner-config:/etc/gitlab-runner gitlab/gitlab-runner:latest register
 ```
 |Parameters            |Values                                                                    |
-|--------------------- |------------------------------------------------------------------------- |
+
 |GitLab instance URL   |"docker inspect gitlab | grep IPAddress"                                  |
 |Registration token    |Project > CI/CD > Runners, then three dots beside 'New Project runner'    |
 |Description           |My Runner                                                                 |
