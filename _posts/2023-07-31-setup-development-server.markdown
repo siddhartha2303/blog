@@ -286,6 +286,12 @@ sudo docker run --detach \
 ```
 GitLab then can be access by opening the URL **http://localhost:4080** in browser.
 
+Get the initial root password using below command
+
+```
+sudo docker exec -it gitlab cat /etc/gitlab/initial_root_password
+```
+
 * Install GitLab runner
 
 ```
