@@ -15,7 +15,7 @@ $location = Get-Location
 
 In this example we have declared the variable and stored current location into it.
 
-$location | Get-Member
+$location \| Get-Member
 
 This displays type, method and properties of the variable
 
