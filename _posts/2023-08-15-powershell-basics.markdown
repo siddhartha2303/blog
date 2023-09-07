@@ -7,7 +7,7 @@ img: powershell.PNG?raw=true # Add image post (optional)
 fig-caption: # Add figcaption (optional)
 tags: [Powershell]
 ---
-# Powershell Basics
+
 
 ## Declaring variables
 
