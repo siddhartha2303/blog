@@ -110,26 +110,41 @@ switch(3){
 ## Working with files & folders
 
 New-Item D:\temp\test\test.txt
+
 Set-Content D:\temp\test\test.txt 'Welcome!!'
+
 Get-Content D:\temp\test\test.txt
+
 Add-Content D:\temp\test\test.txt 'Hello!'
+
 Clear-Content D:\temp\test\test.txt
 
 New-Item D:\temp\test\test.xml -ItemType File
+
 Set-Content D:\temp\test\test.xml '<title>Welcome to TutorialsPoint</title>'
 
 New-Item D:\temp\test\test.csv -ItemType File
+
 Set-Content D:\temp\test\test.csv 'Mahesh,Suresh,Ramesh'
 
 New-Item -Path 'D:\temp\Test Folder' -ItemType Directory
+
 Copy-Item 'D:\temp\Test Folder' -Destination 'D:\temp\Test Folder1'
+
 Copy-Item 'D:\temp\Test Folder\Test File.txt' 'D:\temp\Test Folder1\Test File1.txt'
+
 Copy-Item -Filter *.txt -Path 'D:\temp\Test Folder' -Recurse -Destination 'D:\temp\Test Folder1'
+
 Get-ChildItem -Name
+
 Remove-Item 'D:\temp\Test Folder' -Recurse
+
 Move-Item D:\temp\Test D:\temp\Test1
+
 Rename-Item D:\temp\Test\test.txt test1.txt
+
 (Get-Content D:\temp\test\test.txt).length
+
 Test-Path D:\temp\test
 
 ## Compare files
