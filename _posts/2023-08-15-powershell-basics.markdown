@@ -158,18 +158,21 @@ Get-Process \| Where-Object {$_.ProcessName -Match "^p.*"}
 
 ## ForEach
 
-1000,2000,3000 \| ForEach-Object -Process {$_/1000}
-"Microsoft.PowerShell.Core", "Microsoft.PowerShell.Host" \| ForEach-Object {$_.Split(".")}
+<code>1000,2000,3000 \| ForEach-Object -Process {$_/1000}</code>
+
+<code>"Microsoft.PowerShell.Core", "Microsoft.PowerShell.Host" \| ForEach-Object {$_.Split(".")}</code>
 
 ## Sleep
 
 Start-Sleep -s 15
+
 Start-Sleep -m 500
 
 ## Input & Output
 
 $choice = Read-Host "Please put your choice"
-Write-Host (2,4,6,8,10,12) -Separator ", -> " -ForegroundColor DarkGreen -BackgroundColor White
+
+<code>Write-Host (2,4,6,8,10,12) -Separator ", -> " -ForegroundColor DarkGreen -BackgroundColor White</code>
 
 ## Select & Sort object
 
