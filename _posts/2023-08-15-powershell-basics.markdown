@@ -85,7 +85,8 @@ $hash.GetEnumerator() \| Sort-Object -Property key
 
 Get-Service * \| Sort-Object ServiceType `
 
-| Format-Table Name, ServiceType, Status -AutoSize
+\| Format-Table Name, ServiceType, Status -AutoSize
+
 
 Get-Service \| Format-List
 
