@@ -209,9 +209,9 @@ $choice = Read-Host "Please put your choice"
 
 ## Select & Sort object
 
-Get-Process \| Select-Object -Property ProcessName, Id, WS -Last 5
+<code>Get-Process \| Select-Object -Property ProcessName, Id, WS -Last 5<\code>
 
-Get-Process \| Sort-Object -Property WS \| Select-Object -Last 5
+<code>Get-Process \| Sort-Object -Property WS \| Select-Object -Last 5<\code>
 
 ## Invoke expression
 
