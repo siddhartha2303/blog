@@ -24,10 +24,13 @@ This displays type, method and properties of the variable
 $myList = @(0..4)
 
 write-host("Print array")
+
 $myList
 
 write-host("Assign values")
+
 $myList[1]  = 10
+
 $myList
 
 ## Hashtables
@@ -35,41 +38,53 @@ $myList
 $hash = @{ ID = 1; Shape = "Square"; Color = "Blue"}
 
 write-host("Print all hashtable keys")
+
 $hash.keys
 
 write-host("Print all hashtable values")
+
 $hash.values
 
 write-host("Get ID")
+
 $hash["ID"]
 
 write-host("Get Shape")
+
 $hash.Number
 
 write-host("print Size")
+
 $hash.Count
 
 write-host("Add key-value")
+
 $hash["Updated"] = "Now"
 
 write-host("Add key-value")
+
 $hash.Add("Created","Now")
 
 write-host("print Size")
+
 $hash.Count
 
 write-host("Remove key-value")
+
 $hash.Remove("Updated")
 
 write-host("print Size")
+
 $hash.Count
 
 write-host("sort by key")
+
 $hash.GetEnumerator() \| Sort-Object -Property key
 
 ## Sort-Object and Format-Table
 
 Get-Service * \| Sort-Object ServiceType `
+
 | Format-Table Name, ServiceType, Status -AutoSize
 
 Get-Service \| Format-List
@@ -77,34 +92,51 @@ Get-Service \| Format-List
 ## For loop
 
 $array = @("item1", "item2", "item3")
+
 foreach ($element in $array) { $element }
+
 for($i = 0; $i -lt $array.length; $i++){ $array[$i] }
 
 ## If statement and Operator
 
 $x = 10
+
 if($x -le 20) {
+
   write-host("This is if statement")
+
 }
 
 ## While loop
 
 $myList = 5.6, 4.5, 3.3, 13.2, 4.0, 34.33, 34.0, 45.45, 99.993, 11123
+
 write-host("using while Loop")
+
 $i = 0
+
 while($i -lt 4) {
+
    $myList[$i];
+
    $i++
+
 }
 
 ## Switch statement
 
 switch(3){
+
    1 {"One"}
+
    2 {"Two"}
+
    3 {"Three"}
+
    4 {"Four"}
+
    3 {"Three Again"}
+
 }
 
 ## Working with files & folders
@@ -154,6 +186,7 @@ Compare-Object -ReferenceObject $(Get-Content D:\temp\test\test.txt) -Difference
 ## Searching through obeject
 
 Get-Service \| Where-Object {$_.Status -eq "Stopped"}
+
 Get-Process \| Where-Object {$_.ProcessName -Match "^p.*"}
 
 ## ForEach
@@ -177,6 +210,7 @@ $choice = Read-Host "Please put your choice"
 ## Select & Sort object
 
 Get-Process \| Select-Object -Property ProcessName, Id, WS -Last 5
+
 Get-Process \| Sort-Object -Property WS \| Select-Object -Last 5
 
 ## Invoke expression
@@ -184,6 +218,7 @@ Get-Process \| Sort-Object -Property WS \| Select-Object -Last 5
 $Command = 'Get-Process'
  
 $Command
+
 Get-Process
  
 Invoke-Expression $Command 
