@@ -65,14 +65,14 @@ write-host("print Size")
 $hash.Count
 
 write-host("sort by key")
-$hash.GetEnumerator() | Sort-Object -Property key
+$hash.GetEnumerator() \| Sort-Object -Property key
 
 ## Sort-Object and Format-Table
 
-Get-Service * | Sort-Object ServiceType `
+Get-Service * \| Sort-Object ServiceType `
 | Format-Table Name, ServiceType, Status -AutoSize
 
-Get-Service | Format-List
+Get-Service \| Format-List
 
 ## For loop
 
@@ -138,13 +138,13 @@ Compare-Object -ReferenceObject $(Get-Content D:\temp\test\test.txt) -Difference
 
 ## Searching through obeject
 
-Get-Service | Where-Object {$_.Status -eq "Stopped"}
-Get-Process | Where-Object {$_.ProcessName -Match "^p.*"}
+Get-Service \| Where-Object {$_.Status -eq "Stopped"}
+Get-Process \| Where-Object {$_.ProcessName -Match "^p.*"}
 
 ## ForEach
 
-1000,2000,3000 | ForEach-Object -Process {$_/1000}
-"Microsoft.PowerShell.Core", "Microsoft.PowerShell.Host" | ForEach-Object {$_.Split(".")}
+1000,2000,3000 \| ForEach-Object -Process {$_/1000}
+"Microsoft.PowerShell.Core", "Microsoft.PowerShell.Host" \| ForEach-Object {$_.Split(".")}
 
 ## Sleep
 
@@ -158,8 +158,8 @@ Write-Host (2,4,6,8,10,12) -Separator ", -> " -ForegroundColor DarkGreen -Backgr
 
 ## Select & Sort object
 
-Get-Process | Select-Object -Property ProcessName, Id, WS -Last 5
-Get-Process | Sort-Object -Property WS | Select-Object -Last 5
+Get-Process \| Select-Object -Property ProcessName, Id, WS -Last 5
+Get-Process \| Sort-Object -Property WS \| Select-Object -Last 5
 
 ## Invoke expression
 
