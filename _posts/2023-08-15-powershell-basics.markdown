@@ -268,3 +268,47 @@ function Get-EvenNumber {
 }
 
 ```
+
+## Working with JSON
+
+** Writing JSON Data to a File:
+
+To create or overwrite a JSON file with data from a PowerShell object, you can use the ConvertTo-Json cmdlet to convert the object to JSON format and then use Set-Content to write it to a file. Here's an example:
+
+```
+# Create a PowerShell object
+$data = @{
+    Name = "John"
+    Age = 30
+    City = "New York"
+}
+
+# Convert the object to JSON format
+$jsonData = $data | ConvertTo-Json
+
+# Write the JSON data to a file
+$jsonData | Set-Content -Path 'C:\path\to\your\output.json'
+```
+
+** Formatting JSON Output:
+
+You can format JSON output for better readability using the -Depth parameter with the ConvertTo-Json cmdlet. The -Depth parameter specifies the maximum depth of the object hierarchy to be included in the JSON output.
+
+For example, to format JSON output with an indentation of 4 spaces:
+
+```
+$jsonData = $data | ConvertTo-Json -Depth 10
+$jsonData | Set-Content -Path 'C:\path\to\your\formatted_output.json'
+```
+
+** Reading JSON Data from a File:
+
+You can use the Get-Content cmdlet to read the contents of a JSON file and then use the ConvertFrom-Json cmdlet to parse the JSON data into a PowerShell object. Here's an example:
+
+```
+# Read the JSON file contents
+$jsonContent = Get-Content -Path 'C:\path\to\your\file.json' -Raw
+
+# Parse the JSON data into a PowerShell object
+$object = $jsonContent | ConvertFrom-Json
+```
