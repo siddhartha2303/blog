@@ -150,21 +150,23 @@ Get-Process | Where-Object {$_.ProcessName -Match "^p.*"}
 
 ## Sleep
 
+```
 Start-Sleep -s 15
-
 Start-Sleep -m 500
-
+```
 ## Input & Output
 
+```
 $choice = Read-Host "Please put your choice"
-
 <code>Write-Host (2,4,6,8,10,12) -Separator ", -> " -ForegroundColor DarkGreen -BackgroundColor White</code>
+```
 
 ## Select & Sort object
 
+```
 <code>Get-Process \| Select-Object -Property ProcessName, Id, WS -Last 5<\code>
-
 <code>Get-Process \| Sort-Object -Property WS \| Select-Object -Last 5<\code>
+```
 
 ## Invoke expression
 
