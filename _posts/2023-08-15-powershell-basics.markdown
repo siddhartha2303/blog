@@ -144,8 +144,8 @@ Get-Process | Where-Object {$_.ProcessName -Match "^p.*"}
 ## ForEach
 
 ```
-<code>1000,2000,3000 | ForEach-Object -Process {$_/1000}</code>
-<code>"Microsoft.PowerShell.Core", "Microsoft.PowerShell.Host" | ForEach-Object {$_.Split(".")}</code>
+1000,2000,3000 | ForEach-Object -Process {$_/1000}
+"Microsoft.PowerShell.Core", "Microsoft.PowerShell.Host" | ForEach-Object {$_.Split(".")}
 ```
 
 ## Sleep
@@ -158,28 +158,25 @@ Start-Sleep -m 500
 
 ```
 $choice = Read-Host "Please put your choice"
-<code>Write-Host (2,4,6,8,10,12) -Separator ", -> " -ForegroundColor DarkGreen -BackgroundColor White</code>
+Write-Host (2,4,6,8,10,12) -Separator ", -> " -ForegroundColor DarkGreen -BackgroundColor White
 ```
 
 ## Select & Sort object
 
 ```
-<code>Get-Process \| Select-Object -Property ProcessName, Id, WS -Last 5<\code>
-<code>Get-Process \| Sort-Object -Property WS \| Select-Object -Last 5<\code>
+Get-Process \| Select-Object -Property ProcessName, Id, WS -Last 5<\code>
+Get-Process \| Sort-Object -Property WS \| Select-Object -Last 5<\code>
 ```
 
 ## Invoke expression
 
+```
 $Command = 'Get-Process'
- 
 $Command
-
 Get-Process
- 
 Invoke-Expression $Command 
-
 Invoke-Item "D:\Temp\test.txt"
-
+```
 ## SSH connection
 
 ```
