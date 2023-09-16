@@ -284,3 +284,36 @@ $excel = New-Object -ComObject Excel.Application
 # Perform actions with the COM object
 $workbook = $excel.Workbooks.Add()
 ```
+
+## Working with Fuctions
+
+```
+function Multiply-Numbers {
+    param (
+        [int]$A,
+        [int]$B = 2
+    )
+    
+    $Result = $A * $B
+    return $Result
+}
+
+$result = Multiply-Numbers -A 5 -B 3
+Write-Host "Result: $result"
+
+
+function Get-EvenNumber {
+    [CmdletBinding()]
+    param (
+        [Parameter(ValueFromPipeline = $true)]
+        [int]$Number
+    )
+
+    process {
+        if ($Number % 2 -eq 0) {
+            Write-Output $Number
+        }
+    }
+}
+
+```
