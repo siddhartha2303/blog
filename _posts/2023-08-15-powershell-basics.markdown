@@ -226,3 +226,29 @@ Invoke-Expression $Command
 
 Invoke-Item "D:\Temp\test.txt"
 
+## SSH connection
+
+```
+Install-Module -Name Posh-SSH
+Import-Module Posh-SSH
+$session = New-SSHSession -ComputerName remote_host -Credential (Get-Credential)
+Invoke-SSHCommand -SessionId $session.SessionId -Command "ls -l"
+Remove-SSHSession -SessionId $session.SessionId
+```
+
+## Powershell for Networks
+
+```
+Get-NetAdapter
+Set-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress "192.168.1.10" -PrefixLength 24
+Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses ("8.8.8.8", "8.8.4.4")
+Test-Connection -ComputerName google.com
+Test-NetConnection -ComputerName google.com -TraceRoute
+Test-NetConnection -ComputerName example.com -Port 80
+Get-NetFirewallRule
+Enter-PSSession -ComputerName remote_computer_name
+Get-NetTCPConnection
+Get-NetIPConfiguration
+Get-NetWiFiNetwork
+Get-NetRoute
+```
