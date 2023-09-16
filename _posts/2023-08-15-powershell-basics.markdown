@@ -252,3 +252,35 @@ Get-NetIPConfiguration
 Get-NetWiFiNetwork
 Get-NetRoute
 ```
+
+## Scripting
+
+You can run a PowerShell script from the PowerShell console or command prompt. Use the & (call) operator followed by the script's file path
+
+```
+Set-ExecutionPolicy RemoteSigned
+& "C:\path\to\myscript.ps1"
+Set-PSDebug -Trace 2
+```
+
+## Custom Object
+
+```
+$customObject = New-Object PSObject -Property @{
+    Name = "John"
+    Age = 30
+}
+
+# Access properties
+$customObject.Name  # Accesses the Name property (John)
+```
+
+## Creating Excel Workbook
+
+```
+# Create a COM object (e.g., Excel)
+$excel = New-Object -ComObject Excel.Application
+
+# Perform actions with the COM object
+$workbook = $excel.Workbooks.Add()
+```
