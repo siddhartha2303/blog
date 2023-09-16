@@ -312,3 +312,51 @@ $jsonContent = Get-Content -Path 'C:\path\to\your\file.json' -Raw
 # Parse the JSON data into a PowerShell object
 $object = $jsonContent | ConvertFrom-Json
 ```
+
+## Working with API
+
+* Handle POST Requests:
+
+For API endpoints that require sending data, you can make POST requests. You'll need to specify the request body as JSON, XML, or other supported formats.
+
+```
+# Define the API endpoint URL
+$apiUrl = "https://api.example.com/data"
+
+# Define the request data
+$requestData = @{
+    "key" = "value"
+}
+
+$headers = @{
+    "Api-Key" = "your_api_key_here"
+}
+
+# Convert the data to JSON
+$requestJson = $requestData | ConvertTo-Json
+
+# Make a POST request
+$response = Invoke-RestMethod -Uri $apiUrl -Method Post -Headers $headers -Body $requestJson -ContentType "application/json"
+
+# Convert the JSON response to a PowerShell object
+$apiData = $response | ConvertFrom-Json
+
+# Access properties of the object
+$apiData.propertyName
+
+
+```
+
+* Handle Query Parameters:
+
+You can include query parameters in your API requests using the -Query parameter of Invoke-RestMethod. For example:
+
+```
+$queryParams = @{
+    "param1" = "value1"
+    "param2" = "value2"
+}
+
+$response = Invoke-RestMethod -Uri $apiUrl -Method Get -Query $queryParams
+
+```
