@@ -18,7 +18,7 @@ $location = Get-Location
 In this example we have declared the variable and stored current location into it.
 
 ```
-$location \| Get-Member
+$location | Get-Member
 ```
 
 This displays type, method and properties of the variable
@@ -59,16 +59,16 @@ $hash.Remove("Updated")
 write-host("print Size")
 $hash.Count
 write-host("sort by key")
-$hash.GetEnumerator() \| Sort-Object -Property key
+$hash.GetEnumerator() | Sort-Object -Property key
 ```
 
 ## Sort-Object and Format-Table
 
 ```
-Get-Service * \| Sort-Object ServiceType `
-\| Format-Table Name, ServiceType, Status -AutoSize
+Get-Service * | Sort-Object ServiceType `
+| Format-Table Name, ServiceType, Status -AutoSize
 
-Get-Service \| Format-List
+Get-Service | Format-List
 ```
 ## For loop
 
@@ -138,14 +138,14 @@ Compare-Object -ReferenceObject $(Get-Content D:\temp\test\test.txt) -Difference
 ## Searching through obeject
 
 ```
-Get-Service \| Where-Object {$_.Status -eq "Stopped"}
-Get-Process \| Where-Object {$_.ProcessName -Match "^p.*"}
+Get-Service | Where-Object {$_.Status -eq "Stopped"}
+Get-Process | Where-Object {$_.ProcessName -Match "^p.*"}
 ```
 ## ForEach
 
 ```
-<code>1000,2000,3000 \| ForEach-Object -Process {$_/1000}</code>
-<code>"Microsoft.PowerShell.Core", "Microsoft.PowerShell.Host" \| ForEach-Object {$_.Split(".")}</code>
+<code>1000,2000,3000 | ForEach-Object -Process {$_/1000}</code>
+<code>"Microsoft.PowerShell.Core", "Microsoft.PowerShell.Host" | ForEach-Object {$_.Split(".")}</code>
 ```
 
 ## Sleep
