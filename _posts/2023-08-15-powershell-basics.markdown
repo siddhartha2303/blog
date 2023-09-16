@@ -132,19 +132,21 @@ Test-Path D:\temp\test
 ```
 ## Compare files
 
+```
 Compare-Object -ReferenceObject $(Get-Content D:\temp\test\test.txt) -DifferenceObject $(Get-Content D:\temp\test\test1.txt) -IncludeEqual
-
+```
 ## Searching through obeject
 
+```
 Get-Service \| Where-Object {$_.Status -eq "Stopped"}
-
 Get-Process \| Where-Object {$_.ProcessName -Match "^p.*"}
-
+```
 ## ForEach
 
+```
 <code>1000,2000,3000 \| ForEach-Object -Process {$_/1000}</code>
-
 <code>"Microsoft.PowerShell.Core", "Microsoft.PowerShell.Host" \| ForEach-Object {$_.Split(".")}</code>
+```
 
 ## Sleep
 
