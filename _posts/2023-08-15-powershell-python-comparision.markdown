@@ -3,10 +3,12 @@ layout: post
 title: 
 date: 2022-07-31 23:30:00 +0530
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
-img: powershell.PNG?raw=true # Add image post (optional)
+img: pythonvspowershell.PNG?raw=true # Add image post (optional)
 fig-caption: # Add figcaption (optional)
-tags: [Powershell]
+tags: [Powershell, Python]
 ---
+## Python vs. Powershell
+
 
 | Task                                      | PowerShell                                         | Python                                              |
 |-------------------------------------------|----------------------------------------------------|-----------------------------------------------------|
