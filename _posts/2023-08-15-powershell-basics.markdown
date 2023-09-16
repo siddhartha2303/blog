@@ -164,8 +164,8 @@ Write-Host (2,4,6,8,10,12) -Separator ", -> " -ForegroundColor DarkGreen -Backgr
 ## Select & Sort object
 
 ```
-Get-Process \| Select-Object -Property ProcessName, Id, WS -Last 5<\code>
-Get-Process \| Sort-Object -Property WS \| Select-Object -Last 5<\code>
+Get-Process | Select-Object -Property ProcessName, Id, WS -Last 5<\code>
+Get-Process | Sort-Object -Property WS | Select-Object -Last 5<\code>
 ```
 
 ## Invoke expression
