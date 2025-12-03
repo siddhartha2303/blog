@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Microsoft 365 Tenant Onboarding – End-to-End Administrative Guide"
-date: 2025-12-03
+date: 2025-11-03
 excerpt: "Click-by-click Microsoft 365 onboarding guide. Covers tenant foundation, subscription setup, custom domain onboarding, and the beginning of user provisioning."
 categories: [Microsoft365, EntraID, Identity]
 tags:
