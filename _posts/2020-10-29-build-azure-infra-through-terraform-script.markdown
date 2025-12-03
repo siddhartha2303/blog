@@ -85,7 +85,7 @@ variable "service_endpoint_id" { type = string }
 Populate a `terraform.tfvars` file with values for your variables.  
 **Replace placeholder values with your actual secrets.**
 
-```hcl
+```plaintext
 strg_name           = "tfstorageactdemo10"
 strgContainer_name  = "tfstoragecontainer"
 kv_name             = "tfkvdemo-1000022"
