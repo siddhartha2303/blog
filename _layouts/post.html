@@ -5,10 +5,10 @@ layout: main
   <div class="page-content">
     {% if page.img %}
     <div class="page-cover-image">
-      <figure>
-        <img class="page-image" src={{ "/assets/img/" | prepend: site.baseurl | append : page.img}} alt="{{page.title}}" style="max-width:400px; width:100%; height:auto; display:block; margin:0 auto 24px auto; border-radius:8px;">
+      <figure style="background: #fafbfc; padding: 16px 0 8px 0; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 24px;">
+        <img class="page-image" src={{ "/assets/img/" | prepend: site.baseurl | append : page.img}} alt="{{page.title}}" style="max-width:400px; width:100%; height:auto; display:block; margin:0 auto 12px auto; border-radius:8px; box-shadow: 0 1px 8px rgba(0,0,0,0.10);">
         {% if page.fig-caption %}
-          <figcaption>{{page.fig-caption}}</figcaption>
+          <figcaption style="text-align:center; color:#555; font-size:1rem; margin-top:4px; font-style:italic;">{{page.fig-caption}}</figcaption>
         {% endif %}
       </figure>
     </div> <!-- End Page Cover Image -->
