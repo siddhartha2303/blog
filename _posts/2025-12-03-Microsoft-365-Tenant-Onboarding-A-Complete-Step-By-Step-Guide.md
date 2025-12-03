@@ -40,9 +40,99 @@ Every step below changes the **state** of one or more of these components.
 
 ---
 
-## STEP 01 – Microsoft 365 Admin Center → Domains
+## STEP 1 – Starting Microsoft 365 Business Basic Subscription
 
-![Step 01](/assets/img/o365/2025/12/o365-onboarding-step-01.png)
+![Step 01](/assets/img/o365/2025/12/o365-onboarding-step-12.png)
+
+### Navigation
+1. Admin Center → Billing
+2. Click **Purchase services**
+
+### Selected plan
+- Microsoft 365 Business Basic
+- Trial subscription
+
+![Step 01](/assets/img/o365/2025/12/o365-onboarding-step-23.png)
+
+### Why this plan is chosen
+- Lowest cost
+- Enables Exchange Online
+- Allows Copilot Studio UI access
+- Sufficient for PoC environments
+
+Without an active subscription:
+- User creation is blocked
+- Power Platform access fails
+
+---
+
+## STEP 2 – Creating a Dedicated Admin Identity
+
+![Step 02](/assets/img/o365/2025/12/o365-onboarding-step-34.png)
+You choose:
+- **Create a new account instead**
+
+
+### Why this matters
+- Avoids mixing personal Microsoft IDs
+- Creates a clean admin boundary
+- Recommended for enterprise hygiene
+
+This identity becomes your **Global Administrator**.
+
+---
+
+## STEP 3 – Entering Organization & Billing Details
+
+![Step 03](/assets/img/o365/2025/12/o365-onboarding-step-42.png)
+
+You are asked to enter:
+- Company name
+- Address
+- Phone number
+- Country/region
+
+### What this configures
+- Tenant legal identity
+- Billing profile
+- Tax region
+
+
+This data is reused across:
+- Microsoft billing
+- Compliance metadata
+- Service availability
+
+
+
+## STEP 4 – Adding Payment Method
+
+![Step 04](/assets/img/o365/2025/12/o365-onboarding-step-43.png)
+
+### Important facts
+- Card is required even for trial
+- No immediate charge
+- Subscription auto-renews
+
+This is a **billing enforcement checkpoint**, not a payment event.
+
+---
+
+## STEP 5 – Subscription Activation Complete
+
+
+### System state after this step
+✅ Subscription = Active  
+✅ License pool exists  
+✅ Tenant services initialize asynchronously  
+
+This is the **true start** of a functional tenant.
+
+---
+
+## STEP 6 – Microsoft 365 Admin Center → Domains
+
+![Step 01](/assets/img/o365/2025/12/o365-onboarding-step-44.png)
 
 You are logged into the **Microsoft 365 Admin Center**.
 
@@ -78,9 +168,7 @@ This step validates that we are operating inside the **correct tenant boundary**
 
 ---
 
-## STEP 02 – Understanding the Default (`onmicrosoft.com`) Domain
-
-![Step 02](/assets/img/o365/2025/12/o365-onboarding-step-02.png)
+## STEP 7 – Understanding the Default (`onmicrosoft.com`) Domain
 
 Every Microsoft 365 tenant has a **default domain** in the form:
 
@@ -110,9 +198,9 @@ This distinction becomes critical later for:
 
 ---
 
-## STEP 03 – Initiating Custom Domain Addition
+## STEP 8 – Initiating Custom Domain Addition
 
-![Step 03](/assets/img/o365/2025/12/o365-onboarding-step-03.png)
+![Step 03](/assets/img/o365/2025/12/o365-onboarding-step-45.png)
 
 ### Action performed
 1. Click **Add domain**
@@ -138,9 +226,9 @@ Microsoft must ensure:
 
 ---
 
-## STEP 04 – Domain Ownership Verification Options
+## STEP 9 – Domain Ownership Verification Options
 
-![Step 04](/assets/img/o365/2025/12/o365-onboarding-step-04.png)
+![Step 04](/assets/img/o365/2025/12/o365-onboarding-step-46.png)
 
 Microsoft now asks you to **prove ownership**.
 
@@ -159,13 +247,20 @@ Without ownership proof:
 
 ---
 
-## STEP 05 – Domain Successfully Verified
+## STEP 10 – Domain Successfully Verified
 
-![Step 05](/assets/img/o365/2025/12/o365-onboarding-step-05.png)
-
+![Step 10](/assets/img/o365/2025/12/o365-onboarding-step-02.png)
+![Step 10](/assets/img/o365/2025/12/o365-onboarding-step-03.png)
+![Step 10](/assets/img/o365/2025/12/o365-onboarding-step-04.png)
+![Step 10](/assets/img/o365/2025/12/o365-onboarding-step-05.png)
+![Step 10](/assets/img/o365/2025/12/o365-onboarding-step-06.png)
+![Step 10](/assets/img/o365/2025/12/o365-onboarding-step-07.png)
+![Step 10](/assets/img/o365/2025/12/o365-onboarding-step-08.png)
+![Step 10](/assets/img/o365/2025/12/o365-onboarding-step-09.png)
 ### System state change
 - Domain status = **Verified**
 - Domain flagged as healthy
+![Step 10](/assets/img/o365/2025/12/o365-onboarding-step-10.png)
 
 ### What this unlocks
 - Users can be created with this domain
@@ -173,94 +268,6 @@ Without ownership proof:
 - Authentication policies can bind to the domain
 
 ⚠️ Email flow may still not work until MX records are configured.
-
----
-
-## STEP 06 – Starting Microsoft 365 Business Basic Subscription
-
-![Step 06](/assets/img/o365/2025/12/o365-onboarding-step-06.png)
-
-### Navigation
-1. Admin Center → Billing
-2. Click **Purchase services**
-
-### Selected plan
-- Microsoft 365 Business Basic
-- Trial subscription
-
-### Why this plan is chosen
-- Lowest cost
-- Enables Exchange Online
-- Allows Copilot Studio UI access
-- Sufficient for PoC environments
-
-Without an active subscription:
-- User creation is blocked
-- Power Platform access fails
-
----
-
-## STEP 07 – Entering Organization & Billing Details
-
-![Step 07](/assets/img/o365/2025/12/o365-onboarding-step-07.png)
-
-You are asked to enter:
-- Company name
-- Address
-- Phone number
-- Country/region
-
-### What this configures
-- Tenant legal identity
-- Billing profile
-- Tax region
-
-This data is reused across:
-- Microsoft billing
-- Compliance metadata
-- Service availability
-
----
-
-## STEP 08 – Creating a Dedicated Admin Identity
-
-![Step 08](/assets/img/o365/2025/12/o365-onboarding-step-08.png)
-
-You choose:
-- **Create a new account instead**
-
-### Why this matters
-- Avoids mixing personal Microsoft IDs
-- Creates a clean admin boundary
-- Recommended for enterprise hygiene
-
-This identity becomes your **Global Administrator**.
-
----
-
-## STEP 09 – Adding Payment Method
-
-![Step 09](/assets/img/o365/2025/12/o365-onboarding-step-09.png)
-
-### Important facts
-- Card is required even for trial
-- No immediate charge
-- Subscription auto-renews
-
-This is a **billing enforcement checkpoint**, not a payment event.
-
----
-
-## STEP 10 – Subscription Activation Complete
-
-![Step 10](/assets/img/o365/2025/12/o365-onboarding-step-10.png)
-
-### System state after this step
-✅ Subscription = Active  
-✅ License pool exists  
-✅ Tenant services initialize asynchronously  
-
-This is the **true start** of a functional tenant.
 
 ---
 
@@ -277,7 +284,7 @@ This is where **human identities** live.
 
 ## STEP 12 – Adding a New User
 
-![Step 12](/assets/img/o365/2025/12/o365-onboarding-step-12.png)
+![Step 12](/assets/img/o365/2025/12/o365-onboarding-step-13.png)
 
 You enter:
 - First name
@@ -291,7 +298,7 @@ This creates an **identity object in Entra ID**.
 
 ## STEP 13 – Assigning License During Creation
 
-![Step 13](/assets/img/o365/2025/12/o365-onboarding-step-13.png)
+![Step 13](/assets/img/o365/2025/12/o365-onboarding-step-14.png)
 
 ### Action
 - Toggle **Assign license**
@@ -309,6 +316,14 @@ Without a license:
 ## STEP 14 – User Successfully Created
 
 ![Step 14](/assets/img/o365/2025/12/o365-onboarding-step-14.png)
+![Step 14](/assets/img/o365/2025/12/o365-onboarding-step-15.png)
+![Step 14](/assets/img/o365/2025/12/o365-onboarding-step-16.png)
+
+## STEP 15 – Asign Roles
+
+![Step 15](/assets/img/o365/2025/12/o365-onboarding-step-17.png)
+![Step 15](/assets/img/o365/2025/12/o365-onboarding-step-18.png)
+![Step 15](/assets/img/o365/2025/12/o365-onboarding-step-19.png)
 
 ### Final state for this block
 ✅ User exists  
@@ -325,13 +340,17 @@ This phase transitions from *basic user creation* into:
 - Identity hardening using Microsoft Entra ID
 - Enforcement of Multi-Factor Authentication (MFA)
 
+![Phase 2](/assets/img/o365/2025/12/o365-onboarding-step-20.png)
+![Phase 2](/assets/img/o365/2025/12/o365-onboarding-step-21.png)
+![Phase 2](/assets/img/o365/2025/12/o365-onboarding-step-22.png)
+
 All steps below build directly on the user created in **Step 14**.
 
 ---
 
-## STEP 15 – Resetting User Password (Post-Creation Security Step)
+## STEP 16 – Resetting User Password (Post-Creation Security Step)
 
-![Step 15](/assets/img/o365/2025/12/o365-onboarding-step-15.png)
+![Step 16](/assets/img/o365/2025/12/o365-onboarding-step-23.png)
 
 Immediately after creating a new user, you should **explicitly reset the password** once.
 
@@ -339,15 +358,19 @@ Immediately after creating a new user, you should **explicitly reset the passwor
 1. Admin Center → Users → Active users
 2. Click the newly created user
 3. Select **Reset password**
+![Step 16](/assets/img/o365/2025/12/o365-onboarding-step-24.png)
 
 ### What to configure
 - Enable: **Require this user to change their password when they first sign in**
 - Generate a temporary password
+![Step 16](/assets/img/o365/2025/12/o365-onboarding-step-25.png)
 
 ### What happens internally
 - The password hash is regenerated in Entra ID
 - Any cached credentials are invalidated
 - The user is forced into a first-time sign-in flow
+![Step 16](/assets/img/o365/2025/12/o365-onboarding-step-26.png)
+![Step 16](/assets/img/o365/2025/12/o365-onboarding-step-27.png)
 
 ### What we are achieving
 This ensures:
