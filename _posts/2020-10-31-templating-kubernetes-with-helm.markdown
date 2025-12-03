@@ -11,6 +11,8 @@ tags: [Terraform, DevOps, Azure]
 # AKS Architecture & Concepts - Part 3  
 ## Create Templates for Kubernetes with Helm Charts
 
+<img src="{{site.baseurl}}/assets/img/helm.PNG" alt="Helm Chart Templating for Kubernetes" style="max-width: 400px; width: 100%; height: auto; display: block; margin: 0 auto 24px auto; border-radius: 8px;" />
+
 > **Helm is the package manager for Kubernetes, enabling you to define, install, and upgrade even the most complex Kubernetes applications. In this article, we explore Helm chart templating, practical use cases, and essential commands to streamline your Kubernetes deployments.**
 
 ---
@@ -144,7 +146,9 @@ helm rollback myrelease 1
 
 For a hands-on demonstration, watch the following video:
 
-[![Helm]({{site.baseurl}}/assets/img/helm-video.PNG)](https://youtu.be/zfWef_ipSBw)
+<a href="https://youtu.be/zfWef_ipSBw" target="_blank">
+  <img src="{{site.baseurl}}/assets/img/helm-video.PNG" alt="Helm Video" style="max-width: 500px; width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px;" />
+</a>
 
 ---
 
