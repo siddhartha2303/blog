@@ -13,8 +13,6 @@ author: Siddhartha Ghosh
 img: o365.png
 ---
 
-# Microsoft 365 Tenant Onboarding – Detailed Administrative Walkthrough
-
 This document is intentionally **long, explicit, and procedural**.  
 It reflects **real screenshots captured from a live Microsoft 365 tenant**, in the exact sequence they appear during onboarding.
 
