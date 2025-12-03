@@ -10,7 +10,7 @@ tags:
   - tenant-setup
   - domain-onboarding
 author: Siddhartha Ghosh
-img: /assets/img/o365/2025/12/o365.png
+img: o365.png
 ---
 
 # Microsoft 365 Tenant Onboarding – Detailed Administrative Walkthrough
