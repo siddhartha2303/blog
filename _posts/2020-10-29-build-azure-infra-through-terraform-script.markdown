@@ -109,7 +109,7 @@ service_endpoint_id = "your ADO service endpoint ID"
 
 **a) Create a Resource Group**
 
-```hcl
+```plaintext
 resource "azurerm_resource_group" "rg" {
   name     = var.rg_name
   location = var.location
@@ -119,7 +119,7 @@ resource "azurerm_resource_group" "rg" {
 
 **b) Collect Required Data & Credentials**
 
-```hcl
+```plaintext
 data "azuredevops_project" "AKS-DEMO" { name = "AKS-DEMO" }
 data "azuread_service_principal" "tfServicepPrincipal" { display_name = "tfServicepPrincipal" }
 data "azurerm_subscription" "subscriptionID" {}
@@ -128,7 +128,7 @@ data "azurerm_client_config" "current" {}
 
 **c) Create Azure Key Vault and Assign Access Policies**
 
-```hcl
+```plaintext
 resource "azurerm_key_vault" "kv1" {
   depends_on = [azurerm_resource_group.rg, module.create_storage]
   name                       = var.kv_name
@@ -164,7 +164,7 @@ resource "azurerm_key_vault" "kv1" {
 
 **a) Call Storage Module**
 
-```hcl
+```plaintext
 module "create_storage" {
   source             = "../Modules/storage"
   rg_name            = var.rg_name
@@ -178,7 +178,7 @@ module "create_storage" {
 
 Terraform stores critical information such as client ID, secret, subscription ID, storage keys, etc., securely in Key Vault after the underlying resources are ready.
 
-```hcl
+```plaintext
 resource "azurerm_key_vault_secret" "client-id" {
   name         = "client-id"
   value        = data.azuread_service_principal.tfServicepPrincipal.application_id
@@ -194,7 +194,7 @@ resource "azurerm_key_vault_secret" "client-id" {
 
 **Deploy SQL Database and Store Connection Strings in Key Vault**
 
-```hcl
+```plaintext
 module "create_db" {
   source             = "../Modules/db"
   rg_name            = var.rg_name
@@ -213,7 +213,7 @@ module "create_db" {
 
 Finally, configure Azure DevOps to use the secrets from your Key Vault through a variable group. This enables your pipelines to consume secrets easily.
 
-```hcl
+```plaintext
 resource "azuredevops_variable_group" "azdevops-variable-group" {
   depends_on = [
     azurerm_key_vault_secret.client-id,
