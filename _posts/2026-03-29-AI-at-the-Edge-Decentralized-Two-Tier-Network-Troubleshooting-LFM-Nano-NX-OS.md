@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AI at the Edge: Decentralized Two-Tier Network Troubleshooting with Liquid AI LFM-Nano on Cisco NX-OS"
-date: 2026-03-24
+date: 2026-03-29
 excerpt: "From blank NX-OS switches to a self-diagnosing AI network: two-tier AI architecture using Liquid AI's LFM-Nano for edge inference directly on NX-OS hardware (no GPU), and any cloud LLM for multi-switch root cause analysis. Full build walkthrough using Gemini 2.5-flash."
 categories: [Networking, AI, NX-OS, Docker]
 tags:
