@@ -44,7 +44,7 @@ The lab consists of two Cisco NX-OS switches connected over a point-to-point OSP
 
 ### Topology
 
-![Edge AI topology — SW1 and SW2 running LFM-Nano locally, both reporting to a centralized cloud LLM over the management network](edge-ai.png)
+![Edge AI topology — SW1 and SW2 running LFM-Nano locally, both reporting to a centralized cloud LLM over the management network](/assets/img/edge-ai.png)
 
 | Node | IP | Role | AI Component |
 |------|----|------|-------------|
@@ -58,7 +58,7 @@ The lab consists of two Cisco NX-OS switches connected over a point-to-point OSP
 
 The system has two AI tiers. Both run in Docker containers — one on the switch, one on Ubuntu.
 
-![Edge AI system flow — rule engine and LFM-Nano on each switch, findings aggregated by cloud LLM on Ubuntu](edge-ai-flow.png)
+![Edge AI system flow — rule engine and LFM-Nano on each switch, findings aggregated by cloud LLM on Ubuntu](/assets/img/edge-ai-flow.png)
 
 **AI Tier 1 — LFM-Nano (Liquid AI):** Each switch runs an agent that polls syslog and route table every 10 seconds. A lightweight rule engine classifies events first — BGP Down, OSPF adjacency loss, route change, interface failure. If a problem is detected, LFM-Nano is invoked. Liquid AI designed LFM-Nano specifically for edge deployment: it runs on 4 vCPUs with under 1 GB RAM, no GPU required, and has no dependency on external network connectivity. The switch can analyze its own failures even when all its uplinks are down. Findings are posted as structured JSON to the central agent.
 
