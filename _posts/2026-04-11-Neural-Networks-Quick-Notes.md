@@ -684,7 +684,7 @@ During training, the model predicts the next token and then compares its predict
 
 Suppose the actual next word was `"cat"` but the model predicted `"dog"`. The distance between the prediction and the truth is measured by a **loss function**.
 
-Then **backpropagation** begins. Gradients flow backward through every component of the model:
+Then **backpropagation** begins. Gradients — which tell us how much each weight contributed to the error, and in which direction to adjust it — flow backward through every component of the model:
 
 1. Output weight matrix
 2. Feed-forward network weights
