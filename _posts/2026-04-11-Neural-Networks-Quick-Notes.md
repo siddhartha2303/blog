@@ -2,6 +2,7 @@
 layout: post
 title: "Neural Networks — Quick Notes to Get Up to Speed"
 date: 2026-04-11
+description: "Beginner-friendly quick notes on neural networks, transformers, attention, feed forward layers, embeddings and training."
 excerpt: "A quick set of notes covering neural network basics, GPU architecture, and how transformers work — focused on basic ideas, not deep theory."
 categories: [AI, Machine Learning, Deep Learning]
 tags:
