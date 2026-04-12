@@ -70,7 +70,7 @@ $$y = f(wx + b)$$
 
 > Not all Neural Networks are Deep Learning, but all Deep Learning is Neural Networks.
 
-![AI, ML, Neural Networks, Deep Learning hierarchy](AI.png)
+![AI, ML, Neural Networks, Deep Learning hierarchy](/assets/img/AI.png)
 
 ---
 
@@ -103,7 +103,7 @@ Neural networks — especially large ones — need to do an enormous number of m
 
 AI training is basically the same calculation repeated millions of times on huge amounts of data. That's a GPU's sweet spot.
 
-![GPU Architecture](gpu.jpg)
+![GPU Architecture](/assets/img/gpu.jpg)
 
 ---
 
@@ -171,7 +171,7 @@ Actual usage is higher — the GPU also needs memory for the **KV cache**, activ
 
 Here's the full transformer pipeline, step by step:
 
-![Transformer Attention Flow — the complete pipeline from raw input to predicted token](attention-flow.png)
+![Transformer Attention Flow — the complete pipeline from raw input to predicted token](/assets/img/attention-flow.png)
 *Figure: The complete transformer pipeline — from raw text to predicted next token, covering tokenization, embedding, attention, feed-forward layers, and the training/inference branches.*
 
 ---
