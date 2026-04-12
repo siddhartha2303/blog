@@ -75,9 +75,7 @@ Machine learning: `Data + Answers → Rules`
 
 **Neural Networks** are one type of ML. Loosely inspired by how neurons in the brain work — each node takes inputs, multiplies each by a weight (importance), adds a bias, then passes the result through an activation function:
 
-$$
-y = f(wx + b)
-$$
+<div>$$y = f(wx + b)$$</div>
 
 - **w** = weight — how much does this input matter?
 - **b** = bias — how easily does this neuron fire?
@@ -138,9 +136,7 @@ GPU threads are grouped in **warps** of 32. All 32 threads execute the same inst
 **FMA (Fused Multiply-Add):**  
 The core operation a GPU is optimized for:
 
-$$
-a \times b + c
-$$
+<div>$$a \times b + c$$</div>
 
 One instruction. This is exactly what a neuron computes: `wx + b`.
 
@@ -161,9 +157,7 @@ One instruction. This is exactly what a neuron computes: `wx + b`.
 
 When a model runs on a GPU, all its parameters must fit in **VRAM**. A rough rule:
 
-$$
-\text{VRAM} \approx \text{Parameters} \times \text{Bytes per parameter}
-$$
+<div>$$\text{VRAM} \approx \text{Parameters} \times \text{Bytes per parameter}$$</div>
 
 | Precision | Bytes/param | 7B model | 70B model |
 |---|---|---|---|
