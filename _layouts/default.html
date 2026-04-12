@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,14 +9,12 @@
 
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
 </head>
-<html lang="en">
-{% include head.html %}
-<body>
 
+<body>
   <div class="wrapper">
     {{ content }}
   </div>
-  
+
   {% include analytics.html %}
 </body>
 </html>
