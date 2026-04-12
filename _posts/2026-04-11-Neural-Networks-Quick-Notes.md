@@ -14,7 +14,7 @@ tags:
   - self-attention
   - backpropagation
 author: Siddhartha Ghosh
-img: neural-network.png
+img: neural-network.jpg
 ---
 
 <style>
