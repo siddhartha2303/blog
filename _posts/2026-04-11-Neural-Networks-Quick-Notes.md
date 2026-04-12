@@ -261,9 +261,9 @@ So if you have 10 tokens and embedding dimension = 768, the input matrix becomes
 
 | Token | Embedding Vector         | Shape |
 |-------|--------------------------|-------|
-| The   | $\left[\,{\color{#1A5276}{0.2}},\ {\color{#1A5276}{0.8}},\ {\color{#1A5276}{-0.1}},\ {\color{#1A5276}{0.5}}\,\right]$ | 1 × 4 |
-| cat   | $\left[\,{\color{#1A5276}{0.9}},\ {\color{#1A5276}{-0.3}},\ {\color{#1A5276}{0.7}},\ {\color{#1A5276}{0.1}}\,\right]$ | 1 × 4 |
-| sat   | $\left[\,{\color{#1A5276}{0.4}},\ {\color{#1A5276}{0.6}},\ {\color{#1A5276}{-0.2}},\ {\color{#1A5276}{0.9}}\,\right]$ | 1 × 4 |
+| The   | $$\left[\,{\color{#1A5276}{0.2}},\ {\color{#1A5276}{0.8}},\ {\color{#1A5276}{-0.1}},\ {\color{#1A5276}{0.5}}\,\right]$$ | 1 × 4 |
+| cat   | $$\left[\,{\color{#1A5276}{0.9}},\ {\color{#1A5276}{-0.3}},\ {\color{#1A5276}{0.7}},\ {\color{#1A5276}{0.1}}\,\right]$$ | 1 × 4 |
+| sat   | $$\left[\,{\color{#1A5276}{0.4}},\ {\color{#1A5276}{0.6}},\ {\color{#1A5276}{-0.2}},\ {\color{#1A5276}{0.9}}\,\right]$$ | 1 × 4 |
 
 When we stack all token vectors together, we get the embedding matrix **X**:
 
@@ -305,9 +305,9 @@ This combined matrix becomes the input to the first transformer layer.
 
 | Position | Position Vector       |
 |----------|-----------------------|
-| 1        | $\left[\,{\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}}\,\right]$ |
-| 2        | $\left[\,{\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}}\,\right]$ |
-| 3        | $\left[\,{\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.0}}\,\right]$ |
+| 1        | $$\left[\,{\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}}\,\right]$$ |
+| 2        | $$\left[\,{\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}}\,\right]$$ |
+| 3        | $$\left[\,{\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.0}}\,\right]$$ |
 
 **Adding positional vectors to embedding vectors:**
 
@@ -755,9 +755,9 @@ Suppose embedding size = 4. Every token becomes a vector with 4 numbers.
 
 | Token | Embedding Vector         | Shape |
 |-------|--------------------------|-------|
-| The   | $\left[\,{\color{#1A5276}{0.2}},\ {\color{#1A5276}{0.8}},\ {\color{#1A5276}{-0.1}},\ {\color{#1A5276}{0.5}}\,\right]$ | 1 × 4 |
-| cat   | $\left[\,{\color{#1A5276}{0.9}},\ {\color{#1A5276}{-0.3}},\ {\color{#1A5276}{0.7}},\ {\color{#1A5276}{0.1}}\,\right]$ | 1 × 4 |
-| sat   | $\left[\,{\color{#1A5276}{0.4}},\ {\color{#1A5276}{0.6}},\ {\color{#1A5276}{-0.2}},\ {\color{#1A5276}{0.9}}\,\right]$ | 1 × 4 |
+| The   | $$\left[\,{\color{#1A5276}{0.2}},\ {\color{#1A5276}{0.8}},\ {\color{#1A5276}{-0.1}},\ {\color{#1A5276}{0.5}}\,\right]$$ | 1 × 4 |
+| cat   | $$\left[\,{\color{#1A5276}{0.9}},\ {\color{#1A5276}{-0.3}},\ {\color{#1A5276}{0.7}},\ {\color{#1A5276}{0.1}}\,\right]$$ | 1 × 4 |
+| sat   | $$\left[\,{\color{#1A5276}{0.4}},\ {\color{#1A5276}{0.6}},\ {\color{#1A5276}{-0.2}},\ {\color{#1A5276}{0.9}}\,\right]$$ | 1 × 4 |
 
 Stack all three vectors into matrix **X**:
 
@@ -773,9 +773,9 @@ Suppose positional vectors are:
 
 | Position | Position Vector       |
 |----------|-----------------------|
-| 1        | $\left[\,{\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}}\,\right]$ |
-| 2        | $\left[\,{\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}}\,\right]$ |
-| 3        | $\left[\,{\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.0}}\,\right]$ |
+| 1        | $$\left[\,{\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}}\,\right]$$ |
+| 2        | $$\left[\,{\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.1}}\,\right]$$ |
+| 3        | $$\left[\,{\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.1}},\ {\color{#1E6B4A}{0.0}},\ {\color{#1E6B4A}{0.0}}\,\right]$$ |
 
 Add position to embedding for each token:
 
