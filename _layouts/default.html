@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% include head.html %}
 
-  {% seo %}
+  <body>
+    <div class="wrapper">
+      {{ content }}
+    </div>
 
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
-</head>
-
-<body>
-  <div class="wrapper">
-    {{ content }}
-  </div>
-
-  {% include analytics.html %}
-</body>
+    {% include analytics.html %}
+  </body>
 </html>
