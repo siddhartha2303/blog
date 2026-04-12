@@ -43,10 +43,10 @@ mjx-container[display]    { text-align: left !important; margin-left: 1.6em !imp
 
 <script>
 MathJax = {
+  loader: {load: ['[tex]/color']},
   tex: {
     inlineMath: [['$', '$'], ['\\(', '\\)']],
     displayMath: [['$$', '$$'], ['\\[', '\\]']],
-    tags: 'none',
     packages: {'[+]': ['color']}
   },
   options: {
@@ -54,7 +54,7 @@ MathJax = {
   }
 };
 </script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
 
 The idea behind this write-up is to gather basic information and put it in the form of quick notes — so anyone reading it, including myself, can understand things without spending too much time looking through multiple places. There is a lot of content out there on AI, but most of it either goes too deep into theory or assumes you already know the basics. This is an attempt to bridge that gap.
 
