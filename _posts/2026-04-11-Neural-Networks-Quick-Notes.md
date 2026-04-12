@@ -692,7 +692,7 @@ Then **backpropagation** begins. Gradients — which tell us how much each weigh
 4. Embedding weights
 5. Positional embeddings (if trainable)
 
-An optimizer (e.g., Adam) then **nudges every weight slightly** in the direction that reduces the loss. One small update. Then the next training example runs. Then another update. This repeats **billions or trillions of times** on vast datasets.
+This is where **gradient descent** comes in — it's the mechanism used to minimise the loss by repeatedly adjusting weights in the direction that reduces the error. An optimizer (e.g., Adam) then **nudges every weight slightly** in the direction that reduces the loss. One small update. Then the next training example runs. Then another update. This repeats **billions or trillions of times** on vast datasets.
 
 At the start of training, every weight is random. The model produces gibberish. Over time — across billions of examples — the weights slowly converge. The model begins to learn:
 
