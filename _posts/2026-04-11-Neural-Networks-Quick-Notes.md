@@ -249,7 +249,7 @@ cat = 587
 
 It becomes something like:
 
-$$\text{cat} = \left[\,{\color{#1A5276}{0.21}},\ {\color{#1A5276}{-0.54}},\ {\color{#1A5276}{1.12}},\ {\color{#1A5276}{0.03}},\ {\color{#1A5276}{\ldots}}\,\right]$$
+<div>$$\text{cat} = \left[\,{\color{#1A5276}{0.21}},\ {\color{#1A5276}{-0.54}},\ {\color{#1A5276}{1.12}},\ {\color{#1A5276}{0.03}},\ {\color{#1A5276}{\ldots}}\,\right]$$</div>
 
 This vector can have **hundreds or thousands of dimensions**. The embedding space is learned during training — it is not hand-crafted. Concepts that are semantically similar end up with similar vector patterns.
 
