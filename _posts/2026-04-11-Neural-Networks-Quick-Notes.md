@@ -172,6 +172,8 @@ Actual usage is higher — the GPU also needs memory for the **KV cache**, activ
 
 **Distillation** — train a small *student* model to mimic a large *teacher* model. The student learns from the teacher's outputs, not raw data. Result: a smaller, faster model that retains most of the capability.
 
+**Fine-tuning** — take a pre-trained model and continue training it on a smaller, task-specific dataset. The weights already learned during pre-training are adjusted to make the model better at a specific task or domain. For example, taking a general-purpose LLM and fine-tuning it on medical records to make it better at clinical language. Much cheaper than training from scratch since the model already understands language — you are just steering it.
+
 ---
 
 ### Other Chips Worth Knowing
