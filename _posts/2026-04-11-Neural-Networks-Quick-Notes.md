@@ -779,6 +779,37 @@ At the start of training, every weight is random. The model produces gibberish. 
 
 Training is the entire mechanism by which knowledge enters the model. The weights are the knowledge.
 
+<div class="attention-insight">
+
+<div class="attention-insight-title">
+Parallelism — Making Large Models Fit and Run
+</div>
+
+<p>
+As models grow larger, a single GPU is no longer enough to hold all the parameters or handle the computation efficiently. To solve this, we distribute the model and its workload across multiple GPUs. This is where different forms of parallelism come into play.
+</p>
+
+<p>
+One common approach is pipeline parallelism. In this setup, the model is divided layer-wise across multiple GPUs. For example, the first few layers may run on one GPU, the next set on another, and so on. Data flows sequentially through these GPUs, much like an assembly line. While this allows very large models to run, it introduces challenges such as idle time (pipeline bubbles) and coordination overhead between stages.
+</p>
+
+<p>
+Another approach is data parallelism, where the same model is copied across multiple GPUs, and each GPU processes a different batch of data. After computation, gradients are synchronized across all GPUs. This is one of the most widely used methods because it is simple and scales well for training, but it does not reduce the memory requirement of a single model copy.
+</p>
+
+<p>
+Model parallelism takes a different approach by splitting the model itself across GPUs. Instead of dividing by layers like pipeline parallelism, individual components of a layer (such as matrix multiplications) are distributed. This allows very large layers to be computed in parallel, but requires careful coordination between devices.
+</p>
+
+<p>
+In modern systems, these approaches are often combined. For example, a model may use pipeline parallelism across layers, tensor (model) parallelism within layers, and data parallelism across batches. This combination enables training and inference of extremely large models that would otherwise not be possible on a single machine.
+</p>
+
+<p>
+These parallelism techniques are not just optimizations — they are fundamental to scaling modern AI systems. Without them, large language models would not be able to grow beyond the limits of a single GPU.
+</p>
+
+</div>
 ---
 
 ## Part 12 — Inference: Using What Was Learned
