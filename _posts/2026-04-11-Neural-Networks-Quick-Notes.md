@@ -641,13 +641,21 @@ By the time a token's representation has passed through all layers, it carries a
 Attention Residual — When Deep Thinking Starts Forgetting
 </div>
 
+<p>
 We start with calculations, and as the process grows with steps, the volume of calculations also increases. After a certain number of steps or numbers processed, the working memory becomes overwhelmed, and we completely lose the thread we were originally trying to solve. It is like a localized amnesia in thinking, where we go so deep that we forget our own earlier thoughts. Our working memory also has limits; if we think too long or too deeply, we begin to lose track, almost like a form of amnesia.
+</p>
 
+<p>
 In large language models as well, the level of deep thinking is based on how many Attention and FNN layers we add. If we make the model too deep, it becomes very hard to train because backpropagation has to travel all the way backward to tune the weights. With too many layers, the gradients can vanish by the time they reach the first blocks, making learning difficult.
+</p>
 
+<p>
 Before transformers, we had RNNs that processed one word at a time. By the time we reached the end of a sentence, we often forgot the beginning. Attention solved this by allowing selective access to information using query, key, and value, instead of relying purely on sequential memory.
+</p>
 
+<p>
 The human brain also follows a similar attention mechanism. When we think, we do not accumulate thoughts blindly; we pause, discard irrelevant ideas, pick what is relevant, and focus on what matters. The brain is continuously rewiring itself, a process known as neuroplasticity. This may point toward a way forward for building self-improving AI systems (https://arxiv.org/abs/2603.15031).
+</p>
 
 </div>
 
