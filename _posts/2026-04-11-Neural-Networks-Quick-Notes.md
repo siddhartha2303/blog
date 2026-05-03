@@ -790,11 +790,11 @@ As models grow larger, a single GPU is no longer enough to hold all the paramete
 </p>
 
 <p>
-One common approach is pipeline parallelism. In this setup, the model is divided layer-wise across multiple GPUs. For example, the first few layers may run on one GPU, the next set on another, and so on. Data flows sequentially through these GPUs, much like an assembly line. While this allows very large models to run, it introduces challenges such as idle time (pipeline bubbles) and coordination overhead between stages.
+One common approach is <b>Pipeline Parallelism</b>. In this setup, the model is divided layer-wise across multiple GPUs. For example, the first few layers may run on one GPU, the next set on another, and so on. Data flows sequentially through these GPUs, much like an assembly line. While this allows very large models to run, it introduces challenges such as idle time (pipeline bubbles) and coordination overhead between stages.
 </p>
 
 <p>
-Another approach is data parallelism, where the same model is copied across multiple GPUs, and each GPU processes a different batch of data. After computation, gradients are synchronized across all GPUs. This is one of the most widely used methods because it is simple and scales well for training, but it does not reduce the memory requirement of a single model copy.
+Another approach is <b>Data Parallelism</b>, where the same model is copied across multiple GPUs, and each GPU processes a different batch of data. After computation, gradients are synchronized across all GPUs. This is one of the most widely used methods because it is simple and scales well for training, but it does not reduce the memory requirement of a single model copy.
 </p>
 
 <p>
