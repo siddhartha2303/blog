@@ -5,8 +5,8 @@ layout: main
   <div class="page-content">
     {% if page.img %}
     <div class="page-cover-image" style="margin-bottom:48px;">
-    <figure style="margin:0;">
-      <img class="page-image" src={{ "/assets/img/" | prepend: site.baseurl | append : page.img}} alt="{{page.title}}" style="width:100%; max-width:none; height:320px; object-fit:cover; display:block; margin:0;">
+      <figure style="margin:0;">
+        <img class="page-image" src={{ "/assets/img/" | prepend: site.baseurl | append : page.img}} alt="{{page.title}}" style="width:100%; max-width:none; height:auto; object-fit:contain; display:block; margin:0; border-radius:0;">
         
         {% if page.fig-caption %}
           <figcaption style="text-align:center; color:transparent; font-size:1rem; margin-top:4px; font-style:italic;">{{page.fig-caption}}</figcaption>
