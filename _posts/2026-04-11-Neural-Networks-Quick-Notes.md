@@ -40,6 +40,21 @@ mjx-container[display]    { text-align: left !important; margin-left: 1.6em !imp
   padding: 1.4em 1.8em;
   margin: 2em 0;
 }
+.attention-insight {
+  background: linear-gradient(135deg, #F5F3FF, #EEF2FF);
+  border-left: 6px solid #7C3AED;
+  border-radius: 10px;
+  padding: 1.6em 1.8em;
+  margin: 2em 0;
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.08);
+}
+
+.attention-insight-title {
+  color: #5B21B6;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 0.6em;
+}
 </style>
 
 <script>
@@ -619,6 +634,22 @@ As layers go deeper, they learn progressively more abstract representations:
 | Higher layers | Meaning, reasoning, intent, tone, prediction |
 
 By the time a token's representation has passed through all layers, it carries a rich, context-saturated encoding of what that token means in that specific sentence.
+
+<div class="attention-insight">
+
+<div class="attention-insight-title">
+Attention Residual — When Deep Thinking Starts Forgetting
+</div>
+
+We start with calculations, and as the process grows with steps, the volume of calculations also increases. After a certain number of steps or numbers processed, the working memory becomes overwhelmed, and we completely lose the thread we were originally trying to solve. It is like a localized amnesia in thinking, where we go so deep that we forget our own earlier thoughts. Our working memory also has limits; if we think too long or too deeply, we begin to lose track, almost like a form of amnesia.
+
+In large language models as well, the level of deep thinking is based on how many Attention and FNN layers we add. If we make the model too deep, it becomes very hard to train because backpropagation has to travel all the way backward to tune the weights. With too many layers, the gradients can vanish by the time they reach the first blocks, making learning difficult.
+
+Before transformers, we had RNNs that processed one word at a time. By the time we reached the end of a sentence, we often forgot the beginning. Attention solved this by allowing selective access to information using query, key, and value, instead of relying purely on sequential memory.
+
+The human brain also follows a similar attention mechanism. When we think, we do not accumulate thoughts blindly; we pause, discard irrelevant ideas, pick what is relevant, and focus on what matters. The brain is continuously rewiring itself, a process known as neuroplasticity. This may point toward a way forward for building self-improving AI systems (https://arxiv.org/abs/2603.15031).
+
+</div>
 
 ---
 
