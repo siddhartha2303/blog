@@ -604,7 +604,41 @@ The token `"The"` now has a richer representation $\left[\,{\color{#6C3483}{0.72
 
 </div>
 
+<div class="attention-insight">
 
+<div class="attention-insight-title">
+Mixture of Experts (MoE) — Making Feed-Forward Smarter, Not Bigger
+</div>
+
+<p>
+The feed-forward network (FNN) is one of the most compute-heavy parts of a transformer. As models grow deeper and wider, the FNN becomes a bottleneck — increasing both computation and memory usage. Mixture of Experts (MoE) is an approach that enhances the FNN without making every token go through the full computation.
+</p>
+
+<p>
+Instead of a single FNN, MoE introduces multiple smaller networks called experts. A routing mechanism (router) decides which experts should process a given token. This routing happens after the attention output has passed through residual connection and layer normalization.
+</p>
+
+<p>
+The router takes the input representation and produces a score for each expert. Basically, under the hood Router weight matrix are multiplied to the output matrix from attention block and a small amount of noise (often Gaussian noise) is added to the router scores to avoid always selecting the same experts. This introduces randomness, ensuring better load balancing across experts and preventing the model from over-relying on a fixed subset. This controlled randomness plays an important role in making the system more robust.
+</p>
+
+<p>
+A softmax is applied to convert these scores into a probability distribution. Based on this, only the top-k experts are selected for each token, instead of using all experts.
+</p>
+
+<p>
+The selected experts process the input independently, and their outputs are weighted using the router probabilities. These weighted outputs are then summed to produce the final output of the MoE layer.
+</p>
+
+<p>
+The key benefit of MoE is that while the model has access to a very large number of parameters (all experts), only a small subset is activated for each token. This makes inference faster compared to using a single massive FNN. However, all expert weights still need to reside in memory, so memory requirements remain high. So, this is basically more of a computational benefit that Memory reduction.
+</p>
+
+<p>
+In simple terms, MoE allows the model to scale its capacity without proportionally increasing computation. It is like having many specialists available, but only consulting a few of them for each decision. Many of today's model uses MOE architecture.
+</p>
+
+</div>
 ---
 
 ## Part 9 — Multiple Layers: Stacking and Deepening
