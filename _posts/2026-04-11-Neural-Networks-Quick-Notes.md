@@ -201,6 +201,24 @@ Actual usage is higher — the GPU also needs memory for the **KV cache**, activ
 **NPU (Neural Processing Unit)** — chip designed specifically for AI. Found in modern phones, PCs, cars, and IoT devices. Runs AI models efficiently at low power — handles on-device inference without needing a cloud GPU.
 
 ---
+## LLM Training
+
+Large Language Models (LLMs) are not trained in a single step. The process happens in stages, where each stage builds on top of the previous one.
+
+At a high level, training starts with pre-training on massive amounts of unlabeled data, where the model learns language patterns by predicting the next token. This gives us a base model that understands grammar, structure, and general knowledge.
+
+This is followed by post-training, where the model is refined using human guidance. First, supervised fine-tuning (SFT) teaches the model how to respond properly using labeled examples. Then, a reward model is trained based on human feedback to understand which responses are better.
+
+Finally, reinforcement learning is applied to optimize the model using this reward signal, aligning it with human preferences.
+
+This multi-stage pipeline is what makes modern LLMs both powerful and usable in real-world applications.
+
+![LLM Training Pipeline — how modern language models are trained](/assets/img/training.png)
+*Figure: Overview of LLM training — pre-training builds language understanding, while post-training (SFT and RLHF) refines the model using human feedback and reward-based optimization.*
+
+## Pre-Training — Inside the Transformer
+
+Now that we understand the overall training pipeline, let’s zoom into the pre-training stage and see how the transformer actually works internally.
 
 Here's the full transformer pipeline, step by step:
 
@@ -209,7 +227,7 @@ Here's the full transformer pipeline, step by step:
 
 ---
 
-## Part 1 — Tokenization: Breaking Language into Pieces
+### Part 1 — Tokenization: Breaking Language into Pieces
 
 The first thing a transformer does is convert raw text into something it can actually work with numerically. That process is called **tokenization**.
 
@@ -255,7 +273,7 @@ At this point, the model still does not know meaning. It only has integer IDs.
 
 ---
 
-## Part 2 — Embedding: Converting IDs into Meaningful Vectors
+### Part 2 — Embedding: Converting IDs into Meaningful Vectors
 
 A raw integer ID carries no semantic weight. The number `587` does not tell the model anything about cats. So the next step converts each token ID into a **vector of floating-point numbers** — a representation that can actually encode meaning.
 
@@ -309,7 +327,7 @@ Shape: **3 × 4** — 3 rows (tokens) × 4 columns (embedding dimension)
 
 ---
 
-## Part 3 — Positional Encoding: Giving Order to the Tokens
+### Part 3 — Positional Encoding: Giving Order to the Tokens
 
 Here is a subtle but critical problem: embeddings alone have **no sense of order**.
 
@@ -364,7 +382,7 @@ Shape: **3 × 4** (unchanged — meaning + position now encoded in each row)
 
 ---
 
-## Part 4 — Entering the Attention Block: Query, Key, and Value
+### Part 4 — Entering the Attention Block: Query, Key, and Value
 
 Now attention begins. This is the mechanism that makes transformers transformative.
 
@@ -423,7 +441,7 @@ Shape: **3 × 2**
 
 ---
 
-## Part 5 — Attention Score Calculation
+### Part 5 — Attention Score Calculation
 
 Now each token compares its **Query** with every other token's **Key**. This is done using the **dot product** — a measure of how aligned two vectors are.
 
@@ -487,7 +505,7 @@ The model now knows, for every token, how much it should attend to every other t
 
 ---
 
-## Part 6 — Weighted Combination of Values
+### Part 6 — Weighted Combination of Values
 
 With attention probabilities in hand, the model now computes a **weighted sum of the Value vectors**.
 
@@ -532,7 +550,7 @@ Every token in the sequence gets a new vector through this same process. The fin
 
 ---
 
-## Part 7 — Residual Connection and Layer Normalization
+### Part 7 — Residual Connection and Layer Normalization
 
 After the attention output is produced, it is **not** simply passed forward on its own. Two stabilizing operations happen first.
 
@@ -565,7 +583,7 @@ Residual connections and layer normalization happen **both** after the attention
 
 ---
 
-## Part 8 — Feed-Forward Network: Deeper Pattern Extraction
+### Part 8 — Feed-Forward Network: Deeper Pattern Extraction
 
 After attention, each token has accumulated context from the rest of the sequence. Now the **feed-forward network** processes each token independently to extract deeper patterns from that context.
 
@@ -641,7 +659,7 @@ In simple terms, MoE allows the model to scale its capacity without proportional
 </div>
 ---
 
-## Part 9 — Multiple Layers: Stacking and Deepening
+### Part 9 — Multiple Layers: Stacking and Deepening
 
 The attention + residual + feed-forward sequence does not happen only once. A transformer stacks many such layers on top of each other.
 
@@ -695,7 +713,7 @@ The human brain also follows a similar attention mechanism. When we think, we do
 
 ---
 
-## Part 10 — Final Hidden State to Logits
+### Part 10 — Final Hidden State to Logits
 
 After the final transformer layer, each token has a **final hidden representation** — a vector that encodes everything the model has learned about that token in context.
 
@@ -752,7 +770,7 @@ Predicted next token: **sat**
 
 ---
 
-## Part 11 — Training: Learning from Mistakes
+### Part 11 — Training: Learning from Mistakes
 
 During training, the model predicts the next token and then compares its prediction against the actual correct answer.
 
@@ -812,7 +830,7 @@ These parallelism techniques are not just optimizations — they are fundamental
 </div>
 ---
 
-## Part 12 — Inference: Using What Was Learned
+### Part 12 — Inference: Using What Was Learned
 
 Inference is considerably simpler than training. The model's weights are frozen — nothing is updated. The model only uses what it learned.
 
@@ -851,7 +869,7 @@ Each new token becomes part of the context for generating the next one. The mode
 
 <div class="worked-example" markdown="1">
 
-## Part 13 — Full Worked Example: "The cat sat"
+### Part 13 — Full Worked Example: "The cat sat"
 
 Let us now trace the complete pipeline from start to finish with every intermediate matrix shown explicitly. The sentence is:
 
@@ -859,7 +877,7 @@ Let us now trace the complete pipeline from start to finish with every intermedi
 
 ---
 
-### Step 1 — Tokenization
+#### Step 1 — Tokenization
 
 After tokenization we have 3 tokens:
 
@@ -871,7 +889,7 @@ After tokenization we have 3 tokens:
 
 ---
 
-### Step 2 — Embedding Matrix (X)
+#### Step 2 — Embedding Matrix (X)
 
 Suppose embedding size = 4. Every token becomes a vector with 4 numbers.
 
@@ -889,7 +907,7 @@ Shape: **3 × 4** — 3 tokens × embedding size 4
 
 ---
 
-### Step 3 — Positional Encoding (Xpos)
+#### Step 3 — Positional Encoding (Xpos)
 
 Suppose positional vectors are:
 
@@ -921,7 +939,7 @@ Shape: **3 × 4** (same shape, now meaning + position encoded)
 
 ---
 
-### Step 4 — Query Matrix (Q)
+#### Step 4 — Query Matrix (Q)
 
 Query weight matrix:
 
@@ -943,7 +961,7 @@ Each row is one token's query vector.
 
 ---
 
-### Step 5 — Key and Value Matrices (K, V)
+#### Step 5 — Key and Value Matrices (K, V)
 
 Similarly compute K and V using their respective weight matrices:
 
@@ -957,7 +975,7 @@ Shape: **3 × 2**
 
 ---
 
-### Step 6 — Attention Scores (QKᵀ)
+#### Step 6 — Attention Scores (QKᵀ)
 
 Compute the attention score matrix:
 
@@ -981,7 +999,7 @@ Row 1 shows how much `"The"` attends to each token:
 
 ---
 
-### Step 7 — Softmax: Attention Probabilities
+#### Step 7 — Softmax: Attention Probabilities
 
 Apply softmax to each row to convert scores into probabilities:
 
@@ -994,7 +1012,7 @@ Interpretation:
 
 ---
 
-### Step 8 — Weighted Sum of Values
+#### Step 8 — Weighted Sum of Values
 
 Multiply attention probabilities by the Value matrix to get context-aware token representations.
 
@@ -1026,7 +1044,7 @@ Every token goes through this same process. Final attention output shape:
 
 ---
 
-### Step 9 — Feed-Forward Layer
+#### Step 9 — Feed-Forward Layer
 
 After residual connection and layer normalization, the token enters the feed-forward network.
 
@@ -1050,7 +1068,7 @@ Final representation for `"The"` after this layer: $\left[\,{\color{#6C3483}{0.7
 
 ---
 
-### Step 10 — Final Logits and Prediction
+#### Step 10 — Final Logits and Prediction
 
 After all transformer layers complete, take the final hidden vector of the last token:
 
