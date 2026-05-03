@@ -121,8 +121,6 @@ Different architectures suit different types of data:
 
 ---
 
----
-
 ## GPU and the Hardware Behind AI
 
 Neural networks — especially large ones — need to do an enormous number of matrix multiplications, additions, and activation functions. A CPU can do this, but slowly. A GPU is built for exactly this kind of work.
