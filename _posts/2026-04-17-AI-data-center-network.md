@@ -367,7 +367,6 @@ The visual comparison below captures where the behavior changes and why AI fabri
 
   .blog-story .story-lead {
     color: #0f172a;
-    font-size: 1.04rem;
   }
 
   .story-mark {
