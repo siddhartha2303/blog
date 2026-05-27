@@ -15,7 +15,7 @@ tags:
   - infiniband
   - ethernet
   - traffic-engineering
-img: ai-datacenter-traffic.png
+img: Ai-dc.png
 ---
 
 # Network for AI Data Center
