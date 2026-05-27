@@ -18,8 +18,6 @@ tags:
 img: ai-datacenter-traffic.png
 ---
 
-<div class="ai-article">
-
 # Network for AI Data Center
 
 For many years, the data center network was built for application traffic. Web servers talked to app servers, app servers talked to databases, storage traffic moved in the background, and most flows were independent. Some flows were large and many were small, but the network could usually rely on familiar tools: buffering, TCP backoff, retransmission, ECMP, QoS, and a reasonably oversubscribed leaf-spine fabric.
@@ -53,13 +51,15 @@ The visual comparison below captures where the behavior changes and why AI fabri
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
-  .ai-article,
-  .ai-article * {
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-
   .dc-visual * {
     box-sizing: border-box;
+  }
+
+  .dc-visual,
+  .dc-visual *,
+  .blog-story,
+  .blog-story * {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   .dc-hero {
@@ -665,5 +665,4 @@ The visual comparison below captures where the behavior changes and why AI fabri
   <p>Inference adds another twist. If a model is served from one GPU or one server, the network may mostly carry user requests, retrieval calls, storage access, or service-to-service traffic. A traditional Ethernet design may be enough. But when inference scales into multi-GPU or multi-node serving, the network starts to affect token latency, batching efficiency, cache movement, and tail behavior. The same fabric ideas return: avoid incast, reduce hot paths, protect RDMA traffic when it is used, and design topology for predictable east-west movement.</p>
   <p class="story-rule">The practical rule is to match the network to the communication pattern. Use <span class="story-green">NVLink and NVSwitch</span> for scale-up GPU communication inside a server or tightly coupled system. Use <span class="story-net">RoCEv2</span> when Ethernet integration matters and the team can operate a tuned lossless fabric. Use <span class="story-ai">InfiniBand</span> when the cluster is built primarily for high-performance AI or HPC communication. Use <span class="story-warn">Clos, Ply3, Dragonfly, fat-tree, and rail-optimized layouts</span> when the problem is not just connecting nodes, but keeping synchronized GPU communication predictable at scale.</p>
   <p>That is the larger shift. Traditional networking connected applications. AI data center networking has to support the rhythm of the workload itself: synchronized training phases, bursty inference paths, long tensor transfers, RDMA traffic, topology-aware scheduling, and GPU-to-GPU movement. The network is still transport, but in AI it also becomes a performance boundary.</p>
-</div>
 </div>
