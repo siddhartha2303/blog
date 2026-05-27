@@ -18,8 +18,6 @@ tags:
 img: Ai-dc.png
 ---
 
-# Network for AI Data Center
-
 For many years, the data center network was built for application traffic. Web servers talked to app servers, app servers talked to databases, storage traffic moved in the background, and most flows were independent. Some flows were large and many were small, but the network could usually rely on familiar tools: buffering, TCP backoff, retransmission, ECMP, QoS, and a reasonably oversubscribed leaf-spine fabric.
 
 That design worked because the application was usually above the network. If one flow slowed down, the impact was often local. A user request might take longer, a database call might retry, or a file transfer might finish a little later. The network mattered, but it was not usually part of a tightly synchronized compute loop.
