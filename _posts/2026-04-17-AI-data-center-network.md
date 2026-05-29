@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Network for AI Data Center"
-date: 2026-05-27
+date: 2026-05-16
 description: "A guide-style comparison of AI data center traffic patterns, remediation techniques, and terminology versus traditional data center networking."
 excerpt: "A practical guide to the shift from traditional data center networking to AI data center fabrics, covering incast, elephant flows, topology, GPU-to-GPU communication, RoCEv2, and InfiniBand."
 categories: [AI, Networking, Data Center]
