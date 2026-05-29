@@ -638,7 +638,7 @@ The visual comparison below captures where the behavior changes and why AI fabri
       </div>
       <div class="dc-stat">
         <strong>Lossless transport pressure</strong>
-        <span>RoCE, InfiniBand, ECN, and PFC become core design concerns.</span>
+        <span>RoCE, InfiniBand, ECN, and PFC become core design requirements.</span>
       </div>
       <div class="dc-stat">
         <strong>Fabric-aware scheduling</strong>
