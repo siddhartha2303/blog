@@ -638,7 +638,7 @@ The visual comparison below captures where the behavior changes and why AI fabri
       </div>
       <div class="dc-stat">
         <strong>Lossless transport pressure</strong>
-        <span>RoCE, InfiniBand, ECN, and PFC become core design requirements.</span>
+        <span>RoCE, InfiniBand, ECN, and PFC become core design requirement.</span>
       </div>
       <div class="dc-stat">
         <strong>Fabric-aware scheduling</strong>
@@ -671,7 +671,7 @@ The visual comparison below captures where the behavior changes and why AI fabri
         <tbody>
           <tr>
             <td>Synchronization<span class="dc-tagline">Lockstep movement</span></td>
-            <td class="ai-cell">Thousands of GPUs communicate together</td>
+            <td class="ai-cell">Thousands of GPUs communicate together; one slow path or GPU can stall the phase</td>
             <td class="rem-cell">Congestion-aware traffic spreading and locality optimization</td>
             <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">Adaptive Routing</span><span class="dc-chip tech">Rail Optimization</span><span class="dc-chip tech">Topology-Aware Scheduling</span></div></td>
             <td class="normal-cell">Mostly independent flows</td>
@@ -682,25 +682,25 @@ The visual comparison below captures where the behavior changes and why AI fabri
             <td>Incast<span class="dc-tagline">Many-to-one pressure</span></td>
             <td class="ai-cell">Many senders target one receiver simultaneously</td>
             <td class="rem-cell">Queue protection and early congestion signaling</td>
-            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">ECN</span><span class="dc-chip tech">PFC</span><span class="dc-chip tech">VOQ</span><span class="dc-chip tech">DCQCN</span></div></td>
+            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">ECN/DCQCN</span><span class="dc-chip tech">PFC</span><span class="dc-chip tech">VOQ</span></div></td>
             <td class="normal-cell">Smaller-scale incast</td>
             <td class="normal-cell">TCP-based congestion handling</td>
             <td class="normal-cell"><span class="dc-chip normal">TCP Congestion Control</span></td>
           </tr>
           <tr>
-            <td>Elephant Flows<span class="dc-tagline">Large transfers</span></td>
-            <td class="ai-cell">Huge continuous tensor transfers</td>
-            <td class="rem-cell">Dynamic flow distribution</td>
-            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">Flowlet Switching</span><span class="dc-chip tech">Adaptive ECMP</span></div></td>
-            <td class="normal-cell">Mixed small and medium flows</td>
-            <td class="normal-cell">QoS and traffic engineering</td>
+            <td>Elephant Flows<span class="dc-tagline">Large long-running transfers</span></td>
+            <td class="ai-cell">Long-lived high-bandwidth tensor transfers</td>
+            <td class="rem-cell">Dynamic flow distribution across multiple paths</td>
+            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">Flowlet Switching</span><span class="dc-chip tech">Adaptive ECMP</span><span class="dc-chip tech">Dynamic Load Balancing</span></div></td>
+            <td class="normal-cell">Mixed small, medium, and shorter-lived flows</td>
+            <td class="normal-cell">QoS, traffic engineering, and static multipath routing</td>
             <td class="normal-cell"><div class="dc-chip-row"><span class="dc-chip normal">QoS</span><span class="dc-chip normal">ECMP</span></div></td>
           </tr>
           <tr>
             <td>Communication Pattern<span class="dc-tagline">Collective operations</span></td>
             <td class="ai-cell">Collective communication such as all-reduce and all-gather</td>
             <td class="rem-cell">Optimize collective operations</td>
-            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">NCCL</span><span class="dc-chip tech">SHARP</span><span class="dc-chip tech">Hierarchical Collectives</span></div></td>
+            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">NCCL</span><span class="dc-chip tech">SHARP</span></div></td>
             <td class="normal-cell">Client-server and request-response</td>
             <td class="normal-cell">Standard routing</td>
             <td class="normal-cell"><span class="dc-chip normal">TCP/IP Routing</span></td>
@@ -713,24 +713,6 @@ The visual comparison below captures where the behavior changes and why AI fabri
             <td class="normal-cell">Random bursts</td>
             <td class="normal-cell">TCP backoff and buffering</td>
             <td class="normal-cell"><span class="dc-chip normal">TCP Windowing</span></td>
-          </tr>
-          <tr>
-            <td>Latency Sensitivity<span class="dc-tagline">Tail latency risk</span></td>
-            <td class="ai-cell">One slow GPU stalls all others</td>
-            <td class="rem-cell">Tail-latency minimization</td>
-            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">Adaptive Routing</span><span class="dc-chip tech">Lossless Ethernet</span></div></td>
-            <td class="normal-cell">Usually localized impact</td>
-            <td class="normal-cell">Best-effort latency handling</td>
-            <td class="normal-cell"><span class="dc-chip normal">QoS</span></td>
-          </tr>
-          <tr>
-            <td>Flow Duration<span class="dc-tagline">Long-running transfers</span></td>
-            <td class="ai-cell">Long-lived high-bandwidth flows</td>
-            <td class="rem-cell">Multi-path dynamic balancing</td>
-            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">Flowlet Switching</span><span class="dc-chip tech">Dynamic Load Balancing</span></div></td>
-            <td class="normal-cell">Mostly short-lived flows</td>
-            <td class="normal-cell">Static multipath routing</td>
-            <td class="normal-cell"><span class="dc-chip normal">ECMP</span></td>
           </tr>
           <tr>
             <td>Bandwidth Usage<span class="dc-tagline">Near line rate</span></td>
@@ -763,7 +745,7 @@ The visual comparison below captures where the behavior changes and why AI fabri
             <td>Congestion Behavior<span class="dc-tagline">Hotspots</span></td>
             <td class="ai-cell">Rapid hotspot formation</td>
             <td class="rem-cell">Dynamic congestion avoidance</td>
-            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">CONGA</span><span class="dc-chip tech">Adaptive Routing</span></div></td>
+            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">Adaptive Routing</span></div></td>
             <td class="normal-cell">Distributed congestion</td>
             <td class="normal-cell">TCP congestion response</td>
             <td class="normal-cell"><span class="dc-chip normal">TCP AIMD</span></td>
@@ -772,7 +754,7 @@ The visual comparison below captures where the behavior changes and why AI fabri
             <td>Packet Loss Tolerance<span class="dc-tagline">Low-loss design</span></td>
             <td class="ai-cell">Very low tolerance</td>
             <td class="rem-cell">Lossless Ethernet transport</td>
-            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">PFC</span><span class="dc-chip tech">ECN</span><span class="dc-chip tech">RoCEv2</span><span class="dc-chip tech">InfiniBand</span></div></td>
+            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">PFC</span><span class="dc-chip tech">ETS</span><span class="dc-chip tech">ECN/DCQCN</span><span class="dc-chip tech">RoCEv2</span><span class="dc-chip tech">InfiniBand</span></div></td>
             <td class="normal-cell">More tolerant</td>
             <td class="normal-cell">Packet retransmission</td>
             <td class="normal-cell"><span class="dc-chip normal">TCP Retransmission</span></td>
@@ -781,7 +763,7 @@ The visual comparison below captures where the behavior changes and why AI fabri
             <td>Queue Behavior<span class="dc-tagline">Microbursts</span></td>
             <td class="ai-cell">Heavy microbursts and queue buildup</td>
             <td class="rem-cell">Queue isolation and deep buffering</td>
-            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">VOQ</span><span class="dc-chip tech">WRED</span><span class="dc-chip tech">Deep Buffers</span></div></td>
+            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">VOQ</span><span class="dc-chip tech">ECN/DCQCN</span><span class="dc-chip tech">Deep Buffers</span></div></td>
             <td class="normal-cell">Moderate queue pressure</td>
             <td class="normal-cell">Shared buffering</td>
             <td class="normal-cell"><span class="dc-chip normal">FIFO Queues</span></td>
@@ -799,7 +781,7 @@ The visual comparison below captures where the behavior changes and why AI fabri
             <td>Traffic Predictability<span class="dc-tagline">Repeating phases</span></td>
             <td class="ai-cell">Repetitive iteration patterns</td>
             <td class="rem-cell">AI-aware workload placement</td>
-            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">Slurm Topology Scheduling</span><span class="dc-chip tech">Kubernetes Affinity</span></div></td>
+            <td class="rem-cell"><div class="dc-chip-row"><span class="dc-chip tech">Topology Aware Job Scheduling</span><span class="dc-chip tech">Kubernetes Affinity</span></div></td>
             <td class="normal-cell">Random workload behavior</td>
             <td class="normal-cell">Generic orchestration</td>
             <td class="normal-cell"><span class="dc-chip normal">Standard Scheduling</span></td>
