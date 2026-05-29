@@ -367,6 +367,18 @@ The visual comparison below captures where the behavior changes and why AI fabri
     color: #0f172a;
   }
 
+  .blog-story code {
+    padding: 0.08rem 0.3rem;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.92em;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
   .story-mark {
     padding: 0.08rem 0.32rem;
     border-radius: 7px;
