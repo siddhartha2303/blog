@@ -953,12 +953,12 @@ The visual comparison below captures where the behavior changes and why AI fabri
         <tr>
           <td>InfiniBand</td>
           <td><p>Built for HPC and AI cluster communication from the start. It gives strong RDMA behavior, low latency, high throughput, and predictable performance for tightly coupled training jobs where many GPUs communicate together.</p></td>
-          <td><p>The operating model is more specialized than normal Ethernet. Teams may need separate skills, tools, cabling choices, and lifecycle processes, and the fabric can feel less natural for environments that want one common enterprise network model.</p></td>
+          <td><p>The operating model is more specialized than normal Ethernet. Teams may need separate skills, tools, cabling choices, and lifecycle processes, and the fabric can feel less natural for environments that want one common enterprise network model. In practice, many modern AI deployments also tie the design closely to the NVIDIA ecosystem.</p></td>
         </tr>
         <tr>
           <td>Spectrum-X</td>
           <td><p>NVIDIA Spectrum-X keeps the Ethernet direction but makes it more AI-specific, combining Spectrum Ethernet switches, SuperNICs, congestion control, telemetry, and adaptive behavior for more predictable RoCE-based GPU fabrics.</p></td>
-          <td><p>It should not be treated like generic Ethernet. The value comes from a more coordinated platform, so hardware choice, NIC behavior, software, telemetry, and RoCE/DCB configuration all matter. Poor tuning can still expose loss, queuing, or path imbalance.</p></td>
+          <td><p>It should not be treated like generic Ethernet. The value comes from a more coordinated platform, so hardware choice, NIC behavior, software, telemetry, and RoCE/DCB configuration all matter. Poor tuning can still expose loss, queuing, or path imbalance. It is also closely tied to the NVIDIA ecosystem, which can create vendor lock-in for teams that want a more open Ethernet supply chain.</p></td>
         </tr>
         <tr>
           <td>Enterprise Ethernet</td>
@@ -970,5 +970,5 @@ The visual comparison below captures where the behavior changes and why AI fabri
   </div>
   <p>Inference adds another twist. If a model is served from one GPU or one server, the network may mostly carry user requests, retrieval calls, storage access, or service-to-service traffic. A traditional Ethernet design may be enough. But when inference scales into multi-GPU or multi-node serving, the network starts to affect token latency, batching efficiency, cache movement, and tail behavior. The same fabric ideas return: avoid incast, reduce hot paths, protect RDMA traffic when it is used, and design topology for predictable east-west movement.</p>
   <p class="story-rule">The practical rule is to match the network to the communication pattern. Use NVLink and NVSwitch for scale-up GPU communication inside a server or tightly coupled system. Use RoCEv2 when Ethernet integration matters and the team can operate a tuned lossless fabric. Use InfiniBand when the cluster is built primarily for high-performance AI or HPC communication. Use Clos, 3-ply, Dragonfly, fat-tree, and rail-optimized layouts when the problem is not just connecting nodes, but keeping synchronized GPU communication predictable at scale.</p>
-  <p>That is the larger shift. Traditional networking connected applications. AI data center networking has to support the communication pattern of the workload itself: synchronized training phases, bursty inference paths, long tensor transfers, RDMA traffic, topology-aware scheduling, and GPU-to-GPU movement. The network is still transport, but in AI it also becomes a performance boundary.</p>
+  <p>That is the larger shift from traditional networking that connected applications. AI data center networking has to support the communication pattern of the workload itself: synchronized training phases, bursty inference paths, long tensor transfers, RDMA traffic, topology-aware scheduling, and GPU-to-GPU movement. The network is still transport, but in AI it also becomes a performance boundary.</p>
 </div>
