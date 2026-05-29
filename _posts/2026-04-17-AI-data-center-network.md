@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Network for AI Data Center"
-date: 2026-05-16
+date: 2026-05-27
 description: "A guide-style comparison of AI data center traffic patterns, remediation techniques, and terminology versus traditional data center networking."
 excerpt: "A practical guide to the shift from traditional data center networking to AI data center fabrics, covering incast, elephant flows, topology, GPU-to-GPU communication, RoCEv2, and InfiniBand."
 categories: [AI, Networking, Data Center]
@@ -403,6 +403,180 @@ The visual comparison below captures where the behavior changes and why AI fabri
     background: rgba(255, 255, 255, 0.82);
   }
 
+  .story-note {
+    margin: 0.9rem 0;
+    padding: 0.85rem 1rem;
+    border-left: 5px solid #2563eb;
+    border-radius: 14px;
+    background: #eff6ff;
+  }
+
+  .story-note strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #1d4ed8;
+    font-size: 0.95rem;
+  }
+
+  .story-note p {
+    color: #1e293b;
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .story-list {
+    margin: 0.75rem 0 1rem;
+    padding-left: 1.25rem;
+    color: #111827;
+  }
+
+  .story-list li {
+    margin: 0.45rem 0;
+    line-height: 1.65;
+  }
+
+  .fabric-cases {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 1.1rem 0 1.2rem;
+  }
+
+  .fabric-case {
+    border: 1px solid rgba(24, 32, 51, 0.12);
+    border-radius: 14px;
+    padding: 1rem;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.07);
+  }
+
+  .fabric-case h3 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .fabric-case p {
+    margin-top: 0.5rem;
+    color: #334155;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .fabric-diagram {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 0.8rem;
+    border: 1px solid rgba(24, 32, 51, 0.10);
+    border-radius: 10px;
+    background: #f8fafc;
+  }
+
+  .fabric-link {
+    stroke: #cbd5e1;
+    stroke-width: 2;
+  }
+
+  .fabric-flow {
+    fill: none;
+    stroke: #16a34a;
+    stroke-width: 4;
+    stroke-dasharray: 7 7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .fabric-hot {
+    fill: none;
+    stroke: #f97316;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .fabric-switch {
+    fill: #1f2937;
+  }
+
+  .fabric-switch-text,
+  .fabric-label {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .fabric-switch-text {
+    fill: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    text-anchor: middle;
+  }
+
+  .fabric-label {
+    fill: #b45309;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .fabric-host {
+    stroke: #111827;
+    stroke-width: 2;
+  }
+
+  .story-subhead {
+    margin: 1.25rem 0 0.6rem;
+    color: #0f172a;
+    font-size: 1.08rem;
+    line-height: 1.35;
+  }
+
+  .fabric-choice-wrap {
+    overflow-x: auto;
+    margin: 0.75rem 0 1.1rem;
+    border: 1px solid rgba(24, 32, 51, 0.12);
+    border-radius: 12px;
+    background: #ffffff;
+  }
+
+  .fabric-choice-table {
+    width: 100%;
+    min-width: 840px;
+    border-collapse: collapse;
+  }
+
+  .fabric-choice-table th,
+  .fabric-choice-table td {
+    padding: 0.9rem;
+    border-bottom: 1px solid rgba(24, 32, 51, 0.10);
+    vertical-align: top;
+    text-align: left;
+  }
+
+  .fabric-choice-table th {
+    background: #f8fafc;
+    color: #0f172a;
+    font-size: 0.86rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .fabric-choice-table tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .fabric-choice-table td:first-child {
+    width: 18%;
+    color: #0f172a;
+    font-weight: 800;
+  }
+
+  .fabric-choice-table p {
+    margin: 0;
+    color: #334155;
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
   @media (max-width: 900px) {
     .dc-hero {
       border-radius: 16px;
@@ -415,6 +589,10 @@ The visual comparison below captures where the behavior changes and why AI fabri
 
     .dc-table-card {
       border-radius: 14px;
+    }
+
+    .fabric-cases {
+      grid-template-columns: 1fr;
     }
 
   }
@@ -650,16 +828,153 @@ The visual comparison below captures where the behavior changes and why AI fabri
 ## The Problem Statement
 
 <div class="blog-story">
-  <p class="story-lead">The problem with reusing a traditional data center network for AI is not that Ethernet, ECMP, or leaf-spine are bad ideas. The problem is that traditional assumptions can become wrong. Oversubscription that was acceptable for web workloads can become a bottleneck during all-reduce. Static hashing that was fine for mixed application flows can place large tensor transfers on the same path. Packet drops that TCP could recover from can damage the performance of RDMA traffic. Queues that were tolerable for background traffic can become visible as GPU idle time or inference tail latency.</p>
-  <p>This is why AI networking cannot be treated as a simple capacity upgrade. The traffic pattern changes first, and the remediation follows from that change. The story really begins at the moment an AI workload stops computing and starts communicating. A training iteration may look quiet while GPUs are busy, and then suddenly the fabric sees a wave: many senders become active together, the same paths and queues are stressed together, and the slowest part of the exchange can hold back the next compute phase. This is why <span class="story-ai">AI networking feels different</span> from normal application networking. The traffic has rhythm.</p>
-  <p>That rhythm is what makes <span class="story-mark">incast</span> so important. During a collective operation, many GPUs may send toward the same receiver, aggregation point, or congested output queue. A traditional network might wait for TCP to detect loss and back off, but AI traffic often cannot afford that delay. <code>ECN</code> marks congestion early, before drops become the signal. <code>PFC</code> can pause a lossless traffic class so RDMA traffic is protected, especially in RoCEv2 designs. <code>VOQ</code> separates output queues so one congested destination does not unnecessarily block other traffic. These mechanisms exist because synchronized AI traffic can fill queues faster than a conventional application network expects.</p>
-  <p>Once the burst begins, the pressure moves from queues to paths. AI jobs create <span class="story-mark">elephant flows</span> because tensors, gradients, and model data are large. A static ECMP hash can accidentally place several large transfers on the same path while another equal-cost path sits underused. <code>Adaptive ECMP</code> improves this by using congestion or telemetry signals instead of relying only on a hash. <code>Flowlet switching</code> is more careful still: it moves traffic at burst boundaries, after a small idle gap, instead of spraying every packet independently. That difference matters because packet spraying can create reordering, while flowlet switching tries to preserve order by keeping each burst together.</p>
-  <p>The same problem becomes more visible when flows last longer. A long-lived AI transfer pinned to a poor path can waste bandwidth for an entire phase of the job. <code>DLB</code>, or Dynamic Load Balancing, tries to steer traffic toward healthier paths as conditions change, often using flowlet boundaries to reduce reordering risk. This is why AI fabric conversations keep returning to <span class="story-net">adaptive routing, flowlets, telemetry, and congestion-aware balancing</span>. The workload is too synchronized, and the GPUs are too expensive, to leave path selection entirely to static hashing.</p>
+  <p class="story-lead">The problem with reusing a traditional data center network for AI is not that Ethernet, ECMP, or leaf-spine are bad ideas. The problem is that traditional assumptions can become wrong. Oversubscription that was acceptable for web workloads can become a bottleneck when many GPUs need to exchange training data at the same time. Static hashing that was fine for mixed application flows can place large tensor transfers on the same path. Packet drops that TCP could recover from can damage the performance of RDMA traffic. Queues that were tolerable for background traffic can become visible as GPU idle time or inference tail latency.</p>
+  <aside class="story-note">
+    <strong>RDMA</strong>
+    <p><code>Remote Direct Memory Access</code> is a technology that allows one computer to directly access the memory of another computer over a network without involving either computer's operating system, processor, or kernel. This enables high-throughput, low-latency networking, which is particularly useful in massively parallel computer clusters. RDMA operates using a network interface controller, or NIC, that supports RDMA, such as InfiniBand or RDMA over Converged Ethernet, also called <span class="story-net">RoCE</span>. These NICs have specialized hardware that allows them to directly access memory on the connected system without CPU involvement. When a system wants to transfer data using RDMA, it sends a request to the NIC, and the NIC uses that hardware to transfer the data directly to memory on the other system.</p>
+  </aside>
+  <p>This is why AI networking cannot be treated as a simple capacity upgrade; it is more about a change in the traffic pattern. A training iteration may look quiet while GPUs are busy, and then suddenly the fabric sees a wave: many senders become active together, the same paths and queues are stressed together, and the slowest part of the exchange can hold back the next compute phase. This is why <span class="story-ai">AI networking feels different</span> from normal application networking. The traffic is synchronous.</p>
+  <p>That synchronization is what makes <span class="story-mark">incast</span> so important. During a collective operation, many GPUs may send toward the same receiver, aggregation point, or congested output queue. A traditional network might wait for TCP to detect loss and back off, but AI traffic often cannot afford that delay. This is where <code>DCB</code>, or Data Center Bridging, enters the discussion. DCB enhances traditional Ethernet to create a lossless, high-performance network fabric. It helped Ethernet move toward a converged LAN/SAN model, where normal application traffic, storage-style traffic, and RDMA traffic can share the same physical fabric while still receiving different treatment.</p>
+  <ul class="story-list">
+    <li><strong>PFC (Priority Flow Control):</strong> Classic Ethernet PAUSE pauses the entire link. That is dangerous because one congested traffic type can block everything. PFC improves this by pausing only specific priority classes. At first it can look like QoS because it uses traffic priorities, but it is different. QoS usually decides how traffic is classified, queued, scheduled, or dropped. PFC works at the data link layer and sends a pause signal for a specific traffic class on a local hop. That makes it fast and hop-by-hop, and it can pause the RDMA or lossless class.</li>
+    <li><strong>ETS</strong>, or Enhanced Transmission Selection, assigns bandwidth shares to traffic classes so one class does not consume the link unfairly when LAN, storage, and RDMA traffic coexist.</li>
+    <li><strong>DCBX</strong>, or Data Center Bridging Exchange, is an extension of <code>LLDP</code>. It lets neighboring devices exchange DCB settings such as priority groups and PFC configuration, reducing the risk of mismatched lossless-class behavior between a server NIC and switch.</li>
+    <li><strong>DCQCN / ECN</strong> combines congestion marking and rate control for RoCEv2. Unlike PFC, <code>ECN</code> does not send pause frames. It marks traffic at the network layer when congestion is building, and <code>DCQCN</code> uses those marks to slow senders before queues become dangerous. Because this feedback depends on marked packets returning through the control loop, it is more affected by round-trip time than local PFC pause behavior.</li>
+  </ul>
+  <div class="fabric-cases" aria-label="Leaf-spine congestion scenarios">
+    <article class="fabric-case">
+      <h3>Scenario 1: Leaf-to-Spine Uplink Congestion</h3>
+      <p>When several GPU flows leave the same leaf at the same time, static hashing can place too many of them on one spine-facing uplink. One uplink becomes hot while other equal-cost uplinks still have usable capacity.</p>
+      <svg class="fabric-diagram" viewBox="0 0 520 250" role="img" aria-labelledby="uplink-title uplink-desc">
+        <title id="uplink-title">Leaf-to-spine uplink congestion</title>
+        <desc id="uplink-desc">Multiple flows from one leaf switch converge on one uplink toward a spine switch while other uplinks remain underused.</desc>
+        <defs>
+          <marker id="arrow-uplink-green" markerWidth="8" markerHeight="8" refX="6" refY="3.5" orient="auto">
+            <path d="M0,0 L7,3.5 L0,7 Z" fill="#16a34a" />
+          </marker>
+          <marker id="arrow-uplink-hot" markerWidth="8" markerHeight="8" refX="6" refY="3.5" orient="auto">
+            <path d="M0,0 L7,3.5 L0,7 Z" fill="#f97316" />
+          </marker>
+        </defs>
+        <line class="fabric-link" x1="105" y1="164" x2="105" y2="58" />
+        <line class="fabric-link" x1="105" y1="164" x2="260" y2="58" />
+        <line class="fabric-link" x1="105" y1="164" x2="415" y2="58" />
+        <line class="fabric-link" x1="260" y1="164" x2="105" y2="58" />
+        <line class="fabric-link" x1="260" y1="164" x2="260" y2="58" />
+        <line class="fabric-link" x1="260" y1="164" x2="415" y2="58" />
+        <line class="fabric-link" x1="415" y1="164" x2="105" y2="58" />
+        <line class="fabric-link" x1="415" y1="164" x2="260" y2="58" />
+        <line class="fabric-link" x1="415" y1="164" x2="415" y2="58" />
+        <path class="fabric-flow" d="M72 220 C72 180 96 126 100 62" marker-end="url(#arrow-uplink-green)" />
+        <path class="fabric-flow" d="M94 220 C94 176 104 124 105 62" marker-end="url(#arrow-uplink-green)" />
+        <path class="fabric-hot" d="M116 220 C116 174 113 120 110 62" marker-end="url(#arrow-uplink-hot)" />
+        <text class="fabric-label" x="126" y="116">Congested uplink</text>
+        <rect class="fabric-switch" x="65" y="28" width="80" height="28" rx="3" />
+        <rect class="fabric-switch" x="220" y="28" width="80" height="28" rx="3" />
+        <rect class="fabric-switch" x="375" y="28" width="80" height="28" rx="3" />
+        <rect class="fabric-switch" x="65" y="164" width="80" height="28" rx="3" />
+        <rect class="fabric-switch" x="220" y="164" width="80" height="28" rx="3" />
+        <rect class="fabric-switch" x="375" y="164" width="80" height="28" rx="3" />
+        <text class="fabric-switch-text" x="105" y="46">Spine</text>
+        <text class="fabric-switch-text" x="260" y="46">Spine</text>
+        <text class="fabric-switch-text" x="415" y="46">Spine</text>
+        <text class="fabric-switch-text" x="105" y="182">Leaf</text>
+        <text class="fabric-switch-text" x="260" y="182">Leaf</text>
+        <text class="fabric-switch-text" x="415" y="182">Leaf</text>
+        <line class="fabric-host" x1="86" y1="192" x2="86" y2="222" />
+        <line class="fabric-host" x1="105" y1="192" x2="105" y2="222" />
+        <line class="fabric-host" x1="124" y1="192" x2="124" y2="222" />
+        <line class="fabric-host" x1="244" y1="192" x2="244" y2="212" />
+        <line class="fabric-host" x1="260" y1="192" x2="260" y2="212" />
+        <line class="fabric-host" x1="399" y1="192" x2="399" y2="212" />
+        <line class="fabric-host" x1="415" y1="192" x2="415" y2="212" />
+      </svg>
+    </article>
+    <article class="fabric-case">
+      <h3>Scenario 2: Spine-to-Leaf Downlink Congestion</h3>
+      <p>The reverse can happen when flows from different source leaves are all headed toward the same destination leaf. Each ingress leaf may choose a path independently, so the final spine-to-leaf downlink can fill even when the rest of the fabric has spare bandwidth.</p>
+      <svg class="fabric-diagram" viewBox="0 0 520 250" role="img" aria-labelledby="downlink-title downlink-desc">
+        <title id="downlink-title">Spine-to-leaf downlink congestion</title>
+        <desc id="downlink-desc">Traffic from multiple leaves converges through a spine and overloads one downlink toward a destination leaf switch.</desc>
+        <defs>
+          <marker id="arrow-downlink-green" markerWidth="8" markerHeight="8" refX="6" refY="3.5" orient="auto">
+            <path d="M0,0 L7,3.5 L0,7 Z" fill="#16a34a" />
+          </marker>
+          <marker id="arrow-downlink-hot" markerWidth="8" markerHeight="8" refX="6" refY="3.5" orient="auto">
+            <path d="M0,0 L7,3.5 L0,7 Z" fill="#f97316" />
+          </marker>
+        </defs>
+        <line class="fabric-link" x1="105" y1="164" x2="105" y2="58" />
+        <line class="fabric-link" x1="105" y1="164" x2="260" y2="58" />
+        <line class="fabric-link" x1="105" y1="164" x2="415" y2="58" />
+        <line class="fabric-link" x1="260" y1="164" x2="105" y2="58" />
+        <line class="fabric-link" x1="260" y1="164" x2="260" y2="58" />
+        <line class="fabric-link" x1="260" y1="164" x2="415" y2="58" />
+        <line class="fabric-link" x1="415" y1="164" x2="105" y2="58" />
+        <line class="fabric-link" x1="415" y1="164" x2="260" y2="58" />
+        <line class="fabric-link" x1="415" y1="164" x2="415" y2="58" />
+        <path class="fabric-flow" d="M86 220 C86 170 156 94 252 58" marker-end="url(#arrow-downlink-green)" />
+        <path class="fabric-flow" d="M252 220 C252 170 250 104 260 62" marker-end="url(#arrow-downlink-green)" />
+        <path class="fabric-hot" d="M268 62 C310 96 370 132 410 162" marker-end="url(#arrow-downlink-hot)" />
+        <path class="fabric-flow" d="M108 220 C160 188 270 122 406 164" marker-end="url(#arrow-downlink-green)" />
+        <text class="fabric-label" x="315" y="112">Congested downlink</text>
+        <rect class="fabric-switch" x="65" y="28" width="80" height="28" rx="3" />
+        <rect class="fabric-switch" x="220" y="28" width="80" height="28" rx="3" />
+        <rect class="fabric-switch" x="375" y="28" width="80" height="28" rx="3" />
+        <rect class="fabric-switch" x="65" y="164" width="80" height="28" rx="3" />
+        <rect class="fabric-switch" x="220" y="164" width="80" height="28" rx="3" />
+        <rect class="fabric-switch" x="375" y="164" width="80" height="28" rx="3" />
+        <text class="fabric-switch-text" x="105" y="46">Spine</text>
+        <text class="fabric-switch-text" x="260" y="46">Spine</text>
+        <text class="fabric-switch-text" x="415" y="46">Spine</text>
+        <text class="fabric-switch-text" x="105" y="182">Leaf</text>
+        <text class="fabric-switch-text" x="260" y="182">Leaf</text>
+        <text class="fabric-switch-text" x="415" y="182">Leaf</text>
+        <line class="fabric-host" x1="86" y1="192" x2="86" y2="222" />
+        <line class="fabric-host" x1="105" y1="192" x2="105" y2="222" />
+        <line class="fabric-host" x1="244" y1="192" x2="244" y2="222" />
+        <line class="fabric-host" x1="260" y1="192" x2="260" y2="222" />
+        <line class="fabric-host" x1="399" y1="192" x2="399" y2="222" />
+        <line class="fabric-host" x1="415" y1="192" x2="415" y2="222" />
+      </svg>
+    </article>
+  </div>
+  <p>Once the burst begins, the pressure moves from queues to paths. AI jobs create <span class="story-mark">elephant flows</span> (large, long-lived packets) because tensors, gradients, and model data are large. A static ECMP hash can accidentally place several large transfers on the same path while another equal-cost path sits underused. <code>Adaptive ECMP</code> improves this by using congestion or telemetry signals instead of relying only on a hash. <code>Flowlet switching</code> is more careful still: it moves traffic at burst boundaries, after a small idle gap, instead of spraying every packet independently. That difference matters because packet spraying can create reordering, while flowlet switching tries to preserve order by keeping each burst together.</p>
+  <p>The same problem becomes more visible when flows last longer. A long-lived AI transfer pinned to a poor path can waste bandwidth for an entire phase of the job. <code>DLB</code>, or Dynamic Load Balancing, is Cisco's congestion-aware enhancement to ECMP. It is one practical way to achieve adaptive path selection in AI fabrics by steering flowlets toward healthier links instead of relying only on static hashing. This is why AI fabric conversations keep returning to <span class="story-net">adaptive routing, flowlets, telemetry, and congestion-aware balancing</span>. The workload is too synchronized, and the GPUs are too expensive, to leave path selection entirely to static hashing.</p>
   <p>As the cluster grows, the conversation shifts from individual flows to the shape of the fabric itself. In a normal data center, moderate oversubscription may be acceptable because not every workload peaks at the same time. In AI training, many GPUs can demand bandwidth at the same time by design. Clos and fat-tree fabrics provide predictable bisection bandwidth. <code>Ply3</code> describes a three-stage fabric style. <code>Dragonfly</code> becomes useful at larger scale because it lowers network diameter through strong group-to-group connectivity. Rail-optimized designs matter when servers have multiple NICs or GPU rails and the network needs to keep traffic aligned with the physical layout instead of creating avoidable cross-rail hotspots.</p>
   <p>The reason this topology work matters is <span class="story-ai">GPU-to-GPU communication</span>. Inside a node, <code>NVLink</code> and <code>NVSwitch</code> move data between GPUs at very high bandwidth. Once the job crosses server boundaries, the scale-out fabric has to provide the closest possible experience: low latency, high throughput, low loss, and predictable path behavior. If that fabric is weak, GPUs wait. In training, waiting shows up as lower cluster utilization. In inference, waiting shows up as slower tokens, worse tail latency, and lower request throughput.</p>
-  <p>At that point the design often becomes a choice between Ethernet-based RDMA and a purpose-built cluster fabric. <code>RoCEv2</code> brings RDMA semantics to Ethernet, which makes it attractive when a team wants Ethernet economics, Ethernet operations, and integration with the broader data center. But RoCEv2 should not be treated like ordinary best-effort Ethernet. It needs disciplined QoS, <code>PFC</code>, <code>ECN</code>, congestion control, and careful telemetry. When those pieces are operated well, RoCEv2 can support high-performance AI fabrics while staying in the Ethernet ecosystem.</p>
+  <p>At that point the design often becomes a choice between Ethernet-based RDMA and a purpose-built cluster fabric with InfiniBand. <code>RoCEv2</code> brings RDMA semantics to Ethernet, which makes it attractive when a team wants Ethernet economics, Ethernet operations, and integration with the broader data center. But RoCEv2 should not be treated like ordinary best-effort Ethernet. It needs disciplined QoS, <code>PFC</code>, <code>ECN</code>, congestion control, and careful telemetry. When those pieces are operated well, RoCEv2 can support high-performance AI fabrics while staying in the Ethernet ecosystem.</p>
   <p><code>InfiniBand</code> starts from a different place. It is built as a high-performance cluster fabric, so it is often chosen when the environment is performance-first, tightly controlled, and designed around large training jobs. The operational model can be more specialized than Ethernet, but the fabric behavior maps naturally to low-latency, RDMA-heavy AI and HPC communication.</p>
+  <h3 class="story-subhead">Fabric Choice: InfiniBand, Spectrum-X, or Enterprise Ethernet</h3>
+  <div class="fabric-choice-wrap">
+    <table class="fabric-choice-table">
+      <thead>
+        <tr>
+          <th>Fabric</th>
+          <th>Pros</th>
+          <th>Cons</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>InfiniBand</td>
+          <td><p>Built for HPC and AI cluster communication from the start. It gives strong RDMA behavior, low latency, high throughput, and predictable performance for tightly coupled training jobs where many GPUs communicate together.</p></td>
+          <td><p>The operating model is more specialized than normal Ethernet. Teams may need separate skills, tools, cabling choices, and lifecycle processes, and the fabric can feel less natural for environments that want one common enterprise network model.</p></td>
+        </tr>
+        <tr>
+          <td>Spectrum-X</td>
+          <td><p>NVIDIA Spectrum-X keeps the Ethernet direction but makes it more AI-specific, combining Spectrum Ethernet switches, SuperNICs, congestion control, telemetry, and adaptive behavior for more predictable RoCE-based GPU fabrics.</p></td>
+          <td><p>It should not be treated like generic Ethernet. The value comes from a more coordinated platform, so hardware choice, NIC behavior, software, telemetry, and RoCE/DCB configuration all matter. Poor tuning can still expose loss, queuing, or path imbalance.</p></td>
+        </tr>
+        <tr>
+          <td>Enterprise Ethernet</td>
+          <td><p>Familiar, broadly interoperable, and easy to integrate with existing data center operations. It works well for conventional application traffic, storage access, management traffic, and smaller AI environments that are not dominated by synchronized GPU exchange.</p></td>
+          <td><p>A default leaf-spine Ethernet design is often too best-effort for large AI training. Static ECMP, oversubscription, normal buffering, and ordinary TCP recovery can leave GPUs waiting unless the fabric is redesigned with lossless classes, ECN, PFC, telemetry, and congestion-aware balancing.</p></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <p>Inference adds another twist. If a model is served from one GPU or one server, the network may mostly carry user requests, retrieval calls, storage access, or service-to-service traffic. A traditional Ethernet design may be enough. But when inference scales into multi-GPU or multi-node serving, the network starts to affect token latency, batching efficiency, cache movement, and tail behavior. The same fabric ideas return: avoid incast, reduce hot paths, protect RDMA traffic when it is used, and design topology for predictable east-west movement.</p>
   <p class="story-rule">The practical rule is to match the network to the communication pattern. Use <span class="story-green">NVLink and NVSwitch</span> for scale-up GPU communication inside a server or tightly coupled system. Use <span class="story-net">RoCEv2</span> when Ethernet integration matters and the team can operate a tuned lossless fabric. Use <span class="story-ai">InfiniBand</span> when the cluster is built primarily for high-performance AI or HPC communication. Use <span class="story-warn">Clos, Ply3, Dragonfly, fat-tree, and rail-optimized layouts</span> when the problem is not just connecting nodes, but keeping synchronized GPU communication predictable at scale.</p>
-  <p>That is the larger shift. Traditional networking connected applications. AI data center networking has to support the rhythm of the workload itself: synchronized training phases, bursty inference paths, long tensor transfers, RDMA traffic, topology-aware scheduling, and GPU-to-GPU movement. The network is still transport, but in AI it also becomes a performance boundary.</p>
+  <p>That is the larger shift. Traditional networking connected applications. AI data center networking has to support the communication pattern of the workload itself: synchronized training phases, bursty inference paths, long tensor transfers, RDMA traffic, topology-aware scheduling, and GPU-to-GPU movement. The network is still transport, but in AI it also becomes a performance boundary.</p>
 </div>
