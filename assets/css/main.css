@@ -1506,3 +1506,77 @@ body:has(.article-page) .article-page .wrap-content {
     padding: 20px 12px;
   }
 }
+body:has(.article-page) .post-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 32px;
+  align-items: start;
+}
+
+body:has(.article-page) .post-main {
+  min-width: 0;
+}
+
+body:has(.article-page) .post-rail {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+}
+
+body:has(.article-page) .post-rail-card {
+  padding: 18px 16px;
+  border: 1px solid rgba(29, 36, 51, 0.12);
+  background: #fbf4e6;
+}
+
+body:has(.article-page) .post-rail-card-soft {
+  margin-top: 16px;
+  background: #fff8ee;
+}
+
+body:has(.article-page) .post-rail-title {
+  margin-bottom: 12px;
+  color: #724126;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body:has(.article-page) .post-toc {
+  display: grid;
+  gap: 8px;
+}
+
+body:has(.article-page) .post-toc a {
+  display: block;
+  color: #1d2433;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+body:has(.article-page) .post-toc a.toc-h3 {
+  padding-left: 12px;
+  font-size: 0.86rem;
+  color: #5b6474;
+}
+
+body:has(.article-page) .post-rail-meta {
+  display: grid;
+  gap: 8px;
+  color: #5b6474;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+@media only screen and (max-width: 860px) {
+  body:has(.article-page) .post-shell {
+    grid-template-columns: 1fr;
+  }
+
+  body:has(.article-page) .post-rail {
+    position: static;
+  }
+}
