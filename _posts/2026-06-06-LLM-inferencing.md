@@ -42,6 +42,9 @@ tags:
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 1rem;
     line-height: 1.78;
+    width: min(100%, 1160px);
+    margin: 0 auto;
+    padding: 0 2.6rem 2.6rem;
   }
 
   .llm-mag,
@@ -135,9 +138,9 @@ tags:
 
   .mag-hero {
     display: grid;
-    grid-template-columns: 180px minmax(0, 1fr) 260px;
+    grid-template-columns: 200px minmax(0, 1fr) 290px;
     min-height: 520px;
-    margin: 1.2rem 0 2rem;
+    margin: 1.6rem 0 2.6rem;
     border: 1px solid var(--line);
     background: var(--paper);
     overflow: hidden;
@@ -165,7 +168,7 @@ tags:
   }
 
   .mag-hero-main {
-    padding: 3.2rem 2rem 2rem;
+    padding: 3.4rem 2.4rem 2.3rem;
   }
 
   .mag-kicker,
@@ -191,14 +194,14 @@ tags:
     flex-direction: column;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1.25rem;
+    padding: 1.35rem 1.55rem;
     background: var(--brown);
     color: #ffffff;
   }
 
   .mag-side-title {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 900;
     line-height: 1.12;
     text-transform: uppercase;
@@ -220,9 +223,9 @@ tags:
   }
 
   .mag-intro {
-    margin: 1.4rem 0 2rem;
+    margin: 1.8rem 0 2.8rem;
     columns: 2 300px;
-    column-gap: 2rem;
+    column-gap: 3rem;
   }
 
   .mag-intro p:first-child::first-letter {
@@ -236,15 +239,15 @@ tags:
   }
 
   .mag-section {
-    margin: 2.4rem 0;
+    margin: 3.2rem 0;
   }
 
   .mag-opener {
     display: grid;
     grid-template-columns: 108px minmax(0, 1fr);
-    gap: 1rem;
+    gap: 1.25rem;
     align-items: stretch;
-    margin: 2.4rem 0 1.2rem;
+    margin: 3rem 0 1.65rem;
     border: 1px solid var(--line);
     background: #f8efdf;
     transform: translateY(-4px);
@@ -286,20 +289,20 @@ tags:
   }
 
   .mag-opener-body {
-    padding: 1.05rem 1.1rem;
+    padding: 1.2rem 1.4rem;
   }
 
   .mag-body-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(230px, 0.34fr);
-    gap: 1rem;
+    gap: 1.5rem;
     align-items: start;
   }
 
   .mag-section-split {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 260px;
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 1.6rem;
     align-items: stretch;
   }
 
@@ -527,12 +530,12 @@ tags:
   .mag-compare {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.85rem;
-    margin: 1.1rem 0;
+    gap: 1.2rem;
+    margin: 1.35rem 0;
   }
 
   .mag-card {
-    padding: 1rem;
+    padding: 1.15rem;
     border: 1px solid var(--line);
     background: var(--cream);
   }
@@ -813,8 +816,12 @@ tags:
   }
 
   @media (max-width: 980px) {
+    .llm-mag {
+      padding: 0 1.4rem 1.8rem;
+    }
+
     .mag-hero {
-      grid-template-columns: 120px minmax(0, 1fr);
+      grid-template-columns: 140px minmax(0, 1fr);
     }
 
     .mag-hero-side {
@@ -836,6 +843,10 @@ tags:
   }
 
   @media (max-width: 620px) {
+    .llm-mag {
+      padding: 0 0.8rem 1.2rem;
+    }
+
     .mag-hero {
       grid-template-columns: 1fr;
       min-height: auto;
