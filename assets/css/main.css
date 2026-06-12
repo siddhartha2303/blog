@@ -1497,15 +1497,6 @@ body:has(.article-page) .article-page .wrap-content {
   padding: 28px 40px;
 }
 
-@media only screen and (max-width: 768px) {
-    padding-right: 10px;
-  }
-
-  body:has(.article-page) .article-page .wrap-content {
-    max-width: 100%;
-    padding: 20px 12px;
-  }
-}
 body:has(.article-page) .post-shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
@@ -1569,6 +1560,21 @@ body:has(.article-page) .post-rail-meta {
   font-size: 0.9rem;
   line-height: 1.45;
   word-break: break-word;
+}
+
+@media only screen and (max-width: 768px) {
+  body:has(.article-page) .wrapper {
+    max-width: 100%;
+  }
+
+  body:has(.article-page) .content-box {
+    padding-right: 10px;
+  }
+
+  body:has(.article-page) .article-page .wrap-content {
+    max-width: 100%;
+    padding: 20px 12px;
+  }
 }
 
 @media only screen and (max-width: 860px) {
