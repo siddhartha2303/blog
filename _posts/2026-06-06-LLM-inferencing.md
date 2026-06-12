@@ -1261,7 +1261,7 @@ This subtle difference between Keys and Values is one reason KV-cache optimizati
 
 At this point, a natural question arises.
 
-If the model already understands the prompt and can reuse previous attention computations through KV cache then : <p class="mag-emphasis-line">Why does inference still require such powerful hardware?</p>
+If the model already understands the prompt and can reuse previous attention computations through KV cache then : <b> Why does inference still require such powerful hardware?</b>
 
 <p class="mag-emphasis-line">Why are AI engineers constantly talking about HBM, GPU memory bandwidth, and specialized accelerators?</p>
 
