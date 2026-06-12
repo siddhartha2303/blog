@@ -2,39 +2,64 @@
 layout: main
 ---
 <article class="article-page">
-  <div class="page-content">
-    {% if page.img %}
-    <div class="page-cover-image" style="margin-bottom:48px;">
-      <figure style="margin:0;">
-        <img class="page-image" src={{ "/assets/img/" | prepend: site.baseurl | append : page.img}} alt="{{page.title}}" style="width:100%; max-width:none; height:auto; object-fit:contain; display:block; margin:0; border-radius:0;">
-        
-        {% if page.fig-caption %}
-          <figcaption style="text-align:center; color:transparent; font-size:1rem; margin-top:4px; font-style:italic;">{{page.fig-caption}}</figcaption>
-        {% endif %}
-      </figure>
-      <hr style="border:none; border-top:1px solid #eee; margin:32px 0 0 0;">
-    </div> <!-- End Page Cover Image -->
-    {% else %}
-    {% endif %}
-    <div class="wrap-content">
-      <header class="header-page">
-        <h1 class="page-title">{{page.title}}</h1>
-        <div class="page-date"><span>{{page.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-      </header>
-      {{content | markdownify}}
-      <div class="page-footer">
-        <div class="page-share">
-          <a href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
-          <a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
-          <a href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+  <div class="page-content post-shell">
+    <div class="post-main">
+      {% if page.img %}
+      <div class="page-cover-image" style="margin-bottom:48px;">
+        <figure style="margin:0;">
+          <img class="page-image" src="{{ '/assets/img/' | prepend: site.baseurl | append: page.img }}" alt="{{ page.title }}" style="width:100%; max-
+          width:none; height:auto; object-fit:contain; display:block; margin:0; border-radius:0;">
+          {% if page.fig-caption %}
+            <figcaption style="text-align:center; color:transparent; font-size:1rem; margin-top:4px; font-style:italic;">{{ page.fig-caption }}</
+            figcaption>
+          {% endif %}
+        </figure>
+        <hr style="border:none; border-top:1px solid #eee; margin:32px 0 0 0;">
+      </div>
+      {% endif %}
+
+      <div class="wrap-content">
+        <header class="header-page">
+          <h1 class="page-title">{{ page.title }}</h1>
+          <div class="page-date"><span>{{ page.date | date: '%Y, %b %d' }}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+        </header>
+
+        <div class="post-body">
+          {{ content | markdownify }}
         </div>
-        <div class="page-tag">
-          {% for tag in page.tags %}
-            <a href="{{site.baseurl}}/tags#{{tag}}" class="tag">&#35; {{ tag }}</a>
-          {% endfor %}
+
+        <div class="page-footer">
+          <div class="page-share">
+            <a href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" title="Share on Twitter" rel="nofollow"
+            target="_blank">Twitter</a>
+            <a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>              <a href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+          </div>
+          <div class="page-tag">
+            {% for tag in page.tags %}
+              <a href="{{ site.baseurl }}/tags#{{ tag }}" class="tag">&#35; {{ tag }}</a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- {% include disqus.html %} -->
+      </div>
+    </div>
+
+    <aside class="post-rail" aria-label="On this page">
+      <div class="post-rail-card">
+        <div class="post-rail-title">On this page</div>
+        <nav id="post-toc" class="post-toc"></nav>
+      </div>
+
+      <div class="post-rail-card post-rail-card-soft">
+        <div class="post-rail-title">Reading</div>
+        <div class="post-rail-meta">
+          <div>{{ page.date | date: '%Y, %b %d' }}</div>
+          <div>{{ page.tags | join: ', ' }}</div>
         </div>
       </div>
-      <!-- {% include disqus.html %} -->
-    </div> <!-- End Wrap Content -->
-  </div> <!-- End Page Content -->
-</article> <!-- End Article Page -->
+    </aside>
+  </div>
+</article>
+
+<script src="{{ '/assets/js/post-toc.js' | relative_url }}" defer></script>
