@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "What Really Happens Before Frontier Models Answer?"
+title: "Behind the Prompt: The Mechanics of LLM Inference"
 date: 2026-06-06
 description: "A structured explanation of attention, FFN, prefill, decode, KV cache, memory bandwidth, agentic cache reuse, and Mixture of Experts inference."
 excerpt: "Before the first token appears, an LLM has already read the prompt, built attention context, created KV cache entries, moved weights through GPU memory, and prepared the next-token loop."
