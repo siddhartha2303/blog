@@ -294,15 +294,15 @@ tags:
 
   .mag-body-grid {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(320px, 0.75fr);
-    gap: 2.6rem;
+    grid-template-columns: minmax(0, 2.35fr) minmax(280px, 0.65fr);
+    gap: 2.2rem;
     align-items: start;
   }
 
   .mag-section-split {
     display: grid;
-    grid-template-columns: minmax(0, 2.15fr) minmax(340px, 0.85fr);
-    gap: 3rem;
+    grid-template-columns: minmax(0, 2.35fr) minmax(280px, 0.65fr);
+    gap: 2.2rem;
     align-items: stretch;
   }
 
@@ -365,8 +365,8 @@ tags:
   }
 
   .mag-text-columns {
-    columns: 2 340px;
-    column-gap: 3rem;
+    columns: 2 300px;
+    column-gap: 2.2rem;
     margin: 1.3rem 0;
   }
 
