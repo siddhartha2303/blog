@@ -7,11 +7,16 @@ layout: main
       {% if page.img %}
       <div class="page-cover-image" style="margin-bottom:48px;">
         <figure style="margin:0;">
-          <img class="page-image" src="{{ '/assets/img/' | prepend: site.baseurl | append: page.img }}" alt="{{ page.title }}" style="width:100%; max-
-          width:none; height:auto; object-fit:contain; display:block; margin:0; border-radius:0;">
+          <img
+            class="page-image"
+            src="{{ '/assets/img/' | prepend: site.baseurl | append: page.img }}"
+            alt="{{ page.title }}"
+            style="width:100%; max-width:none; height:auto; object-fit:contain; display:block; margin:0; border-radius:0;"
+          >
           {% if page.fig-caption %}
-            <figcaption style="text-align:center; color:transparent; font-size:1rem; margin-top:4px; font-style:italic;">{{ page.fig-caption }}</
-            figcaption>
+            <figcaption style="text-align:center; color:transparent; font-size:1rem; margin-top:4px; font-style:italic;">
+              {{ page.fig-caption }}
+            </figcaption>
           {% endif %}
         </figure>
         <hr style="border:none; border-top:1px solid #eee; margin:32px 0 0 0;">
@@ -21,11 +26,13 @@ layout: main
       <div class="wrap-content">
         <header class="header-page">
           <h1 class="page-title">{{ page.title }}</h1>
-          <div class="page-date"><span>{{ page.date | date: '%Y, %b %d' }}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+          <div class="page-date">
+            <span>{{ page.date | date: '%Y, %b %d' }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </div>
         </header>
 
         <div class="post-body">
-          {{ content | markdownify }}
+          {{ content }}
         </div>
 
         <div class="page-footer">
