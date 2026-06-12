@@ -1592,12 +1592,14 @@ FFN layers, on the other hand, account for the majority of parameters and are th
   </div>
 </div>
 
-As a result:
+<p>As a result:</p>
 
-- Total parameters can become very large.
-- Active parameters remain relatively small.
-- Memory traffic is reduced.
-- Inference becomes more efficient.
+<ul>
+  <li>Total parameters can become very large.</li>
+  <li>Active parameters remain relatively small.</li>
+  <li>Memory traffic is reduced.</li>
+  <li>Inference becomes more efficient.</li>
+</ul>
 
   </div>
   <aside class="mag-section-split-side">
@@ -1695,7 +1697,7 @@ The goal is to maximize the amount of useful model capacity that can remain insi
 
 </div>
 
-In many ways, REAP extends the same philosophy we encountered earlier with KV-cache optimization and cache reuse:
+<p>In many ways, REAP extends the same philosophy we encountered earlier with KV-cache optimization and cache reuse:</p>
 
 <div class="mag-pull mag-pull-small">the fastest data movement is the data movement that never needs to happen.</div>
 
