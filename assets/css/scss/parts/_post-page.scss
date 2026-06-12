@@ -1,7 +1,11 @@
 .wrap-content {
   padding: 20px;
 }
-
+.article-page .wrap-content {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 40px;
+}
 .header-page {
   text-align: center;
   margin: 10px 0;
