@@ -894,7 +894,7 @@ tags:
   <div class="mag-rail"><span>LLM Inference</span></div>
   <div class="mag-hero-main">
     <div class="mag-kicker">Inside Modern LLM Inference</div>
-    <h1>What Really Happens Before Frontier Models Answer?</h1>
+    <h1>What Really Happens Before Large Language Models Answer?</h1>
     <p class="mag-lead">You type a prompt, wait for a brief moment, and words begin to appear. The visible experience feels simple, but before the first token arrives the model has already read the prompt, built internal representations, created KV cache entries, and prepared the decode loop.</p>
   </div>
   <aside class="mag-hero-side">
@@ -912,7 +912,7 @@ tags:
 
 <div class="mag-intro" markdown="1">
 
-Every day, millions of people ask frontier models questions. Some ask them to summarize documents, some use them to write code, and others use them to solve complex problems. Regardless of the question, the experience feels almost magical. You type a prompt, wait for a brief moment, and words begin to appear on the screen.
+Every day, millions of people ask Large Language Models questions. Some ask them to summarize documents, some use them to write code, and others use them to solve complex problems. Regardless of the question, the experience feels almost magical. You type a prompt, wait for a brief moment, and words begin to appear on the screen.
 
 But have you ever wondered what happens during that pause before the first token appears?
 
@@ -1039,7 +1039,7 @@ Each layer refines the representation a little further. Individually, the layers
 <div class="mag-section-split">
   <div class="mag-section-split-main" markdown="1">
 
-Most people imagine that a frontier model starts generating an answer immediately after receiving a prompt.
+Most people imagine that a Large Language Model starts generating an answer immediately after receiving a prompt.
 
 Surprisingly, it doesn't.
 
@@ -1716,7 +1716,7 @@ The goal is to maximize the amount of useful model capacity that can remain insi
 
 <div class="mag-text-columns" markdown="1">
 
-What started as a simple question - "What happens before a frontier model answers?" - eventually led us through the most important concepts in modern LLM inference.
+What started as a simple question - "What happens before a Large Language Model answers?" - eventually led us through the most important concepts in modern LLM inference.
 
 We discovered that attention helps tokens find relevant information, while FFN layers transform that information into richer representations.
 
