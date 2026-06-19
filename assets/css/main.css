@@ -1912,3 +1912,32 @@ body:has(.home-page-with-rail) .content-box {
 .rail-card p + p {
   margin-top: 10px;
 }
+/* YouTube card in right rail */
+
+.youtube-card {
+  background: #2f3d2c;
+  border-color: #2f3d2c;
+}
+
+.youtube-card h3,
+.youtube-card p {
+  color: #f8faf2;
+}
+
+.rail-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: #d6b45f;
+  color: #2f3d2c !important;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.rail-button:hover {
+  background: #f0d989;
+  color: #2f3d2c !important;
+  text-decoration: none;
+}
