@@ -1620,9 +1620,9 @@ body:has(.home-page) .content-box {
   align-items: stretch;
   border-radius: 16px;
   overflow: hidden;
-  background: #fff;
-  border: 1px solid rgba(31, 35, 46, .08);
-  box-shadow: 0 8px 28px rgba(31, 35, 46, .07);
+  background: #fffdf8;
+  border: 1px solid rgba(47, 61, 44, .12);
+  box-shadow: 0 10px 30px rgba(47, 61, 44, .08);
   transition: transform .25s ease, box-shadow .25s ease;
 }
 
