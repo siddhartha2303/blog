@@ -1609,7 +1609,7 @@ body:has(.home-page) .content-box {
   min-height: 185px;
   margin: 0 0 24px;
   display: grid;
-  grid-template-columns: 30% 1fr;
+  grid-template-columns: 36% 1fr;
   align-items: stretch;
   border-radius: 16px;
   overflow: hidden;
@@ -1627,10 +1627,10 @@ body:has(.home-page) .content-box {
 .home-page .post .post-thumbnail {
   width: 100%;
   min-height: 185px;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #eef2f7;
+  background-color: #f6f8fb;
 }
 
 .home-page .post .post-content {
