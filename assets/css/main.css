@@ -1947,3 +1947,9 @@ body:has(.home-page-with-rail) .content-box {
   color: #2f3d2c !important;
   text-decoration: none;
 }
+.youtube-card a.rail-button:visited,
+.youtube-card a.rail-button:active,
+.youtube-card a.rail-button:focus {
+  color: #2f3d2c !important;
+  text-decoration: none;
+}
