@@ -1620,8 +1620,8 @@ body:has(.home-page) .content-box {
   align-items: stretch;
   border-radius: 16px;
   overflow: hidden;
-  background: #fffdf8;
-  border: 1px solid rgba(47, 61, 44, .12);
+  background: #fbf8ef;
+  border: 1px solid #ded4b8;
   box-shadow: 0 10px 30px rgba(47, 61, 44, .08);
   transition: transform .25s ease, box-shadow .25s ease;
 }
@@ -1637,7 +1637,7 @@ body:has(.home-page) .content-box {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #f6f8fb;
+  background-color: #f3eee0;
 }
 
 .home-page .post .post-content {
