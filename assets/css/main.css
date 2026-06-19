@@ -1600,14 +1600,14 @@ body:has(.home-page) .wrapper {
 }
 
 body:has(.home-page) .content-box {
-  padding: 36px 80px 36px 300px;
+  padding: 36px 320px 36px 260px;
   display: block;
   background: #f0f5ec;
 }
 .home-page {
   width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 1180px;
+  margin: 0;
 }
 
 .home-page .post {
