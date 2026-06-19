@@ -1734,7 +1734,7 @@ body:has(.home-page) .content-box {
 .sidebar {
   width: 240px;
   padding: 28px 18px;
-  background: #34402f;
+  background: #2f3d2c;
   border-right: 1px solid rgba(255, 255, 255, .08);
   box-shadow: 8px 0 30px rgba(31, 35, 46, .08);
 }
