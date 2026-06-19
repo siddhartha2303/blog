@@ -1837,13 +1837,12 @@ body:has(.home-page-with-rail) .content-box {
 }
 
 .rail-card {
-  background: rgba(255, 255, 255, .78);
-  border: 1px solid rgba(47, 61, 44, .10);
+  background: #fbf8ef;
+  border: 1px solid #ded4b8;
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 18px;
   box-shadow: 0 8px 24px rgba(47, 61, 44, .06);
-  backdrop-filter: blur(8px);
 }
 
 .rail-card h3 {
@@ -1886,8 +1885,8 @@ body:has(.home-page-with-rail) .content-box {
   margin: 0;
   padding: 6px 10px;
   border-radius: 999px;
-  background: #eef3ea;
-  border: 1px solid rgba(47, 61, 44, .12);
+  background: #f0ead8;
+  border: 1px solid #ded4b8;
   color: #2f3d2c;
   font-size: 13px;
 }
