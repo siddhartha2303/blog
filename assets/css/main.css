@@ -1043,7 +1043,7 @@ table tfoot td {
   position: absolute;
   top: 50%;
   left: 0;
-  background-color: #515151;
+  background-color: rgba(255, 255, 255, .35);
 }
 
 .contact .contact-title::after {
@@ -1058,7 +1058,7 @@ table tfoot td {
   position: absolute;
   top: 50%;
   right: 0;
-  background-color: #515151;
+  background-color: rgba(255, 255, 255, .35);
 }
 
 .contact ul {
@@ -1078,7 +1078,10 @@ table tfoot td {
 }
 
 .contact ul li a {
-  color: #515151;
+  color: #f8faf2;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .18);
+  box-shadow: none;
   display: block;
   padding: 5px;
   font-size: 18px;
@@ -1088,13 +1091,16 @@ table tfoot td {
 }
 
 .contact ul li a:hover {
-  color: #333030;
+  color: #34402f;
+  background: #f8faf2;
+  border-color: #f8faf2;
   -webkit-transform: scale(1.2);
       -ms-transform: scale(1.2);
           transform: scale(1.2);
 }
 
 footer .copyright {
+  color: #d9dfd2;
   font-size: 14px;
   text-align: center;
   margin: 0;
@@ -1727,9 +1733,9 @@ body:has(.home-page) .content-box {
 .sidebar {
   width: 240px;
   padding: 28px 18px;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-  border-right: 1px solid rgba(31, 35, 46, .08);
-  box-shadow: 8px 0 30px rgba(31, 35, 46, .04);
+  background: #34402f;
+  border-right: 1px solid rgba(255, 255, 255, .08);
+  box-shadow: 8px 0 30px rgba(31, 35, 46, .08);
 }
 
 .about {
@@ -1748,7 +1754,7 @@ body:has(.home-page) .content-box {
 .about .author-name {
   font-size: 15px;
   letter-spacing: .4px;
-  color: #102a4c;
+  color: #f8faf2;
   margin-bottom: 14px;
   padding-bottom: 16px;
 }
@@ -1757,7 +1763,7 @@ body:has(.home-page) .content-box {
   width: 28px;
   height: 3px;
   border-radius: 999px;
-  background-color: #d4a017;
+  background-color: #d6b45f;
 }
 
 .about p {
@@ -1765,13 +1771,13 @@ body:has(.home-page) .content-box {
   margin: 0 auto;
   font-size: 14.5px;
   line-height: 1.65;
-  color: #374151;
+  color: #e5eadf;
 }
 
 .contact .contact-title {
   font-size: 11px;
   letter-spacing: .6px;
-  color: #6b7280;
+  color: #d9dfd2;
 }
 
 .contact ul li {
