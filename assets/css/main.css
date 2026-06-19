@@ -1908,3 +1908,8 @@ body:has(.home-page-with-rail) .content-box {
     display: none;
   }
 }
+/* Right rail paragraph spacing */
+
+.rail-card p + p {
+  margin-top: 10px;
+}
