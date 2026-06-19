@@ -59,13 +59,13 @@
   }
 }
 .content-box {
-  padding: 20px;
-  padding-left: 260px;
-
+  padding: 40px 48px;
+  padding-left: 300px;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: stretch;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .contact {
@@ -137,47 +137,63 @@ footer {
 .post {
   width: 100%;
   max-width: 100%;
-  margin-bottom: 1.5rem;
-  display: flex;
-  flex-direction: row;
+  margin-bottom: 0;
+  display: grid;
+  grid-template-columns: minmax(320px, 42%) 1fr;
   align-items: stretch;
-  min-height: 11rem;
-  border-radius: 10px;
+  min-height: 260px;
+  border-radius: 18px;
   overflow: hidden;
+  background: #fff;
   transition: all .3s ease;
-  box-shadow: 0 1px 1px 0 rgba(31, 35, 46, .15);
+  box-shadow: 0 8px 30px rgba(31, 35, 46, .08);
+  border: 1px solid rgba(31, 35, 46, .08);
+
   &:hover {
-    transform: translate(0px, -2px);
-    box-shadow: 0 15px 45px -10px rgba(10, 16, 34, .2);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 50px rgba(10, 16, 34, .16);
   }
 
   .post-thumbnail {
-    width: 30%;
-    max-width: 100%;
-    min-height: 11rem;
-    background-size: cover;
-    background-position: 50% 50%;
+    width: 100%;
+    min-height: 260px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #f4f7fb;
   }
 
   .post-content {
-    padding: 1rem;
-    width: 70%;
+    padding: 34px 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     .post-date,
     .post-words {
-      font-size: 12px;
+      font-size: 14px;
+      color: #6b7280;
     }
+
     .post-title {
-      margin: 0 0 10px;
-      font-size: 30px;
+      margin: 0 0 14px;
+      font-size: clamp(30px, 2.8vw, 46px);
+      line-height: 1.15;
       font-weight: 400;
+
       a {
         font-family: 'PT Serif', serif;
         text-decoration: none;
         color: $dark-blue;
       }
     }
+
     p {
       margin-top: 0;
+      font-size: 18px;
+      line-height: 1.65;
+      color: #374151;
     }
   }
 }
