@@ -1602,7 +1602,7 @@ body:has(.home-page) .wrapper {
 body:has(.home-page) .content-box {
   padding: 36px 80px 36px 300px;
   display: block;
-  background: #edf3e8;
+  background: #f0f5ec;
 }
 .home-page {
   width: 100%;
