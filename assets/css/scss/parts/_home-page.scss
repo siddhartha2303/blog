@@ -59,13 +59,12 @@
   }
 }
 .content-box {
-  padding: 40px 48px;
-  padding-left: 300px;
+  padding: 36px 48px;
+  padding-left: 280px;
   display: flex;
   flex-direction: column;
   gap: 28px;
-  max-width: 1600px;
-  margin: 0 auto;
+  align-items: stretch;
 }
 
 .contact {
