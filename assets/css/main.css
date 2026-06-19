@@ -1924,32 +1924,31 @@ body:has(.home-page-with-rail) .content-box {
   color: #f8faf2;
 }
 
-.youtube-card a.rail-button {
-  display: inline-flex;
+.home-rail .youtube-card a.rail-button {
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  width: auto;
-  margin-top: 14px;
-  margin-bottom: 0;
-  padding: 9px 14px;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: max-content;
+  margin: 14px 0 0 0 !important;
+  padding: 9px 14px !important;
   border-radius: 999px;
-  background: #d6b45f;
+  background: #d6b45f !important;
   color: #2f3d2c !important;
   font-size: 13px;
   font-weight: 700;
-  font-style: normal;
-  line-height: 1;
-  text-decoration: none;
+  font-style: normal !important;
+  line-height: 1.2;
+  text-decoration: none !important;
+  box-shadow: none;
 }
 
-.youtube-card a.rail-button:hover {
-  background: #f0d989;
+.home-rail .youtube-card a.rail-button:hover,
+.home-rail .youtube-card a.rail-button:visited,
+.home-rail .youtube-card a.rail-button:active,
+.home-rail .youtube-card a.rail-button:focus {
+  background: #f0d989 !important;
   color: #2f3d2c !important;
-  text-decoration: none;
-}
-.youtube-card a.rail-button:visited,
-.youtube-card a.rail-button:active,
-.youtube-card a.rail-button:focus {
-  color: #2f3d2c !important;
-  text-decoration: none;
+  text-decoration: none !important;
 }
