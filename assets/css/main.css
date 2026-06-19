@@ -1924,19 +1924,25 @@ body:has(.home-page-with-rail) .content-box {
   color: #f8faf2;
 }
 
-.rail-button {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 8px 13px;
+.youtube-card a.rail-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  margin-top: 14px;
+  margin-bottom: 0;
+  padding: 9px 14px;
   border-radius: 999px;
   background: #d6b45f;
   color: #2f3d2c !important;
   font-size: 13px;
   font-weight: 700;
+  font-style: normal;
+  line-height: 1;
   text-decoration: none;
 }
 
-.rail-button:hover {
+.youtube-card a.rail-button:hover {
   background: #f0d989;
   color: #2f3d2c !important;
   text-decoration: none;
