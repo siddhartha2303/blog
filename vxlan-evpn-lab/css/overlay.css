@@ -1,0 +1,124 @@
+/* Full-screen overlay for the characters. Sits above the panes (z-index 30) but below the drawer (35),
+   coach (40) and quiz (45), and never takes a click: pointer-events:none everywhere. */
+#stage { position: fixed; inset: 0; z-index: 30; pointer-events: none; overflow: hidden; }
+#stage * { pointer-events: none; }
+#stage.off { display: none; }
+
+/* Lumen */
+.lm { position: absolute; left: 0; top: 0; width: 64px; height: 77px; will-change: transform; opacity: 0; transition: opacity .25s; }
+.lm.on { opacity: 1; }
+.lm-tilt { width: 100%; height: 100%; transition: transform .12s linear; }
+.lm-bob { width: 100%; height: 100%; animation: lm-bob 2.4s ease-in-out infinite; }
+.lm-svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 6px 5px rgba(27,42,74,.18)); }
+@keyframes lm-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes lm-glow { 0%,100% { opacity: .55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.12); } }
+/* the halo lives inside the SVG sprite sheet (shared via <use>), so this selector must not depend on .lm */
+.glow { transform-box: fill-box; transform-origin: 50% 50%; animation: lm-glow 2.4s ease-in-out infinite; }
+@keyframes lm-flick { 0%,100% { opacity: 1; } 55% { opacity: .35; } 60% { opacity: 1; } 65% { opacity: .3; } 70% { opacity: 1; } }
+.lm.oops .lm-svg { animation: lm-flick 1.1s steps(1) 2; }
+
+/* speech bubble */
+.lm-say { position: absolute; left: 50%; bottom: calc(100% + 6px); transform: translateX(-50%); max-width: 240px; width: max-content;
+  background: #fff; color: #1b2a4a; border: 2px solid #1b2a4a; border-radius: 12px; padding: 6px 11px; box-shadow: 3px 3px 0 #ff6a2b;
+  font: 700 13px/1.35 "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif; opacity: 0; transition: opacity .2s; text-align: center; }
+.lm-say.on { opacity: 1; }
+.lm-say::after { content: ""; position: absolute; left: var(--ax, 50%); bottom: -9px; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #1b2a4a; }
+.lm-say.below { bottom: auto; top: calc(100% + 4px); }
+.lm-say.below::after { bottom: auto; top: -9px; border-top-color: transparent; border-bottom-color: #1b2a4a; }
+
+/* effects layer: the short-lived trail and the pulse rings */
+#stage .fx { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fx .seg { stroke: #ff6a2b; stroke-width: 2; stroke-linecap: round; opacity: .55; animation: seg-fade .9s ease-out forwards; }
+@keyframes seg-fade { to { opacity: 0; } }
+.ring { position: absolute; border: 2px solid #ff6a2b; border-radius: 12px; opacity: 0; animation: ring-pulse 1.1s ease-out forwards; }
+@keyframes ring-pulse { 0% { opacity: .8; transform: scale(1); } 100% { opacity: 0; transform: scale(1.08); } }
+.dot-ring { border-radius: 50%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lm-bob, .glow { animation: none; }
+  .fx .seg { display: none; }
+}
+
+/* ---------- actors on the stage: Fold, paper darts, glitches, sparks ---------- */
+.act { position: absolute; left: 0; top: 0; margin: -22px 0 0 -22px; will-change: transform; transition: opacity .3s; }
+.act svg { display: block; overflow: visible; }
+.act.gone { opacity: 0; }
+.act.fold .art svg { filter: drop-shadow(0 4px 3px rgba(27,42,74,.2)); }
+.act .ttl { position: absolute; right: -10px; top: -8px; min-width: 20px; height: 20px; padding: 0 3px; border-radius: 50%; background: #ff6a2b; color: #fff; border: 2px solid #1b2a4a;
+  font: 700 10px/16px "DM Mono", ui-monospace, monospace; text-align: center; font-style: normal; box-shadow: inset 0 0 0 2px #ffb08a; }
+.act.dart { margin: -12px 0 0 -20px; }
+.act.spark { margin: -11px 0 0 -11px; }
+.poof { position: absolute; width: 20px; height: 20px; margin: -10px 0 0 -10px; border: 3px solid #ff6a2b; border-radius: 50%; opacity: 0; animation: poof-a .6s ease-out forwards; }
+@keyframes poof-a { 0% { opacity: .9; transform: scale(.4); } 100% { opacity: 0; transform: scale(2.6); } }
+.fx .beam { stroke: #ff6a2b; stroke-width: 4; stroke-linecap: round; opacity: .85; filter: drop-shadow(0 0 4px rgba(255,106,43,.8)); animation: beam-a .65s ease-out forwards; }
+@keyframes beam-a { 0% { opacity: .9; } 100% { opacity: 0; } }
+
+/* glitches */
+.act.glitch { margin: -30px 0 0 -30px; opacity: 0; }
+.act.glitch.in { opacity: 1; }
+.act.glitch.snap { animation: g-snap .4s ease-in forwards; }
+@keyframes g-snap { 0% { transform-origin: 50% 50%; filter: none; } 45% { filter: brightness(1.8) saturate(.4); } 100% { opacity: 0; filter: brightness(2); } }
+@keyframes g-jit { 0%,100% { transform: translate(0,0); } 20% { transform: translate(-3px, 1px); } 40% { transform: translate(2px, -2px); } 60% { transform: translate(-1px, 3px); } 80% { transform: translate(3px, 0); } }
+.jit { animation: g-jit .5s steps(1) infinite; } .jit.j2 { animation-duration: .43s; animation-direction: reverse; }
+@keyframes g-wob { 0%,100% { transform: scale(1, 1); } 50% { transform: scale(1.08, .94); } }
+.wob { transform-box: fill-box; transform-origin: 50% 100%; animation: g-wob 1.4s ease-in-out infinite; }
+@keyframes g-spin { to { transform: rotate(360deg); } } @keyframes g-spinr { to { transform: rotate(-360deg); } }
+.spin { transform-box: fill-box; transform-origin: 50% 50%; animation: g-spin 7s linear infinite; }
+.spinr { transform-box: fill-box; transform-origin: 50% 50%; animation: g-spinr 5s linear infinite; }
+@keyframes g-suck { 0% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; } 15% { opacity: 1; } 100% { transform: translate(0, 0) scale(.2); opacity: 0; } }
+.suck { transform-box: fill-box; transform-origin: 50% 50%; animation: g-suck 2.4s ease-in infinite; }
+
+@media (prefers-reduced-motion: reduce) { .jit, .wob, .spin, .spinr, .suck { animation: none; } }
+
+/* ---------- chapter helpers (cameos) ---------- */
+@keyframes c-nod { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-6deg); } 75% { transform: rotate(6deg); } }
+@keyframes c-shake { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes c-press { 0%,55%,100% { transform: translateY(0); } 70% { transform: translateY(14px); } }
+@keyframes c-glint { 0% { transform: translateX(-46px); } 60%,100% { transform: translateX(60px); } }
+@keyframes c-crown { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4px) rotate(4deg); } }
+@keyframes c-fan1 { 0%,100% { transform: translate(0,0); opacity: 0; } 40%,80% { transform: translate(-22px,4px) rotate(-8deg); opacity: .9; } }
+@keyframes c-fan2 { 0%,100% { transform: translate(0,0); opacity: 0; } 40%,80% { transform: translate(22px,4px) rotate(8deg); opacity: .9; } }
+@keyframes c-spray { 0% { transform: translate(0,0) scale(.6); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate(var(--dx), 34px) scale(1); opacity: 0; } }
+@keyframes c-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes c-sign { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+@keyframes c-strip { 0%,20% { transform: translateX(0); } 60%,100% { transform: translateX(18px); } }
+@keyframes c-whistle { 0%,40% { opacity: 0; transform: scale(.4); } 55% { opacity: 1; } 100% { opacity: 0; transform: scale(1.6); } }
+@keyframes c-snip { 0%,100% { transform: rotate(0); } 50% { transform: rotate(-14deg); } }
+@keyframes c-snip2 { 0%,100% { transform: rotate(0); } 50% { transform: rotate(14deg); } }
+@keyframes c-ding { 0%,100% { transform: translateY(0); } 15% { transform: translateY(-9px); } 30% { transform: translateY(0); } }
+@keyframes c-d0 { 0%,48% { opacity: 1; } 52%,100% { opacity: 0; } } @keyframes c-d1 { 0%,48% { opacity: 0; } 52%,100% { opacity: 1; } }
+@keyframes c-sweep { 0%,100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } }
+.c-nod { transform-box: fill-box; transform-origin: 50% 100%; animation: c-nod 2s ease-in-out infinite; }
+.c-shake { animation: c-shake .6s ease-in-out infinite; }
+.c-press { animation: c-press 2s ease-in infinite; }
+.c-glint { animation: c-glint 2.6s ease-in-out infinite; }
+.c-crown { transform-box: fill-box; transform-origin: 50% 100%; animation: c-crown 1.4s ease-in-out infinite; }
+.c-fan1 { animation: c-fan1 2.6s ease-in-out infinite; } .c-fan2 { animation: c-fan2 2.6s ease-in-out infinite; }
+.c-drop { animation: c-spray 1.6s ease-out infinite; }
+.c-float { animation: c-float 2.2s ease-in-out infinite; }
+.c-sign { transform-box: fill-box; transform-origin: 50% 0; animation: c-sign 1.8s ease-in-out infinite; }
+.c-strip { animation: c-strip 2.4s ease-in-out infinite; }
+.c-wh { transform-box: fill-box; transform-origin: 0 50%; animation: c-whistle 1.6s ease-out infinite; }
+.c-b1 { transform-box: fill-box; transform-origin: 80% 80%; animation: c-snip 1.1s ease-in-out infinite; } .c-b2 { transform-box: fill-box; transform-origin: 20% 80%; animation: c-snip2 1.1s ease-in-out infinite; }
+.c-ding { animation: c-ding 1.8s ease-out infinite; }
+.c-d0 { animation: c-d0 2.4s steps(1) infinite; } .c-d1 { animation: c-d1 2.4s steps(1) infinite; }
+.c-sweep { transform-box: fill-box; transform-origin: 80% 90%; animation: c-sweep 2.2s ease-in-out infinite; }
+.act.cameo { margin: -80px 0 0 -55px; opacity: 0; transition: opacity .35s; width: 110px; }
+.act.cameo.in { opacity: 1; }
+.act.cameo svg { display: block; overflow: visible; filter: drop-shadow(0 6px 5px rgba(27,42,74,.2)); }
+.cam-hint { position: absolute; left: 50%; bottom: calc(100% + 2px); transform: translateX(-50%); width: max-content; max-width: 170px; background: #fff; color: #1b2a4a;
+  border: 2px solid #1b2a4a; border-radius: 10px; padding: 3px 9px; box-shadow: 2px 2px 0 #ff6a2b; text-align: center;
+  font: 700 12px/1.3 "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif; }
+@media (prefers-reduced-motion: reduce) { .act.cameo * { animation: none !important; } }
+
+/* entrance: a bounce, three pulse rings, and a name tag so the helper is hard to miss */
+.cam-art { animation: cam-pop .6s cubic-bezier(.2,1.6,.4,1) both, cam-idle 2.6s ease-in-out .6s infinite; transform-origin: 50% 100%; }
+@keyframes cam-pop { 0% { transform: scale(.2) translateY(30px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+@keyframes cam-idle { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+.cam-ring { position: absolute; left: 50%; top: 56px; width: 70px; height: 70px; margin: -35px 0 0 -35px; border: 3px solid #ff6a2b; border-radius: 50%; opacity: 0; animation: cam-ring 1.2s ease-out 3; }
+.cam-ring.r2 { animation-delay: .35s; } .cam-ring.r3 { animation-delay: .7s; }
+@keyframes cam-ring { 0% { opacity: .9; transform: scale(.5); } 100% { opacity: 0; transform: scale(2.1); } }
+.cam-name { position: absolute; left: 50%; top: 112px; transform: translateX(-50%); background: #1b2a4a; color: #fffaf0; border-radius: 999px; padding: 2px 11px;
+  font: 500 11px/1.5 "DM Mono", ui-monospace, Consolas, monospace; letter-spacing: .03em; white-space: nowrap; box-shadow: 2px 2px 0 #ff6a2b; }
+.act.cameo .cam-hint { bottom: calc(100% - 4px); }
+@media (prefers-reduced-motion: reduce) { .cam-art, .cam-ring { animation: none !important; } }

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VXLAN EVPN Quest</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/game.css">
+<link rel="stylesheet" href="css/explain.css">
+<link rel="stylesheet" href="css/overlay.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">⬡</span><div><b>VXLAN EVPN Quest</b><small>2 spine · 3 leaf · dual-homed host · NX-OS</small></div></div>
+  <nav id="chapters"></nav>
+  <div class="bum" title="How BUM (broadcast / unknown-unicast / multicast) traffic is replicated across the fabric"><span>BUM</span><div id="bum"><button data-m="ir" class="on">Ingress replication</button><button data-m="mc">Multicast (PIM)</button></div></div>
+  <div class="hud" id="hud">
+    <div class="rank"><span id="hud-rank">Level 0 · not yet</span><div class="xpbar"><i id="xp-fill"></i></div></div>
+    <b id="xp-n" class="xpn">0 XP</b>
+    <span class="stat" id="hud-streak-w" title="Correct-answer streak">🔥 <b id="hud-streak">0</b></span>
+    <span class="stat" title="Achievements">🏅 <b id="hud-ach">0</b></span>
+    <button id="btn-mute" class="ghost sq" title="Sound on/off">🔊</button>
+    <button id="btn-reset" class="ghost sq" title="Start over">↺</button>
+  </div>
+  <div class="prog"><div id="progress"></div></div>
+</header>
+
+<!-- Mission bar -->
+<section id="mission" class="hide">
+  <div class="m-ring" id="m-ring"><b id="m-n">1</b><small id="m-of">/ 1</small></div>
+  <div class="m-main">
+    <div class="m-kicker">MISSION</div>
+    <div class="m-t" id="m-t"></div>
+    <div class="m-b" id="m-b"></div>
+  </div>
+  <div class="m-track" id="m-track"></div>
+  <div class="m-act" id="m-act"></div>
+</section>
+
+<main class="grid">
+  <!-- TOPOLOGY -->
+  <section class="pane" id="pane-topo">
+    <div class="ph"><h3>🗺 Topology</h3><span id="build-help" class="muted"></span><span id="wire-prog" class="pill"></span></div>
+    <div id="palette-wrap" class="palette-wrap"><span class="muted">Palette</span><div id="palette"></div></div>
+    <div class="canvas"><svg id="topo" viewBox="0 0 760 440" preserveAspectRatio="xMidYMid meet"></svg></div>
+    <div id="inspector" class="inspector muted">Click a device to open its console.</div>
+    <div id="wire-bar" class="hide"></div>
+  </section>
+
+  <!-- CLI -->
+  <section class="pane" id="pane-cli">
+    <div class="ph"><h3>⌨ Console</h3><div id="tabs" class="tabs"></div></div>
+    <div id="actions" class="actions hide"><div class="a-head"><b>🎯 Your move</b><span id="a-count" class="muted"></span><button id="a-rest" class="btn sm">⏩ Do the rest for me</button></div><div id="a-chips" class="a-chips"></div></div>
+    <div id="term" class="term"></div>
+    <div class="ctl">
+      <button id="btn-pause" class="btn">⏸ Pause</button>
+      <button id="btn-skip" class="btn">⏩ Skip typing</button>
+      <button id="btn-cont" class="btn primary" disabled><span id="cont-l">Continue ▶</span></button>
+      <label class="spd">Speed <input id="speed" type="range" min="0.5" max="6" step="0.5" value="1"><span id="speed-l">1×</span></label>
+      <label class="opt"><input id="opt-guided" type="checkbox" checked> Game mode (I click each step)</label>
+      <label class="opt"><input id="opt-pause" type="checkbox" checked> Pause on packets</label>
+      <label class="opt"><input id="opt-manual" type="checkbox"> Step each command</label>
+      <label class="opt"><input id="opt-chars" type="checkbox" checked> Lumen &amp; friends</label>
+      <label class="opt"><input id="opt-trails" type="checkbox" checked> Trails</label>
+      <span id="run-state" class="muted">Idle</span>
+    </div>
+  </section>
+
+  <!-- EXPLAIN -->
+  <section class="pane" id="pane-explain">
+    <div class="ph"><h3>📌 Command significance</h3><span class="legend"><i class="lg m">🎯 move</i><i class="lg c">⌨ command</i><i class="lg w">🦈 Wireshark</i></span></div>
+    <div id="explain" class="explain"></div>
+  </section>
+
+  <!-- WIRESHARK -->
+  <section class="pane" id="pane-ws">
+    <div class="ph"><h3>🦈 Wireshark <span class="sim">simulated capture</span></h3>
+      <div id="ws-tabs" class="wtabs"><button class="wtab on" data-t="packets">Packets</button><button class="wtab" data-t="encap">Encapsulation</button><button class="wtab" data-t="rt">EVPN route types</button></div>
+    </div>
+    <div id="ws-banner" class="banner hide"><span class="dot"></span><span id="ws-banner-t"></span><u>click to inspect</u></div>
+    <div id="ws-packets">
+      <div class="wbar"><span class="muted">Capture:</span> <b id="cap-if">—</b></div>
+      <div class="wbar"><span class="muted">Filter:</span><input id="ws-filter" placeholder="display filter, e.g. bgp.evpn.nlri.rt == 2  ·  vxlan.vni == 50001  ·  ospf.msg == 1" spellcheck="false">
+        <span id="ws-chips"><button class="fchip" data-f="">all</button><button class="fchip" data-f="bgp">bgp</button><button class="fchip" data-f="vxlan">vxlan</button><button class="fchip" data-f="tcp">tcp</button><button class="fchip" data-f="icmp">icmp</button><button class="fchip" data-f="lacp">lacp</button><button class="fchip" data-f="arp">arp</button><button class="fchip" data-f="ospf">ospf</button><button class="fchip" data-f="pim">pim</button></span></div>
+      <div id="pk-list" class="pklist"><table><thead><tr><th>No.</th><th>Time</th><th>Source</th><th>Destination</th><th>Protocol</th><th>Length</th><th>Info</th></tr></thead><tbody id="pk-body"></tbody></table></div>
+      <div id="pk-detail" class="pkdetail"><div class="empty-ws">Select a packet above.</div></div>
+    </div>
+    <div id="ws-encap" class="hide"><div id="encap" class="encap"></div></div>
+    <div id="ws-rt" class="hide"><div id="rtypes" class="encap"></div></div>
+  </section>
+</main>
+
+<!-- Result drawer: slides up from the bottom -->
+<aside id="drawer">
+  <div class="dr-head"><span class="dr-ico">📋</span><div><b id="dr-title">Result</b><small id="dr-sub">What your command just changed</small></div><button id="dr-btn" class="btn primary">Continue ▶</button></div>
+  <div class="dr-body"><div id="dr-term" class="term dr-term"></div><div id="dr-note" class="dr-note"></div></div>
+</aside>
+
+<!-- Prediction challenge -->
+<div id="quiz-wrap"><div class="quiz">
+  <div class="q-kicker">🔮 PREDICT! <span id="q-streak"></span></div>
+  <h3 id="q-q"></h3>
+  <div id="q-opts"></div>
+  <div id="q-fb"></div>
+  <button id="q-btn" class="btn primary big hide">Continue ▶</button>
+</div></div>
+
+<!-- Guided coach (chapter intro / recap) -->
+<div id="coach-wrap"><div class="coach">
+  <div id="coach-stars" class="stars"></div>
+  <h2 id="coach-t"></h2><p id="coach-b"></p><ul id="coach-pts"></ul>
+  <button id="coach-btn" class="btn primary big">Continue</button>
+</div></div>
+
+<div id="stage" aria-hidden="true"></div>
+<div id="banner"></div>
+<div id="ach-stack"></div>
+<div id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/packets.js"></script>
+<script src="js/lessons.js"></script>
+<script src="js/game.js"></script>
+<script src="js/significance.js"></script>
+<script src="js/art.js"></script>
+<script src="js/cast.js"></script>
+<script src="js/overlay.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+/* =============================================================== Command-significance pane */
+.legend{display:flex;gap:6px;margin-left:auto}
+.lg{font-style:normal;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px}
+.lg.m{background:#ede9fe;color:#5b21b6}.lg.c{background:#e0ecff;color:#1d4ed8}.lg.w{background:#fee2e2;color:#b91c1c}
+.explain{background:#fbfcff;gap:8px}
+
+/* base card: coloured accent bar on the left */
+.explain .card{position:relative;border:1px solid #e6e9f2;border-radius:12px;padding:10px 12px 10px 16px;background:#fff;opacity:1;box-shadow:0 1px 3px rgba(15,23,42,.05);transition:all .25s}
+.explain .card::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:4px;border-radius:0 4px 4px 0;background:#cbd5e1}
+.explain .card.kc::before{background:#3b82f6}
+.explain .card.move::before{background:linear-gradient(#6366f1,#a855f7)}
+.explain .card.wire::before{background:#ef4444}
+.explain .card.current{border-color:#c7d2fe;box-shadow:0 6px 18px rgba(79,70,229,.12);animation:cardin .35s ease-out}
+@keyframes cardin{from{transform:translateY(-6px);opacity:.3}}
+.explain .card.note{background:#f8fafc;color:#475569;font-size:12.5px;padding:7px 12px 7px 16px;box-shadow:none}
+
+/* single command card */
+.k-top,.g-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.k-dev{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#64748b;background:#f1f5f9;border-radius:6px;padding:1px 7px}
+code.k-cmd{font:600 13px var(--mono);background:#0f172a;color:#e2e8f0;border-radius:7px;padding:3px 9px}
+.k-sig{font-size:14px;line-height:1.45;color:#0f172a;margin-top:6px}
+.k-sig b{color:#1e40af}
+.k-warn{margin-top:6px;font-size:12.5px;line-height:1.4;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:5px 9px}
+.k-more{margin-top:6px;font-size:12.5px;color:#475569}
+.k-more summary{cursor:pointer;color:#6366f1;font-weight:600;font-size:12px;list-style:none}
+.k-more summary::before{content:"▸ "}.k-more[open] summary::before{content:"▾ "}
+.k-more>div{margin-top:4px;line-height:1.5}
+.k-more code,.k-sig code,.w-exp code{font:12px var(--mono);background:#eef1f5;border-radius:4px;padding:0 4px}
+
+/* move card: command table */
+.g-top b{font-size:15px;color:#312e81}
+.g-rows{margin-top:8px;display:flex;flex-direction:column;gap:3px}
+.g-row{display:grid;grid-template-columns:minmax(150px,42%) 1fr;gap:10px;align-items:start;padding:5px 8px;border-radius:8px;font-size:13px;line-height:1.4;transition:background .2s}
+.g-row code{font:600 12px var(--mono);color:#334155;background:#f1f5f9;border-radius:6px;padding:2px 7px;word-break:break-word;justify-self:start}
+.g-row span{color:#334155}
+.g-row em{display:block;font-style:normal;font-size:12px;color:#92400e;margin-top:2px}
+.g-row.live{background:#eef2ff;box-shadow:inset 3px 0 0 #6366f1}
+.g-row.live code{background:#0f172a;color:#fff}
+.g-row.done code::before{content:"✓ ";color:#16a34a}
+
+/* Wireshark callout */
+.w-top{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#dc2626}
+.w-title{font-size:15px;font-weight:700;margin:2px 0 8px;color:#0f172a}
+.w-row{display:flex;gap:10px;align-items:flex-start;margin:5px 0;font-size:13px;flex-wrap:wrap}
+.w-lbl{flex:none;width:98px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#64748b;padding-top:3px}
+code.w-filter{font:600 12.5px var(--mono);background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;border-radius:6px;padding:2px 8px}
+.w-apply{border:0;border-radius:7px;padding:3px 10px;font-size:12px;font-weight:700;color:#fff;background:#ef4444;cursor:pointer;min-height:0;box-shadow:0 3px 10px rgba(239,68,68,.3)}
+.w-apply:hover{background:#dc2626}
+.w-exp{flex:1;min-width:200px;line-height:1.5}
+.w-exp b{color:#0f172a}
+.w-hint{font-size:11.5px;color:#94a3b8;margin-top:4px}
+
+/* older cards collapse to their first line; click to expand */
+.explain .card.old{opacity:.6;padding-top:6px;padding-bottom:6px;cursor:pointer}
+.explain .card.old:hover{opacity:.9}
+.explain .card.old .k-sig{font-size:12.5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.explain .card.old .k-warn,.explain .card.old .k-more,.explain .card.old .g-rows,.explain .card.old .w-row,.explain .card.old .w-hint{display:none}
+.explain .card.old .w-title{margin:0;font-size:13px}
+.explain .card.old .g-top b{font-size:13px}
+
+/* filter box: green = valid display filter, amber = plain text search (like Wireshark) */
+#ws-filter.ok{background:#dcfce7;border-color:#86efac}
+#ws-filter.txt{background:#fef9c3;border-color:#fde047}
+.fld.sub .fk{font-weight:700;color:#1e3a8a}
