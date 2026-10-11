@@ -88,10 +88,10 @@
   border: 2px solid #1b2a4a; box-shadow: 0 0 0 0 rgba(255,106,43,.7);
   animation: pp-bob 2.2s ease-in-out infinite, pp-orb 2.2s ease-out infinite;
 }
-.pp-txt { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+.pp-txt { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; padding-top: 6px; }
 .pp-txt b { font-size: 13.5px; font-weight: 800; white-space: nowrap; }
 .pp-txt small { font-size: 11px; opacity: .82; }
-.pp-new { margin-left: auto; background: #2f3d2c; color: #f8faf2; border-radius: 999px; padding: 2px 7px; font-size: 9.5px; font-weight: 800; letter-spacing: .06em; animation: pq-blink 1.8s ease-in-out infinite; }
+.pp-new { position: absolute; top: 5px; right: 8px; background: #2f3d2c; color: #f8faf2; border-radius: 999px; padding: 1px 7px; font-size: 9px; font-weight: 800; letter-spacing: .06em; animation: pq-blink 1.8s ease-in-out infinite; }
 @keyframes pp-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 @keyframes pp-orb { 0% { box-shadow: 0 0 0 0 rgba(255,106,43,.7); } 70%,100% { box-shadow: 0 0 0 9px rgba(255,106,43,0); } }
 @keyframes pp-pulse { 0% { box-shadow: 0 6px 18px rgba(0,0,0,.22), 0 0 0 0 rgba(214,180,95,.55); } 70%,100% { box-shadow: 0 6px 18px rgba(0,0,0,.22), 0 0 0 12px rgba(214,180,95,0); } }
