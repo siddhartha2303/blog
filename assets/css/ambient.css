@@ -14,9 +14,9 @@
 /* ---------- page background (desktop only; JS creates these) ---------- */
 .amb-aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .amb-aurora i { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; will-change: transform; }
-.amb-aurora i:nth-child(1) { left: -15vmax; top: -10vmax; background: radial-gradient(circle, rgba(214,180,95,.20), transparent 62%); animation: amb-drift1 38s ease-in-out infinite alternate; }
-.amb-aurora i:nth-child(2) { right: -20vmax; bottom: -20vmax; background: radial-gradient(circle, rgba(70,110,70,.20), transparent 62%); animation: amb-drift2 46s ease-in-out infinite alternate; }
-.amb-aurora i:nth-child(3) { left: 30vw; top: 35vh; width: 40vmax; height: 40vmax; background: radial-gradient(circle, rgba(255,106,43,.08), transparent 62%); animation: amb-drift1 54s ease-in-out infinite alternate-reverse; }
+.amb-aurora i:nth-child(1) { left: -15vmax; top: -10vmax; background: radial-gradient(circle, rgba(214,180,95,.34), transparent 62%); animation: amb-drift1 38s ease-in-out infinite alternate; }
+.amb-aurora i:nth-child(2) { right: -20vmax; bottom: -20vmax; background: radial-gradient(circle, rgba(70,120,70,.30), transparent 62%); animation: amb-drift2 46s ease-in-out infinite alternate; }
+.amb-aurora i:nth-child(3) { left: 30vw; top: 35vh; width: 40vmax; height: 40vmax; background: radial-gradient(circle, rgba(255,106,43,.14), transparent 62%); animation: amb-drift1 54s ease-in-out infinite alternate-reverse; }
 @keyframes amb-drift1 { to { transform: translate(14vw, 12vh) scale(1.15); } }
 @keyframes amb-drift2 { to { transform: translate(-16vw, -10vh) scale(1.1); } }
 .amb-bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
@@ -70,3 +70,18 @@ body:has(.amb-bg) .home-page, body:has(.amb-bg):has(.home-page) .content-box { b
   .amb-track { flex-wrap: wrap; width: auto; justify-content: center; }
   .ns-rot { transition: none; }
 }
+
+/* ---------- frosted-glass cards: the background shows through, softly blurred, as if the cards float above it ---------- */
+body:has(.amb-bg) .home-posts .post,
+body:has(.amb-bg) .home-rail .rail-card:not(.play-card):not(.youtube-card) {
+  background: rgba(251,248,239,.52); border-color: rgba(255,255,255,.75);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5); backdrop-filter: blur(14px) saturate(1.5);
+  box-shadow: 0 10px 30px rgba(47,61,44,.10), inset 0 1px 0 rgba(255,255,255,.8);
+}
+body:has(.amb-bg) .home-posts .post .post-thumbnail { background-color: rgba(243,238,224,.30); }
+body:has(.amb-bg) .home-posts .post:hover { background: rgba(251,248,239,.66); }
+body:has(.amb-bg) .amb-marquee { background: rgba(251,248,239,.5); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+
+/* ---------- post pages: calm wave header above the title ---------- */
+.amb-post-hero { display: block; width: 100%; height: 84px; margin: 0 0 14px; border-radius: 16px; background: linear-gradient(180deg, rgba(47,61,44,.06), rgba(214,180,95,.14)); }
+@media only screen and (max-width: 768px) { .amb-post-hero { height: 64px; border-radius: 12px; } }

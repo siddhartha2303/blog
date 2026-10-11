@@ -126,8 +126,8 @@
       var c = g.c; c.clearRect(0, 0, g.w, g.h);
       for (var i = 0; i < dots.length; i++) {
         var a = dots[i];
-        for (var j = i + 1; j < dots.length; j++) { var b = dots[j], d = Math.hypot(a.x - b.x, a.y - b.y); if (d < 130) { c.strokeStyle = 'rgba(47,61,44,' + (0.13 * (1 - d / 130)).toFixed(3) + ')'; c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke(); } }
-        c.fillStyle = 'rgba(47,61,44,.22)'; c.beginPath(); c.arc(a.x, a.y, 1.8, 0, 7); c.fill();
+        for (var j = i + 1; j < dots.length; j++) { var b = dots[j], d = Math.hypot(a.x - b.x, a.y - b.y); if (d < 130) { c.strokeStyle = 'rgba(47,61,44,' + (0.19 * (1 - d / 130)).toFixed(3) + ')'; c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke(); } }
+        c.fillStyle = 'rgba(47,61,44,.32)'; c.beginPath(); c.arc(a.x, a.y, 1.8, 0, 7); c.fill();
       }
     }
     function step(dt) {
@@ -167,8 +167,33 @@
     box.appendChild(tr); strip.parentNode.insertBefore(box, strip.nextSibling);
   }
 
+  /* ---------- 6. post pages: a calm wave band above the title (slow, low contrast, away from the text) ---------- */
+  function initPostHero() {
+    var head = document.querySelector('.header-page'); if (!head) return;
+    var cv = document.createElement('canvas'); cv.className = 'amb-post-hero'; cv.setAttribute('aria-hidden', 'true');
+    head.parentNode.insertBefore(cv, head);
+    var g, t = 0, bits = [];
+    function build() {
+      g = fit(cv); bits = [];
+      for (var i = 0; i < 14; i++) bits.push({ x: Math.random() * g.w, y: Math.random() * g.h, v: 3 + Math.random() * 5, r: 1 + Math.random() * 1.6 });
+    }
+    function draw() {
+      var c = g.c; c.clearRect(0, 0, g.w, g.h);
+      var layers = [['rgba(47,61,44,.16)', .55, .9, 10, 0], ['rgba(214,180,95,.30)', .62, 1.3, 8, 2], ['rgba(70,120,70,.20)', .7, .7, 7, 4]];
+      layers.forEach(function (L) {
+        c.fillStyle = L[0]; c.beginPath(); c.moveTo(0, g.h);
+        for (var x = 0; x <= g.w; x += 8) c.lineTo(x, g.h * L[1] + Math.sin(x / (g.w / (3 + L[4])) * 2 + t * L[2] + L[4]) * L[3] + Math.sin(x / 90 + t * .6) * 3);
+        c.lineTo(g.w, g.h); c.closePath(); c.fill();
+      });
+      bits.forEach(function (b) { c.fillStyle = 'rgba(214,160,60,.55)'; c.beginPath(); c.arc(b.x, b.y, b.r, 0, 7); c.fill(); });
+    }
+    function step(dt) { t += dt * .8; bits.forEach(function (b) { b.y -= b.v * dt; b.x += Math.sin(t + b.v) * .15; if (b.y < -4) { b.y = g.h + 4; b.x = Math.random() * g.w; } }); draw(); }
+    build(); draw(); watch({ step: step }, cv);
+    var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { build(); draw(); }, 200); });
+  }
+
   function start() {
-    [initBanner, initRotator, initBackground, initSpotlight, initMarquee].forEach(function (f) { try { f(); } catch (e) { if (window.console) console.warn('ambient:', e); } });
+    [initBanner, initRotator, initBackground, initSpotlight, initMarquee, initPostHero].forEach(function (f) { try { f(); } catch (e) { if (window.console) console.warn('ambient:', e); } });
     kick();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
