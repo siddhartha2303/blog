@@ -85,3 +85,8 @@ body:has(.amb-bg) .amb-marquee { background: rgba(251,248,239,.5); -webkit-backd
 /* ---------- post pages: calm wave header above the title ---------- */
 .amb-post-hero { display: block; width: 100%; height: 84px; margin: 0 0 14px; border-radius: 16px; background: linear-gradient(180deg, rgba(47,61,44,.06), rgba(214,180,95,.14)); }
 @media only screen and (max-width: 768px) { .amb-post-hero { height: 64px; border-radius: 12px; } }
+
+/* ---------- wide screens: the homepage now fills the width instead of stopping at 1460px ---------- */
+@media only screen and (min-width: 1181px) {
+  .home-page-with-rail { max-width: 1840px; margin: 0 auto; grid-template-columns: minmax(0, 1fr) 320px; gap: 32px; }
+}
