@@ -114,3 +114,13 @@ body:has(.amb-bg) .home-posts .post .post-thumbnail { background-color: rgba(243
 /* ---------- thumbnails: cut-out PNGs (background removed in the file itself) float on the glass; the others stay as they were ---------- */
 body:has(.amb-bg) .home-posts .post .post-thumbnail { background-color: transparent; }
 body:has(.amb-bg) .home-posts .post .post-thumbnail.thumb-cut { background-origin: content-box; padding: 14px 18px; filter: drop-shadow(0 6px 10px rgba(47,61,44,.20)); }
+
+/* ---------- right panels scroll on their own: wheel over the panel moves the panel, not the page ---------- */
+@media only screen and (min-width: 1181px) {
+  .post-rail { max-height: calc(100vh - 48px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(214,180,95,.8) transparent; }
+  .home-rail { max-height: calc(100vh - 72px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(214,180,95,.8) transparent; }
+  .post-rail::-webkit-scrollbar, .home-rail::-webkit-scrollbar { width: 6px; }
+  .post-rail::-webkit-scrollbar-thumb, .home-rail::-webkit-scrollbar-thumb { background: rgba(214,180,95,.8); border-radius: 6px; }
+  /* the cards inside need room so hover lift and shadow are not clipped by the scroll box */
+  .home-rail { padding: 6px 8px 8px 2px; margin: -6px -8px -8px -2px; }
+}
