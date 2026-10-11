@@ -90,3 +90,23 @@ body:has(.amb-bg) .amb-marquee { background: rgba(251,248,239,.5); -webkit-backd
 @media only screen and (min-width: 1181px) {
   .home-page-with-rail { max-width: 1840px; margin: 0 auto; grid-template-columns: minmax(0, 1fr) 320px; gap: 32px; }
 }
+
+/* ---------- glass, round 2: coloured orbs glide behind the cards so the frosting is easy to see ---------- */
+.amb-aurora b { position: absolute; width: 300px; height: 300px; border-radius: 50%; will-change: transform; opacity: .85; }
+.amb-aurora b:nth-of-type(1) { left: 22%; top: 12%; background: radial-gradient(circle at 35% 35%, rgba(240,200,90,.75), rgba(240,200,90,0) 68%); animation: amb-roam1 26s ease-in-out infinite alternate; }
+.amb-aurora b:nth-of-type(2) { left: 55%; top: 40%; width: 360px; height: 360px; background: radial-gradient(circle at 40% 40%, rgba(90,160,110,.60), rgba(90,160,110,0) 68%); animation: amb-roam2 31s ease-in-out infinite alternate; }
+.amb-aurora b:nth-of-type(3) { left: 38%; top: 62%; width: 260px; height: 260px; background: radial-gradient(circle at 40% 40%, rgba(255,120,60,.55), rgba(255,120,60,0) 68%); animation: amb-roam3 23s ease-in-out infinite alternate; }
+.amb-aurora b:nth-of-type(4) { left: 70%; top: 8%; width: 280px; height: 280px; background: radial-gradient(circle at 40% 40%, rgba(80,150,200,.45), rgba(80,150,200,0) 68%); animation: amb-roam4 34s ease-in-out infinite alternate; }
+.amb-aurora b:nth-of-type(5) { left: 8%; top: 55%; width: 240px; height: 240px; background: radial-gradient(circle at 40% 40%, rgba(180,120,200,.38), rgba(180,120,200,0) 68%); animation: amb-roam2 29s ease-in-out infinite alternate-reverse; }
+@keyframes amb-roam1 { to { transform: translate(30vw, 40vh); } }
+@keyframes amb-roam2 { to { transform: translate(-35vw, -25vh); } }
+@keyframes amb-roam3 { to { transform: translate(28vw, -35vh); } }
+@keyframes amb-roam4 { to { transform: translate(-30vw, 45vh); } }
+body:has(.amb-bg) .home-posts .post,
+body:has(.amb-bg) .home-rail .rail-card:not(.play-card):not(.youtube-card) {
+  background: rgba(255,252,243,.30); border-color: rgba(255,255,255,.85);
+  -webkit-backdrop-filter: blur(18px) saturate(1.7); backdrop-filter: blur(18px) saturate(1.7);
+}
+body:has(.amb-bg) .home-posts .post:hover { background: rgba(255,252,243,.50); }
+body:has(.amb-bg) .home-posts .post .post-thumbnail { background-color: rgba(243,238,224,.12); }
+@media (prefers-reduced-motion: reduce) { .amb-aurora b { animation: none !important; } }

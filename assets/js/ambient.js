@@ -114,7 +114,7 @@
   /* ---------- 3. page background: faint drifting dots and lines behind everything (desktop only) ---------- */
   function initBackground() {
     if (phone()) return;
-    var al = document.createElement('div'); al.className = 'amb-aurora'; al.setAttribute('aria-hidden', 'true'); al.innerHTML = '<i></i><i></i><i></i>';
+    var al = document.createElement('div'); al.className = 'amb-aurora'; al.setAttribute('aria-hidden', 'true'); al.innerHTML = '<i></i><i></i><i></i><b></b><b></b><b></b><b></b><b></b>';
     var cv = document.createElement('canvas'); cv.className = 'amb-bg'; cv.setAttribute('aria-hidden', 'true');
     document.body.insertBefore(cv, document.body.firstChild); document.body.insertBefore(al, document.body.firstChild);
     var g, dots = [];
@@ -126,8 +126,8 @@
       var c = g.c; c.clearRect(0, 0, g.w, g.h);
       for (var i = 0; i < dots.length; i++) {
         var a = dots[i];
-        for (var j = i + 1; j < dots.length; j++) { var b = dots[j], d = Math.hypot(a.x - b.x, a.y - b.y); if (d < 130) { c.strokeStyle = 'rgba(47,61,44,' + (0.19 * (1 - d / 130)).toFixed(3) + ')'; c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke(); } }
-        c.fillStyle = 'rgba(47,61,44,.32)'; c.beginPath(); c.arc(a.x, a.y, 1.8, 0, 7); c.fill();
+        for (var j = i + 1; j < dots.length; j++) { var b = dots[j], d = Math.hypot(a.x - b.x, a.y - b.y); if (d < 130) { c.strokeStyle = 'rgba(47,61,44,' + (0.26 * (1 - d / 130)).toFixed(3) + ')'; c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke(); } }
+        c.fillStyle = 'rgba(47,61,44,.45)'; c.beginPath(); c.arc(a.x, a.y, 2.3, 0, 7); c.fill();
       }
     }
     function step(dt) {
