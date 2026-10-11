@@ -1,0 +1,108 @@
+/* Promo for the VXLAN EVPN Quest: an animated card in the right column and a pill in the left panel.
+   Kept in its own file so the compiled theme CSS and its SCSS sources are untouched. */
+
+/* ---------- right-column card ---------- */
+.rail-card.play-card {
+  position: relative;
+  background: #2f3d2c;
+  border-color: #d6b45f;
+  overflow: hidden;
+  animation: pq-glow 3.2s ease-in-out infinite;
+}
+.play-card h3 { color: #f8faf2; margin-bottom: 10px; padding-right: 76px; }
+.play-card p { color: #e3ead9; }
+.play-card .pq-new {
+  position: absolute; top: 14px; right: 14px;
+  background: #d6b45f; color: #2f3d2c; border-radius: 999px; padding: 3px 9px;
+  font: 700 10px/1.3 'Lato', system-ui, sans-serif; letter-spacing: .08em;
+  animation: pq-blink 1.8s ease-in-out infinite;
+}
+.pq-scene { margin: 0 -4px 12px; border-radius: 12px; background: radial-gradient(120% 120% at 50% 0%, #46583f 0%, #34452f 70%); border: 1px solid rgba(214,180,95,.35); }
+.pq-scene svg { display: block; }
+.pq-scene .pq-cable { stroke: rgba(248,250,242,.38); stroke-width: 2.4; stroke-dasharray: 5 6; stroke-linecap: round; animation: pq-flow 1.2s linear infinite; }
+.pq-scene .pq-dev rect { fill: #3d4f39; stroke: #d6b45f; stroke-width: 1.6; }
+.pq-scene .pq-dev text { fill: #f8faf2; font: 700 8.5px/1 'Lato', system-ui, sans-serif; }
+.pq-scene .pq-say text { fill: #1b2a4a; font: 700 8.5px/1 'Lato', system-ui, sans-serif; }
+
+/* Fold crosses the cable: note -> folds into a box -> unfolds */
+.pq-trip { transform: translate(20px, 48px); animation: pq-travel 6s ease-in-out infinite; }
+.pq-note { animation: pq-note 6s steps(1) infinite; }
+.pq-box  { opacity: 0; animation: pq-boxy 6s steps(1) infinite; }
+.pq-vni  { animation: pq-boxy 6s steps(1) infinite; }
+@keyframes pq-travel { 0% { transform: translate(14px, 48px); } 18% { transform: translate(14px, 48px); } 82% { transform: translate(152px, 48px); } 100% { transform: translate(152px, 48px); } }
+@keyframes pq-note { 0%,17% { opacity: 1; } 18%,82% { opacity: 0; } 83%,100% { opacity: 1; } }
+@keyframes pq-boxy { 0%,17% { opacity: 0; } 18%,82% { opacity: 1; } 83%,100% { opacity: 0; } }
+
+/* Lumen floats and glows; two speech bubbles take turns */
+.pq-lumen { animation: pq-float 2.6s ease-in-out infinite; }
+.pq-halo { transform-box: fill-box; transform-origin: 50% 50%; animation: pq-halo 2.6s ease-in-out infinite; }
+.pq-say1 { animation: pq-s1 6s steps(1) infinite; }
+.pq-say2 { opacity: 0; animation: pq-s2 6s steps(1) infinite; }
+@keyframes pq-float { 0%,100% { transform: translate(96px, 4px); } 50% { transform: translate(96px, -3px); } }
+@keyframes pq-halo { 0%,100% { opacity: .6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.14); } }
+@keyframes pq-s1 { 0%,48% { opacity: 1; } 50%,100% { opacity: 0; } }
+@keyframes pq-s2 { 0%,48% { opacity: 0; } 50%,100% { opacity: 1; } }
+
+@keyframes pq-flow { to { stroke-dashoffset: -11; } }
+@keyframes pq-glow { 0%,100% { box-shadow: 0 8px 24px rgba(47,61,44,.12), 0 0 0 0 rgba(214,180,95,0); } 50% { box-shadow: 0 10px 30px rgba(47,61,44,.22), 0 0 0 5px rgba(214,180,95,.28); } }
+@keyframes pq-blink { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+
+/* the gold button: soft pulse + a shine that sweeps across */
+.home-rail .play-card a.pq-btn {
+  position: relative; overflow: hidden;
+  display: inline-flex !important; align-items: center; gap: 8px;
+  width: auto !important; max-width: max-content; margin: 14px 0 0 0 !important;
+  padding: 11px 20px !important; border-radius: 999px;
+  background: #d6b45f !important; color: #2f3d2c !important;
+  font-size: 14px; font-weight: 800; line-height: 1.2; text-decoration: none !important;
+  animation: pq-pulse 2.2s ease-out infinite;
+}
+.home-rail .play-card a.pq-btn::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.65), transparent);
+  transform: skewX(-20deg); animation: pq-shine 3.4s ease-in-out infinite;
+}
+.home-rail .play-card a.pq-btn:hover, .home-rail .play-card a.pq-btn:focus { background: #f0d989 !important; color: #2f3d2c !important; text-decoration: none !important; }
+.pq-tri { font-size: 11px; display: inline-block; animation: pq-nudge 1.2s ease-in-out infinite; }
+@keyframes pq-pulse { 0% { box-shadow: 0 0 0 0 rgba(214,180,95,.6); } 70%,100% { box-shadow: 0 0 0 14px rgba(214,180,95,0); } }
+@keyframes pq-shine { 0%,55% { left: -60%; } 85%,100% { left: 130%; } }
+@keyframes pq-nudge { 0%,100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+
+/* ---------- left panel pill (also the only spot visible below 1180px, where the right column is hidden) ---------- */
+.play-pill {
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; gap: 10px;
+  margin: 18px auto 4px; max-width: 214px; padding: 10px 12px 10px 10px;
+  background: #d6b45f; color: #2f3d2c !important; border-radius: 14px; text-decoration: none !important; text-align: left;
+  box-shadow: 0 6px 18px rgba(0,0,0,.22);
+  animation: pp-pulse 2.4s ease-out infinite;
+}
+.play-pill:hover, .play-pill:focus { background: #f0d989; text-decoration: none !important; }
+.play-pill::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 35%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.6), transparent); transform: skewX(-20deg); animation: pq-shine 3.6s ease-in-out infinite;
+}
+.pp-orb {
+  flex: none; width: 30px; height: 30px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fffdf6 0%, #ffd2b3 40%, #ff6a2b 100%);
+  border: 2px solid #1b2a4a; box-shadow: 0 0 0 0 rgba(255,106,43,.7);
+  animation: pp-bob 2.2s ease-in-out infinite, pp-orb 2.2s ease-out infinite;
+}
+.pp-txt { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+.pp-txt b { font-size: 13.5px; font-weight: 800; white-space: nowrap; }
+.pp-txt small { font-size: 11px; opacity: .82; }
+.pp-new { margin-left: auto; background: #2f3d2c; color: #f8faf2; border-radius: 999px; padding: 2px 7px; font-size: 9.5px; font-weight: 800; letter-spacing: .06em; animation: pq-blink 1.8s ease-in-out infinite; }
+@keyframes pp-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes pp-orb { 0% { box-shadow: 0 0 0 0 rgba(255,106,43,.7); } 70%,100% { box-shadow: 0 0 0 9px rgba(255,106,43,0); } }
+@keyframes pp-pulse { 0% { box-shadow: 0 6px 18px rgba(0,0,0,.22), 0 0 0 0 rgba(214,180,95,.55); } 70%,100% { box-shadow: 0 6px 18px rgba(0,0,0,.22), 0 0 0 12px rgba(214,180,95,0); } }
+
+@media only screen and (max-width: 768px) {
+  .play-pill { margin: 12px auto 4px; max-width: 280px; padding: 12px 14px 12px 12px; }
+  .pp-txt b { font-size: 15px; }
+}
+
+/* motion-sensitive visitors get the same cards, standing still */
+@media (prefers-reduced-motion: reduce) {
+  .play-card, .play-card *, .play-card *::after, .play-pill, .play-pill *, .play-pill::after { animation: none !important; }
+  .pq-box, .pq-vni { opacity: 0; }
+}

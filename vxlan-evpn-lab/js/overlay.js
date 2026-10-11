@@ -312,7 +312,7 @@ const Stage = (() => {
      once that minimum has passed. First appearance: longer, with its hint bubble up the whole time. */
   S.cams = [];
   function cameo(name, target) {
-    if (!S.ready || !S.enabled || typeof CAST_ART === 'undefined' || !CAST_ART[name]) return;
+    if (!S.ready || !S.enabled || innerWidth < 760 || typeof CAST_ART === 'undefined' || !CAST_ART[name]) return;   // phones: no room for side-margin helpers
     const key = name + JSON.stringify(target || {});
     const same = S.cams.find(c => c.key === key && !c.gone);          // the same helper again: keep the one on screen, restart its clock
     if (same) { same.born = performance.now(); return; }

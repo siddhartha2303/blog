@@ -17,6 +17,8 @@
   };
   let runToken = 0;
   /* the characters are decoration: nothing here may ever break a lesson */
+  /* on a phone the panes are stacked, so bring the pane that matters into view */
+  const toPane = id => { try { if (innerWidth < 760) { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } } catch (e) { /* ignore */ } };
   const LM = fn => { try { const r = fn(); if (r && r.catch) r.catch(() => {}); } catch (e) { /* ignore */ } };
 
   /* ------------------------------------------------------------------ game layer */
@@ -161,6 +163,7 @@
       b.innerHTML = `<span class="pal-dot"></span><span class="pal-l">${p.label}</span><span class="pal-c" id="cnt-${p.kind}">${p.count}</span>`;
       b.addEventListener('pointerdown', e => startDrag(p.kind, e));
       b.addEventListener('dblclick', () => autoPlace(p.kind));
+      b.addEventListener('click', () => { if (window.matchMedia && matchMedia('(pointer: coarse)').matches) autoPlace(p.kind); });   // touch: a tap places it
       el.appendChild(b);
     });
   }
@@ -682,6 +685,7 @@
       else { $('#ws-banner').classList.remove('hide'); $('#ws-banner-t').textContent = ev.label; }
       $('#pane-ws').classList.add('alert');
       const kp = S.capture.find(p => p.ev === ev && p.key) || S.capture.find(p => p.ev === ev);
+      toPane('pane-ws');
       LM(() => { Stage.pose('ears'); Stage.fly(kp ? { row: kp.no } : { pane: 'ws' }); if (kp) Stage.ringOn({ row: kp.no }); });
       let wh = `<div class="w-top">🦈 Wireshark callout</div><div class="w-title">${esc(ev.label)}</div>`;
       if (kp) {
@@ -701,7 +705,7 @@
     async function mission(step, idx, total, hasQ, hasR) {
       const c = step.coach || { t: 'Next step', b: '' };
       S.mis = { dev: step.dev, exec: !!step.exec, mirror: (step.mirror || []).map(nameOf), title: c.t, body: c.b, idx, total, hasQ, hasR, phase: 0 };
-      drawMission();
+      drawMission(); toPane('pane-topo');
       LM(() => { Stage.pose('idle'); Stage.fly({ dev: step.dev }); if (S.guided) Stage.say((step.exec ? 'Open ' : 'Configure ') + nameOf(step.dev), 2200); });
       if (!S.guided) return;
       S.target = step.dev; renderTopo();
@@ -757,7 +761,7 @@
       if (step.glitch) LM(() => Stage.spawnGlitch(step.glitch.id, step.glitch.kind, step.glitch.target));
       await mission(step, idx, total, !!pq, !!res);
       if (S.guided && pq) { setPhase(1); await quiz(pq); }
-      setPhase(2);
+      setPhase(2); toPane('pane-cli');
       LM(() => { Stage.pose('idle'); Stage.fly({ pane: 'cli' }); });
       selectDev(step.dev); flashTab(step.dev);
       const cfg = !step.exec && step.dev !== 'host';

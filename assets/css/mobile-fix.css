@@ -1,0 +1,37 @@
+/* Mobile layout repair for the blog.
+   Cause: main.css sets .sidebar { width: 240px } and `body:has(.home-page-with-rail) .content-box { padding-left: 260px }` AFTER the
+   phone/tablet media queries, so those later rules win and the 240px sidebar + 260px left padding survive on phones.
+   This file loads after main.css and puts the phone layout back: the profile panel becomes a full-width header on top,
+   and the content uses the full width. Desktop (> 768px) is not affected. */
+
+@media only screen and (max-width: 1180px) {
+  .home-page-with-rail { grid-template-columns: minmax(0, 1fr) !important; width: 100%; }
+}
+
+@media only screen and (max-width: 768px) {
+  html, body { overflow-x: hidden; }
+
+  .sidebar {
+    position: relative !important;
+    width: 100% !important; height: auto !important; top: auto !important; bottom: auto !important; left: auto !important;
+    padding: 18px 16px 14px !important;
+    border-right: 0; box-shadow: 0 4px 16px rgba(31, 35, 46, .12);
+  }
+  .sidebar .about { max-width: 520px; margin: 0 auto; }
+  .sidebar .about .cover-author-image { width: 84px; height: 84px; margin: 0 auto 10px; }
+  .sidebar .about .author-name { margin-bottom: 8px; padding-bottom: 10px; }
+  .sidebar .about p { font-size: 13.5px; line-height: 1.55; }
+  .sidebar footer { margin: 10px 0 0; }
+
+  .content-box,
+  body:has(.home-page) .content-box,
+  body:has(.home-page-with-rail) .content-box,
+  body:has(.article-page) .content-box {
+    margin-left: 0 !important; padding: 16px 12px 28px !important; width: 100% !important; max-width: 100%;
+  }
+
+  .home-posts, .article-page, .home-page { min-width: 0; max-width: 100%; }
+  .post { width: 100% !important; max-width: 100% !important; margin: 0 0 16px !important; }
+  img, video, iframe, table, pre { max-width: 100%; }
+  pre, table { overflow-x: auto; }
+}
