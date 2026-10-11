@@ -110,3 +110,12 @@ body:has(.amb-bg) .home-rail .rail-card:not(.play-card):not(.youtube-card) {
 body:has(.amb-bg) .home-posts .post:hover { background: rgba(255,252,243,.50); }
 body:has(.amb-bg) .home-posts .post .post-thumbnail { background-color: rgba(243,238,224,.12); }
 @media (prefers-reduced-motion: reduce) { .amb-aurora b { animation: none !important; } }
+
+/* ---------- thumbnails: pale or white image backgrounds melt into the glass ---------- */
+body:has(.amb-bg) .home-posts .post .post-thumbnail {
+  background-color: transparent; mix-blend-mode: multiply;
+  filter: brightness(1.13) contrast(1.1) saturate(1.1);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-composite: source-in; mask-composite: intersect;
+}
