@@ -9,7 +9,13 @@ layout: main
 
     <article class="post">
       {% if post.img %}
+        {% assign cutlist = "DevBox,aks-rbac,git,helm,llm_inference,pythonvspowershell,o365,edge-ai-title" | split: "," %}
+        {% assign imgbase = post.img | split: "?" | first | split: "." | first %}
+        {% if cutlist contains imgbase %}
+        <a class="post-thumbnail thumb-cut" style="background-image: url({{"/assets/img/thumb/" | prepend: site.baseurl | append: imgbase | append: ".png"}})" href="{{post.url | prepend: site.baseurl}}"></a>
+        {% else %}
         <a class="post-thumbnail" style="background-image: url({{"/assets/img/" | prepend: site.baseurl | append : post.img}})" href="{{post.url | prepend: site.baseurl}}"></a>
+        {% endif %}
       {% else %}
         <a class="post-thumbnail" style="background-image: url({{"/assets/img/" | prepend: site.baseurl | append : site.default_post_image}})" href="{{post.url | prepend: site.baseurl}}"></a>
       {% endif %}
