@@ -1,0 +1,20 @@
+{% assign all_posts = site.posts %}
+{% assign cur = -1 %}
+{% for p in all_posts %}{% if p.url == page.url %}{% assign cur = forloop.index0 %}{% endif %}{% endfor %}
+{% assign nidx = cur | plus: 1 %}
+{% assign nxt = all_posts[nidx] %}
+{% assign wrapped = false %}
+{% unless nxt %}{% assign nxt = all_posts[0] %}{% assign wrapped = true %}{% endunless %}
+{% if nxt and nxt.url != page.url %}
+<nav class="next-post-wrap" aria-label="Next post">
+  <a class="next-post" href="{{ nxt.url | relative_url }}">
+    {% if nxt.img %}<span class="np-thumb" style="background-image:url('{{ nxt.img | prepend: '/assets/img/' | relative_url }}')"></span>{% endif %}
+    <span class="np-body">
+      <span class="np-kicker">{% if wrapped %}That was the oldest post. Start again from the newest{% else %}Next post{% endif %}</span>
+      <span class="np-title">{{ nxt.title | escape }}</span>
+      <span class="np-desc">{{ nxt.description | default: nxt.excerpt | strip_html | truncate: 120 }}</span>
+    </span>
+    <span class="np-arrow" aria-hidden="true">&rarr;</span>
+  </a>
+</nav>
+{% endif %}

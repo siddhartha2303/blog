@@ -1,0 +1,108 @@
+/* Visual polish, round 1: scroll-reveal, card hover, reading progress, animated network strip, comment box, next-post card.
+   Own file, loaded after main.css, so the compiled theme CSS is untouched.
+   Everything that moves is switched off for visitors who ask for reduced motion. */
+
+/* ---------- scroll reveal (the class is added by polish.js, so without JS nothing is hidden) ---------- */
+.rv { opacity: 0; transform: translateY(20px); }
+.rv.rv-in { opacity: 1; transform: none; transition: opacity .65s ease, transform .65s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+
+/* ---------- homepage cards ---------- */
+.home-posts .post { transition: transform .28s cubic-bezier(.2,.7,.2,1), box-shadow .28s ease, border-color .28s ease; overflow: hidden; }
+.home-posts .post:hover { transform: translateY(-5px); box-shadow: 0 16px 34px rgba(47,61,44,.16); border-color: #d6b45f; }
+.home-posts .post .post-thumbnail { transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.home-posts .post:hover .post-thumbnail { transform: scale(1.05); }
+.home-posts .post .post-title a {
+  display: inline; text-decoration: none; background: linear-gradient(#d6b45f, #d6b45f) 0 100% / 0 3px no-repeat; transition: background-size .35s ease;
+}
+.home-posts .post:hover .post-title a { background-size: 100% 3px; }
+.home-rail .rail-card { transition: transform .25s ease, box-shadow .25s ease; }
+.home-rail .rail-card:not(.play-card):hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(47,61,44,.14); }
+.topic-list a { transition: background .2s ease, color .2s ease, transform .2s ease; }
+.topic-list a:hover { transform: translateY(-2px); }
+
+/* ---------- reading progress (posts) ---------- */
+.read-progress { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 9999; background: transparent; pointer-events: none; }
+.read-progress i { display: block; height: 100%; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, #d6b45f, #ff6a2b); box-shadow: 0 0 10px rgba(255,106,43,.55); border-radius: 0 3px 3px 0; will-change: transform; }
+
+/* ---------- animated network strip (homepage) ---------- */
+.net-strip {
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  margin: 0 0 22px; padding: 16px 22px; min-height: 124px; overflow: hidden; position: relative;
+  border-radius: 18px; border: 1px solid #d6b45f;
+  background: radial-gradient(120% 140% at 85% 20%, #46583f 0%, #2f3d2c 65%);
+  box-shadow: 0 10px 28px rgba(47,61,44,.18);
+}
+.net-strip::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(115deg, rgba(255,255,255,.035) 0 2px, transparent 2px 22px); pointer-events: none; }
+.net-strip .ns-text { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 6px; max-width: 46%; }
+.net-strip .ns-text b { font-family: 'PT Serif', serif; font-size: 22px; line-height: 1.25; color: #f8faf2; }
+.net-strip .ns-text span { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: #d6b45f; font-weight: 700; }
+.net-strip .ns-art { position: relative; z-index: 1; flex: 1 1 54%; max-width: 420px; height: 104px; }
+.ns-cables line { stroke: rgba(248,250,242,.34); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 4 6; animation: ns-flow 1.6s linear infinite; }
+.ns-dev rect { fill: #3d4f39; stroke: #d6b45f; stroke-width: 1.6; }
+.ns-lbl text { fill: #f8faf2; font: 700 7.5px 'Lato', system-ui, sans-serif; text-anchor: middle; }
+@keyframes ns-flow { to { stroke-dashoffset: -10; } }
+
+/* ---------- comment box ---------- */
+.comment-box { margin: 44px 0 10px; padding: 26px 26px 22px; background: #fbf8ef; border: 1px solid #ded4b8; border-radius: 18px; box-shadow: 0 8px 24px rgba(47,61,44,.06); }
+.comment-box h3 { margin: 0 0 6px; font-family: 'PT Serif', serif; font-size: 24px; color: #102a4c; }
+.comment-box .cb-sub { margin: 0 0 18px; color: #4b5563; font-size: 15px; line-height: 1.6; }
+.cb-form label { display: block; margin-bottom: 14px; font-size: 14px; font-weight: 700; color: #243447; }
+.cb-form label span { font-weight: 400; color: #6b7280; }
+.cb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cb-form input[type=text], .cb-form input[type=email], .cb-form textarea {
+  display: block; width: 100%; margin-top: 6px; padding: 11px 13px; font: 400 16px/1.5 'Lato', system-ui, sans-serif; color: #1f2937;
+  background: #fff; border: 1.5px solid #d9d0b4; border-radius: 12px; transition: border-color .2s ease, box-shadow .2s ease;
+}
+.cb-form textarea { resize: vertical; min-height: 120px; }
+.cb-form input:focus, .cb-form textarea:focus { outline: none; border-color: #2f3d2c; box-shadow: 0 0 0 4px rgba(214,180,95,.35); }
+.cb-hp { position: absolute !important; left: -9999px !important; width: 1px !important; height: 1px !important; opacity: 0 !important; }
+.cb-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.cb-btn { position: relative; overflow: hidden; border: 0; cursor: pointer; padding: 12px 24px; border-radius: 999px; background: #2f3d2c; color: #f8faf2; font: 800 15px 'Lato', system-ui, sans-serif; transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+.cb-btn:hover { background: #3d5238; transform: translateY(-2px); box-shadow: 0 8px 18px rgba(47,61,44,.28); }
+.cb-btn:active { transform: translateY(0); }
+.cb-btn[disabled] { opacity: .65; cursor: progress; transform: none; box-shadow: none; }
+.cb-count { font-size: 12.5px; color: #8a8f98; }
+.cb-status { min-height: 1.4em; margin: 12px 0 0; font-size: 14.5px; font-weight: 700; }
+.cb-status.cb-ok { color: #166534; } .cb-status.cb-err { color: #b42318; }
+
+/* ---------- next post ---------- */
+.next-post-wrap { margin: 34px 0 6px; }
+.next-post {
+  display: flex; align-items: stretch; gap: 0; text-decoration: none !important; overflow: hidden; position: relative;
+  background: #2f3d2c; border: 1px solid #2f3d2c; border-radius: 18px; color: #f8faf2 !important;
+  box-shadow: 0 10px 26px rgba(47,61,44,.2); transition: transform .28s cubic-bezier(.2,.7,.2,1), box-shadow .28s ease;
+}
+.next-post:hover { transform: translateY(-4px); box-shadow: 0 18px 38px rgba(47,61,44,.3); }
+.next-post .np-thumb { flex: 0 0 170px; background: #e9e3cf center / cover no-repeat; transition: transform .6s ease; }
+.next-post:hover .np-thumb { transform: scale(1.06); }
+.next-post .np-body { flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; min-width: 0; }
+.np-kicker { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #d6b45f; }
+.np-title { font-family: 'PT Serif', serif; font-size: 21px; line-height: 1.3; color: #f8faf2; }
+.np-desc { font-size: 14px; line-height: 1.5; color: #d9e2cf; }
+.next-post .np-arrow { flex: none; align-self: center; margin: 0 22px 0 4px; width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; background: #d6b45f; color: #2f3d2c; font-size: 22px; font-weight: 800; transition: transform .28s ease; animation: np-nudge 2s ease-in-out infinite; }
+.next-post:hover .np-arrow { transform: translateX(6px); animation: none; }
+@keyframes np-nudge { 0%,100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+
+/* ---------- phones ---------- */
+@media only screen and (max-width: 768px) {
+  .net-strip { flex-direction: column; align-items: flex-start; gap: 6px; padding: 14px 16px 6px; min-height: 0; }
+  .net-strip .ns-text { max-width: 100%; }
+  .net-strip .ns-text b { font-size: 18px; }
+  .net-strip .ns-art { width: 100%; max-width: none; flex: none; height: 92px; }
+  .home-posts .post:hover { transform: none; }
+  .comment-box { padding: 20px 16px 16px; }
+  .cb-row { grid-template-columns: 1fr; gap: 0; }
+  .next-post { flex-direction: column; }
+  .next-post .np-thumb { flex: none; height: 130px; }
+  .next-post .np-body { padding: 14px 16px 6px; }
+  .next-post .np-arrow { align-self: flex-end; margin: -6px 14px 14px 0; }
+  .np-title { font-size: 18px; }
+}
+
+/* ---------- reduced motion: everything stands still and is simply visible ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .rv, .rv.rv-in { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .home-posts .post, .home-posts .post:hover, .home-posts .post .post-thumbnail, .home-rail .rail-card, .next-post, .next-post .np-thumb, .next-post .np-arrow, .cb-btn { transition: none !important; animation: none !important; transform: none !important; }
+  .ns-cables line { animation: none; }
+  .read-progress i { transition: none; }
+}

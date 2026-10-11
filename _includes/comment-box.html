@@ -1,0 +1,24 @@
+<section class="comment-box" id="comments">
+  <h3>Leave a comment</h3>
+  <p class="cb-sub">Questions, corrections or ideas are welcome. Your message goes <b>privately to the author by email</b>. It is not shown on this page.</p>
+  <form id="cb-form" class="cb-form" novalidate data-title="{{ page.title | escape }}" data-url="{{ site.url }}{{ page.url }}" data-t="c2lkZGhhcnRoYS5naG9zaDE5ODFAZ21haWwuY29t">
+    <div class="cb-row">
+      <label>Name <span>(optional)</span>
+        <input name="name" type="text" maxlength="80" autocomplete="name" placeholder="Your name">
+      </label>
+      <label>Email <span>(optional, only if you want a reply)</span>
+        <input name="email" type="email" maxlength="120" autocomplete="email" placeholder="you@example.com">
+      </label>
+    </div>
+    <label>Your comment
+      <textarea name="message" rows="5" maxlength="2000" required placeholder="What did you think? What would you like to see next?"></textarea>
+    </label>
+    <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="cb-hp" aria-hidden="true">
+    <div class="cb-actions">
+      <button type="submit" class="cb-btn"><span class="cb-btn-t">Send comment</span></button>
+      <span class="cb-count" aria-hidden="true">0 / 2000</span>
+    </div>
+    <p class="cb-status" role="status" aria-live="polite"></p>
+  </form>
+  <noscript><p class="cb-status cb-err">Please turn on JavaScript to send a comment.</p></noscript>
+</section>
