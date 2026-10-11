@@ -192,8 +192,26 @@
     var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { build(); draw(); }, 200); });
   }
 
+  /* ---------- 7. right panels follow the page scroll, so nothing in them stays hidden ---------- */
+  function initRailSync() {
+    var rail = document.querySelector('.home-rail') || document.querySelector('.post-rail'); if (!rail) return;
+    var ticking = false;
+    function sync() {
+      ticking = false;
+      if (window.innerWidth < 1181) return;
+      var hidden = rail.scrollHeight - rail.clientHeight; if (hidden <= 2) return;
+      var max = document.documentElement.scrollHeight - window.innerHeight; if (max <= 0) return;
+      var p = Math.min(1, Math.max(0, window.scrollY / max));
+      rail.scrollTop = p * hidden;                         // top of the page = top of the panel, bottom of the page = bottom of the panel
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; setTimeout(sync, 16); } }, { passive: true });
+    window.addEventListener('resize', sync);
+    window.__railSync = sync;
+    sync();
+  }
+
   function start() {
-    [initBanner, initRotator, initBackground, initSpotlight, initMarquee, initPostHero].forEach(function (f) { try { f(); } catch (e) { if (window.console) console.warn('ambient:', e); } });
+    [initBanner, initRotator, initBackground, initSpotlight, initMarquee, initPostHero, initRailSync].forEach(function (f) { try { f(); } catch (e) { if (window.console) console.warn('ambient:', e); } });
     kick();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
